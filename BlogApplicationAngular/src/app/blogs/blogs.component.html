@@ -1,0 +1,16 @@
+<h2>Blogs</h2>
+
+<p>
+  blogs works!
+</p>
+
+<h2>Your Blogs</h2>
+<div *ngIf="blogs">
+  <div *ngFor="let blog of blogs">
+    <a routerLink="blog/{{blog.blogId}}">{{blog.blogTitle}}</a>
+  </div>
+</div>
+  
+<div>
+    <button id="addButton" (click)="router.navigate(['blogs/addBlog']);" class="btn btn-primary">Add Blog</button>
+  </div>

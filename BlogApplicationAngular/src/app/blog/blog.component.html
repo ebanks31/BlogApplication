@@ -1,0 +1,18 @@
+<div *ngIf="blogPosts">
+  <div *ngFor="let blogPost of blogPosts">
+    <div>Hello there</div>
+    <h2>{{blogPost.blogPostTitle}}</h2>
+
+    <ul>
+      <h2>
+        <li><a routerLink="posts/{{blogPost.blogPostId}}">{{blogPost.blogPostTitle}}</a></li>
+      </h2>
+    </ul>
+
+    <div class="border border-primary container" [innerHtml]="blogPost.blogPostBody"></div>
+  </div>
+</div>
+
+<div>
+  <button id="addBlogPost" (click)="addBlogPost()" class="btn btn-primary">Add New Post</button>
+</div>
