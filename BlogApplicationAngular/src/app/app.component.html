@@ -21,7 +21,7 @@
       <li class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          Other<b class="caret"></b>
+          More<b class="caret"></b>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" routerLink="/about">About Us</a>
@@ -35,14 +35,15 @@
 
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <input #searchInputBox class="form-control mr-sm-2" id="searchInputBox" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" id="searchButton"  type="submit">Search</button>
     </form>
   </div>
 </nav>
 
 <body>
-  <div style="text-align:center">
+  <div style="text-align:center;padding-top:50px">
     <router-outlet></router-outlet>
+    <h2> Welcome to the Blog Application</h2>
   </div>
 </body>
