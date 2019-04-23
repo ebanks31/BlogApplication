@@ -40,7 +40,7 @@ import { AddBlogPostComponent } from './add-blog-post/add-blog-post.component';
     HttpClientModule,
     CKEditorModule,
     BrowserAnimationsModule
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

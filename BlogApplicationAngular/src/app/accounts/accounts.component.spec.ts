@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AccountsComponent } from './accounts.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 describe('AccountsComponent', () => {
   let component: AccountsComponent;
@@ -8,7 +9,7 @@ describe('AccountsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({imports: [
-      HttpClientModule,
+      HttpClientModule,FormsModule
   ],
       declarations: [ AccountsComponent ]
     })

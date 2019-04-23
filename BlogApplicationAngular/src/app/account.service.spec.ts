@@ -10,12 +10,20 @@ describe('AccountService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [AccountService],
-        imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule]
       })
       .compileComponents();
       injector = getTestBed();
       accountService = injector.get(AccountService);
       httpMock = injector.get(HttpTestingController);
+
+      const req = httpMock.expectOne({ method: 'GET', url: 'http://localhost:9100/accounts' });
+      req.flush(dummyAccount);
+
+      accountService.getAccounts().subscribe(users => {
+        expect(users.length).toBe(1);
+        expect(users).toEqual(dummyAccount);
+      });
   });
 
   const dummyAccount = [
@@ -26,17 +34,6 @@ describe('AccountService', () => {
     { role: 'User' },
     { lastUpdatedDate: '2011-09-09' },
   ];
-
-  //const req = httpMock.expectOne("http://localhost:4200/accounts");
- // expect(req.request.method).toBe("GET");
-
-  const req = httpMock.expectOne({ method: 'GET', url: 'http://localhost:4200/accounts' });
-  req.flush(dummyAccount);
-
-  accountService.getAccounts().subscribe(users => {
-    expect(users.length).toBe(1);
-    expect(users).toEqual(dummyAccount);
-  });
 
   it('should be created', () => {
     const service: AccountService = TestBed.get(AccountService);

@@ -47,10 +47,9 @@ export class UserService {
 
   /**
    * Gets user
-   * @param userId 
    * @returns user 
    */
-  getUser(userId: Number): Observable<any> {
+  getUsers(): Observable<any> {
     return this.http.get(this.users, { responseType: 'json' });
   }
 }
