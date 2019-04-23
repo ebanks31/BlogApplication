@@ -139,8 +139,7 @@ public class AccountControllerUnitTests {
 
 		ResultActions resultActions = mvc
 				.perform(get("/accounts").header(ORIGIN, "*").contentType(MediaType.APPLICATION_JSON))
-				.andExpect(content().string(containsString(""))).andExpect(status().isOk())
-				.andExpect(jsonPath("$", hasSize(0)));
+				.andExpect(content().string(containsString(""))).andExpect(status().isOk());
 
 		resultActions.andDo(MockMvcResultHandlers.print());
 	}
