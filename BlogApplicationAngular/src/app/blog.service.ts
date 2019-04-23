@@ -28,7 +28,6 @@ export class BlogService {
   /**
    * Adds blog
    * @param blog 
-   * @returns  
    */
   addBlog(blog: any) {
     console.log("addBlog ");
