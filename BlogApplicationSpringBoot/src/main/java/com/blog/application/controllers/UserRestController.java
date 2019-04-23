@@ -28,9 +28,9 @@ import io.swagger.annotations.ApiResponses;
  */
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
-public class UserController {
+public class UserRestController {
 	/** The logger. */
-	private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(UserRestController.class);
 
 	/** The user service. */
 	@Autowired

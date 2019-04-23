@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.util.UriTemplate;
 
@@ -25,6 +26,7 @@ import springfox.documentation.spi.service.contexts.OperationContext;
  */
 @Configuration
 @ConditionalOnProperty(name = "dirty.fix.enabled", havingValue = "true")
+@Profile("!test")
 public class SwaggerFixConfig {
 
 	/**
@@ -46,8 +48,16 @@ public class SwaggerFixConfig {
 	 * @param typeResolver the type resolver
 	 * @return the operation builder plugin
 	 */
+	@Profile("prod")
 	@Bean
-	public OperationBuilderPlugin operationBuilderPluginForCorrectingActuatorEndpoints(
+	public OperationBuilderPlugin operationBuilderPluginForCorrectingActuatorEndpointsProd(
+			final TypeResolver typeResolver) {
+		return new OperationBuilderPluginForCorrectingActuatorEndpoints(typeResolver);
+	}
+
+	@Profile("dev")
+	@Bean
+	public OperationBuilderPlugin operationBuilderPluginForCorrectingActuatorEndpointsDEV(
 			final TypeResolver typeResolver) {
 		return new OperationBuilderPluginForCorrectingActuatorEndpoints(typeResolver);
 	}

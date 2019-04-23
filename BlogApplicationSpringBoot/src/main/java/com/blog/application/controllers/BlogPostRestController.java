@@ -31,9 +31,9 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/blogs/blog")
-public class BlogPostController {
+public class BlogPostRestController {
 	/** The logger. */
-	private final Logger LOGGER = LoggerFactory.getLogger(BlogPostController.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(BlogPostRestController.class);
 
 	/** The blog post service. */
 	@Autowired

@@ -1,4 +1,4 @@
-package com.blog.application.controllers;
+package com.blog.application.ut.controllers;
 
 import java.util.List;
 
@@ -28,10 +28,10 @@ import io.swagger.annotations.ApiResponses;
  */
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
-public class AccountController {
+public class AccountServiceUnitTests {
 
 	/** The logger. */
-	private final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(AccountServiceUnitTests.class);
 
 	/** The account service. */
 	@Autowired
