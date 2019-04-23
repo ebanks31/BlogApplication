@@ -22,6 +22,7 @@ export class BlogsComponent implements OnInit {
   ngOnInit() {
     this.getBlogs();
   }
+  
   /**
    * Gets blogs
    */

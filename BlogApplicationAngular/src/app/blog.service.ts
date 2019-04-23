@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BlogPostModel } from './blogpost.component';
 
+/**
+ * Injectable
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -15,26 +18,31 @@ export class BlogService {
   post = "/post/";
   edit = "edit/";
   add = "add";
-  headers = new HttpHeaders({ 
+  headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
 
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * Adds blog
+   * @param blog 
+   * @returns  
+   */
   addBlog(blog: any) {
     console.log("addBlog ");
 
     let blogPostsByBlogIdUrlFinal = this.blogUrl.concat(this.add);
     console.log("blogPostsByBlogIdUrlFinal " + blogPostsByBlogIdUrlFinal);
 
-    return this.http.post(blogPostsByBlogIdUrlFinal, JSON.stringify(blog),{ headers:  this.headers, responseType: 'json' });  
+    return this.http.post(blogPostsByBlogIdUrlFinal, JSON.stringify(blog), { headers: this.headers, responseType: 'json' });
   }
 
   saveBlog(user: string): Observable<any> {
     return this.http.post(this.blogsUrl, user, { responseType: 'json' });
   }
-  
+
   getBlogs(): Observable<any> {
     return this.http.get(this.blogsUrl, { responseType: 'json' });
   }
@@ -59,7 +67,12 @@ export class BlogService {
 
     return this.http.get(blogPostsByBlogIdUrlFinal, { responseType: 'json' });
   }
-
+  /**
+   * Gets blog post by blog id
+   * @param blogId 
+   * @param blogPostId 
+   * @returns blog post by blog id 
+   */
   getBlogPostByBlogId(blogId: number, blogPostId: number): Observable<any> {
     console.log("getBlogsPostByBlogId()")
 
@@ -70,16 +83,26 @@ export class BlogService {
     console.log("finalBlogUrl: " + blogUrlFinal)
     return this.http.get(blogUrlFinal, { responseType: 'json' });
   }
-
+  /**
+   * Adds blog post
+   * @param blogPost 
+   * @param blogId 
+   */
   addBlogPost(blogPost: BlogPostModel, blogId: number) {
     console.log("addBlog ");
 
     let addBlogPostUrl = this.blogUrl.concat(String(blogId)).concat(this.blogPostByBlogIdUrl).concat("post/").concat(this.add);
     console.log("addBlogPostUrl " + addBlogPostUrl);
 
-    return this.http.post(addBlogPostUrl, JSON.stringify(blogPost),{ headers:  this.headers, responseType: 'json' });    
+    return this.http.post(addBlogPostUrl, JSON.stringify(blogPost), { headers: this.headers, responseType: 'json' });
   }
-
+  /**
+   * Saves blog post
+   * @param blogId 
+   * @param blogPostId 
+   * @param blogPost 
+   * @returns blog post 
+   */
   saveBlogPost(blogId: number, blogPostId: number, blogPost: BlogPostModel): Observable<any> {
     console.log("saveBlogPost");
 
@@ -88,6 +111,6 @@ export class BlogService {
     console.log("blogPost " + blogPost);
     console.log("JSON.stringify({blogPost} " + JSON.stringify(blogPost));
 
-    return this.http.put(saveBlogPostUrl, JSON.stringify(blogPost),{ headers:  this.headers, responseType: 'json' });
+    return this.http.put(saveBlogPostUrl, JSON.stringify(blogPost), { headers: this.headers, responseType: 'json' });
   }
 }

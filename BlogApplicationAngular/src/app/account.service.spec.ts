@@ -1,8 +1,6 @@
-import { TestBed, async, getTestBed } from '@angular/core/testing';
+import { TestBed, getTestBed } from '@angular/core/testing';
 import { AccountService } from './account.service';
-import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 
 describe('AccountService', () => {
   let injector: TestBed;
