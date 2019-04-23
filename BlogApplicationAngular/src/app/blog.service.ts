@@ -28,6 +28,10 @@ export class BlogService {
   /**
    * Adds blog
    * @param blog 
+  /**
+   * Params blog service
+   * @param blog 
+   * @returns  
    */
   addBlog(blog: any) {
     console.log("addBlog ");
@@ -38,14 +42,28 @@ export class BlogService {
     return this.http.post(blogPostsByBlogIdUrlFinal, JSON.stringify(blog), { headers: this.headers, responseType: 'json' });
   }
 
+  /**
+   * Saves blog
+   * @param user 
+   * @returns blog 
+   */
   saveBlog(user: string): Observable<any> {
     return this.http.post(this.blogsUrl, user, { responseType: 'json' });
   }
 
+  /**
+   * Gets blogs
+   * @returns blogs 
+   */
   getBlogs(): Observable<any> {
     return this.http.get(this.blogsUrl, { responseType: 'json' });
   }
 
+  /**
+   * Gets blogs by id
+   * @param id 
+   * @returns blogs by id 
+   */
   getBlogsById(id: number): Observable<any> {
     let finalBlogUrl = this.blogUrl + String(id);
     console.log("finalBlogUrl: " + finalBlogUrl)
@@ -53,6 +71,11 @@ export class BlogService {
     return this.http.get(finalBlogUrl, { responseType: 'json' });
   }
 
+  /**
+   * Gets blog posts by blog id
+   * @param blogId 
+   * @returns blog posts by blog id 
+   */
   getBlogPostsByBlogId(blogId: number): Observable<any> {
     console.log("getBlogsPostsByBlogId()")
 
@@ -66,6 +89,7 @@ export class BlogService {
 
     return this.http.get(blogPostsByBlogIdUrlFinal, { responseType: 'json' });
   }
+
   /**
    * Gets blog post by blog id
    * @param blogId 
@@ -82,6 +106,7 @@ export class BlogService {
     console.log("finalBlogUrl: " + blogUrlFinal)
     return this.http.get(blogUrlFinal, { responseType: 'json' });
   }
+
   /**
    * Adds blog post
    * @param blogPost 
@@ -95,6 +120,7 @@ export class BlogService {
 
     return this.http.post(addBlogPostUrl, JSON.stringify(blogPost), { headers: this.headers, responseType: 'json' });
   }
+
   /**
    * Saves blog post
    * @param blogId 
