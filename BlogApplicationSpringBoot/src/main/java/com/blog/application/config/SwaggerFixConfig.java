@@ -22,7 +22,7 @@ import springfox.documentation.spi.service.OperationBuilderPlugin;
 import springfox.documentation.spi.service.contexts.OperationContext;
 
 /**
- * The Class SwaggerFixConfig.
+ * This class sets up the configuration for Swagger API Fix for Spring Boot 2.
  */
 @Configuration
 @ConditionalOnProperty(name = "dirty.fix.enabled", havingValue = "true")

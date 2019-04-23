@@ -10,7 +10,7 @@ import com.hazelcast.config.MapConfig;
 import com.hazelcast.config.MaxSizeConfig;
 
 /**
- * The Class HazelcastConfiguration.
+ * This class sets up the configuration for HazelCast Configuration.
  */
 @Configuration
 @Profile("!test")

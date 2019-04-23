@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 /**
- * The Class AccountController.
+ * This class sets up the controller for the Account REST end points
  */
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController

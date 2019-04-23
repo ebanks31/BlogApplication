@@ -60,7 +60,7 @@ public class UserRestController {
 	 * @param userId the user id
 	 * @return the user by id
 	 */
-	@GetMapping("/users/{userId}")
+	@GetMapping("/users/user/{userId}")
 	@ApiOperation(value = "Retreives a user by Id", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -79,7 +79,7 @@ public class UserRestController {
 	 * @param user the user
 	 * @return the response entity
 	 */
-	@PostMapping(value = "/users/add}", produces = "application/json")
+	@PostMapping(value = "/users/user/add", produces = "application/json")
 	@ApiOperation(value = "Adds an user", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully adds an user"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -98,7 +98,7 @@ public class UserRestController {
 	 * @param userId the user id
 	 * @return the response entity
 	 */
-	@PutMapping(value = "/users/add/{userId}", produces = "application/json")
+	@PutMapping(value = "/users/user/edit/{userId}", produces = "application/json")
 	@ApiOperation(value = "Edits an user", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully edits an user"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -117,7 +117,7 @@ public class UserRestController {
 	 * @param userId the user id
 	 * @return the response entity
 	 */
-	@DeleteMapping(value = "/users/delete/{userId}", produces = "application/json")
+	@DeleteMapping(value = "/users/user/delete/{userId}", produces = "application/json")
 	@ApiOperation(value = "Deletes an user", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully deletes an user"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),

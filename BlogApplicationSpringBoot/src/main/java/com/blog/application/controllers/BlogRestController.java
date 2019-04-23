@@ -1,6 +1,7 @@
 package com.blog.application.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blog.application.model.Blog;
 import com.blog.application.model.User;
 import com.blog.application.service.IBlogService;
+import com.hazelcast.core.HazelcastInstance;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -34,10 +36,16 @@ public class BlogRestController {
 
 	/** The logger. */
 	private final Logger LOGGER = LoggerFactory.getLogger(BlogRestController.class);
+	private final HazelcastInstance hazelcastInstance;
 
 	/** The blog service. */
 	@Autowired
 	IBlogService blogService;
+
+	@Autowired
+	BlogRestController(HazelcastInstance hazelcastInstance) {
+		this.hazelcastInstance = hazelcastInstance;
+	}
 
 	/**
 	 * Gets the blogs.
@@ -54,6 +62,9 @@ public class BlogRestController {
 	public ResponseEntity<List<Blog>> getBlogs(User user) {
 		List<Blog> blogs = blogService.findAll();
 		LOGGER.info("blogs: {}", blogs);
+		Map<String, List<Blog>> hazelcastMap = hazelcastInstance.getMap("my-map");
+		hazelcastMap.put("blogs", blogs);
+		LOGGER.info("hazelcastMap blogs : {}", hazelcastMap);
 
 		return new ResponseEntity<>(blogs, HttpStatus.OK);
 	}
@@ -74,6 +85,9 @@ public class BlogRestController {
 		LOGGER.info("blogId: {}", blogId);
 		Blog blog = blogService.findByBlogId(blogId);
 		LOGGER.info("blog: {}", blog);
+		Map<String, List<Blog>> hazelcastMap = hazelcastInstance.getMap("my-map");
+		hazelcastMap.get("blogs");
+		LOGGER.info("hazelcastMap getBlogById: {}", hazelcastMap);
 
 		return new ResponseEntity<>(blog, HttpStatus.OK);
 	}
