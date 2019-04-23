@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.blog.application.model.Blog;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface IBlogService.
  */

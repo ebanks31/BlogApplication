@@ -45,11 +45,7 @@ public class AccountControllerUnitTests {
 	/** The logger. */
 	private final Logger LOGGER = LoggerFactory.getLogger(AccountControllerUnitTests.class);
 	private static final String ORIGIN = "origin";
-	private static final String ACCOUNT_EXAMPLE = "[{\"accountId\":1,\"accountCreatedDate\":null,\"accountTerminatedDate\":null,"
-			+ "\"status\":null,\"role\":null,\"lastUpdatedDate\":null,\"blogs\":null,\"userId\":null,\"email\":\"test@gmail.com\",\"username\":null,\"password\":\"password\"}]";
-	private static final String ACCOUNT_MULTIPLE_EXAMPLE = "[{\"accountId\":1,\"accountCreatedDate\":null,\"accountTerminatedDate\":null,"
-			+ "\"status\":null,\"role\":null,\"lastUpdatedDate\":null,\"blogs\":null,\"userId\":null,\"email\":\"test@gmail.com\",\"username\":null,\"password\":\"password\"}, "
-			+ "{\"accountId\":2,\"accountCreatedDate\":null,\"accountTerminatedDate\":null,\"status\":null,\"role\":null,\"lastUpdatedDate\":null,\"blogs\":null,\"userId\":null,\"email\":\"test@gmail.com\",\"username\":null,\"password\":\"password\"}]";
+
 	@Autowired
 	private MockMvc mvc;
 
@@ -150,7 +146,7 @@ public class AccountControllerUnitTests {
 	}
 
 	@Test
-	public void addAccountsTest() throws Exception {
+	public void addAccountTest() throws Exception {
 		LOGGER.info("addAccountsTest()");
 
 		Account account = new Account();
@@ -172,8 +168,8 @@ public class AccountControllerUnitTests {
 	}
 
 	@Test
-	public void deleteAccountsTest() throws Exception {
-		LOGGER.info("deleteAccountsTest()");
+	public void deleteAccountTest() throws Exception {
+		LOGGER.info("deleteAccountTest()");
 
 		Account account = new Account();
 		account.setAccountId(new Long(1));
@@ -194,8 +190,8 @@ public class AccountControllerUnitTests {
 	}
 
 	@Test
-	public void editAccountsTest() throws Exception {
-		LOGGER.info("editAccountsTest()");
+	public void editAccountTest() throws Exception {
+		LOGGER.info("editAccountTest()");
 
 		Account account = new Account();
 		account.setAccountId(new Long(1));
@@ -216,8 +212,8 @@ public class AccountControllerUnitTests {
 	}
 
 	@Test
-	public void getAccountsById() throws Exception {
-		LOGGER.info("getAccountsById()");
+	public void getAccountById() throws Exception {
+		LOGGER.info("getAccountById()");
 
 		Account account = new Account();
 		account.setAccountId(new Long(1));

@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blog.application.model.Blog;
 import com.blog.application.model.User;
 import com.blog.application.service.IBlogService;
-import com.blog.application.service.ICommentService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class BlogController.
  */
@@ -39,10 +39,6 @@ public class BlogRestController {
 	@Autowired
 	IBlogService blogService;
 
-	/** The comment service. */
-	@Autowired
-	ICommentService commentService;
-
 	/**
 	 * Gets the blogs.
 	 *
@@ -56,10 +52,10 @@ public class BlogRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<List<Blog>> getBlogs(User user) {
-		List<Blog> blog = blogService.findAll();
-		LOGGER.info("blog: {}", blog);
+		List<Blog> blogs = blogService.findAll();
+		LOGGER.info("blogs: {}", blogs);
 
-		return new ResponseEntity<>(blog, HttpStatus.OK);
+		return new ResponseEntity<>(blogs, HttpStatus.OK);
 	}
 
 	/**
@@ -78,11 +74,16 @@ public class BlogRestController {
 		LOGGER.info("blogId: {}", blogId);
 		Blog blog = blogService.findByBlogId(blogId);
 		LOGGER.info("blog: {}", blog);
-		LOGGER.info("blog: {}", blog.getAccount().getStatus());
 
 		return new ResponseEntity<>(blog, HttpStatus.OK);
 	}
 
+	/**
+	 * Adds the blog.
+	 *
+	 * @param blog the blog
+	 * @return the response entity
+	 */
 	@PostMapping(value = "/blogs/blog/add")
 	@ApiOperation(value = "Adds a blog", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully added the blog"),
@@ -97,6 +98,13 @@ public class BlogRestController {
 		return new ResponseEntity<>("Blog has been added successfully", HttpStatus.OK);
 	}
 
+	/**
+	 * Edits the blog.
+	 *
+	 * @param blogId the blog id
+	 * @param blog   the blog
+	 * @return the response entity
+	 */
 	@PutMapping(value = "/blogs/blog/edit/{blogId}")
 	@ApiOperation(value = "Edits a blog", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully edited the blog"),
@@ -110,6 +118,12 @@ public class BlogRestController {
 		return new ResponseEntity<>("Blog has been edited successfully", HttpStatus.OK);
 	}
 
+	/**
+	 * Delete blog post.
+	 *
+	 * @param blogId the blog id
+	 * @return the response entity
+	 */
 	@DeleteMapping(value = "/blogs/blog/delete/{blogId}")
 	@ApiOperation(value = "Delete a blog", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully deleted the blog post"),

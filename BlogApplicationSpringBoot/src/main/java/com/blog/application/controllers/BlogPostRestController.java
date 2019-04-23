@@ -42,18 +42,18 @@ public class BlogPostRestController {
 	/**
 	 * Gets the blog posts by blog id.
 	 *
-	 * @param id the id
+	 * @param blogId the blog id
 	 * @return the blog posts by blog id
 	 */
-	@GetMapping(value = "/{id}/posts", produces = "application/json")
+	@GetMapping(value = "/{blogId}/posts", produces = "application/json")
 	@ApiOperation(value = "View a list of blog Posts", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list of blog posts"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<List<BlogPost>> getBlogPostsByBlogId(@PathVariable("id") long id) {
-		LOGGER.info("id: {}", id);
-		List<BlogPost> blogposts = blogPostService.findByBlogId(id);
+	public ResponseEntity<List<BlogPost>> getBlogPostsByBlogId(@PathVariable("blogId") long blogId) {
+		LOGGER.info("blogId: {}", blogId);
+		List<BlogPost> blogposts = blogPostService.findByBlogId(blogId);
 		LOGGER.info("blogposts: {}", blogposts);
 
 		return new ResponseEntity<>(blogposts, HttpStatus.OK);
