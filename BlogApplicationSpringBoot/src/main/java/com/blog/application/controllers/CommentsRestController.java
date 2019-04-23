@@ -112,7 +112,7 @@ public class CommentsRestController {
 	}
 
 	/**
-	 * Delete blog post comments.
+	 * Deletes the blog post comments.
 	 *
 	 * @param blogId     the blog id
 	 * @param blogPostId the blog post id
