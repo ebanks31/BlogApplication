@@ -25,7 +25,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BlogController.
  */
@@ -81,8 +80,6 @@ public class BlogRestController {
 		LOGGER.info("blogId: {}", blogId);
 		Blog blog = blogService.findByBlogId(blogId);
 		LOGGER.info("blog: {}", blog);
-
-		LOGGER.info("hazelcastMap getBlogById: {}", hazelcastMap);
 
 		return new ResponseEntity<>(blog, HttpStatus.OK);
 	}
