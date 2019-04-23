@@ -71,7 +71,7 @@ public class CommentsRestController {
 	 * @return the response entity
 	 */
 	@PostMapping(value = "/{blogId}/posts/{blogPostId}/comments/add", produces = "application/json")
-	@ApiOperation(value = "adds a domment", response = Iterable.class)
+	@ApiOperation(value = "Adds a comment", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully added the comment"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
