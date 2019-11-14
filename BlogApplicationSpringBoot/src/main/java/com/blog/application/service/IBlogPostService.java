@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.blog.application.model.BlogPost;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface IBlogPostService.
  */
@@ -26,7 +25,7 @@ public interface IBlogPostService {
 	 * @param id the id
 	 * @return the list
 	 */
-	public List<BlogPost> findByBlogId(long id);
+	public List<BlogPost> findByBlogId(long blogpostId);
 
 	/**
 	 * Find by blog post id and blog id.
@@ -42,7 +41,7 @@ public interface IBlogPostService {
 	 *
 	 * @param blogPost the blog post
 	 */
-	public void addBlogPost(BlogPost blogPost);
+	public void addBlogPost(BlogPost blogPost, long blogId);
 
 	/**
 	 * Find by blog post id.
@@ -50,14 +49,14 @@ public interface IBlogPostService {
 	 * @param id the id
 	 * @return the blog post
 	 */
-	public BlogPost findByBlogPostId(long id);
+	public BlogPost findByBlogPostId(long blogPostId);
 
 	/**
 	 * Delete blog post.
 	 *
 	 * @param blogPostId the blog post id
 	 */
-	public void deleteBlogPost(long blogPostId);
+	public void deleteBlogPost(long blogPostId, long blogId);
 
 	/**
 	 * Edits the blog post.
@@ -65,5 +64,5 @@ public interface IBlogPostService {
 	 * @param blogPostId the blog post id
 	 * @param blogPost   the blog post
 	 */
-	public void editBlogPost(long blogPostId, BlogPost blogpost);
+	public void editBlogPost(long blogPostId, long blogId, BlogPost blogpost);
 }

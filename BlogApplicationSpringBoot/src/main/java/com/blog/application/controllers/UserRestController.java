@@ -126,7 +126,6 @@ public class UserRestController {
 	public ResponseEntity<String> deleteUser(@PathVariable("userId") long userId) {
 		LOGGER.info("userId: {}", userId);
 		userService.deleteUser(userId);
-		;
 
 		return new ResponseEntity<>("User has been edited successfully", HttpStatus.OK);
 	}

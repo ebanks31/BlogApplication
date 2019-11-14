@@ -15,9 +15,8 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class CORSFilter.
+ * This class handling the CORS by HTTP request.
  */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)

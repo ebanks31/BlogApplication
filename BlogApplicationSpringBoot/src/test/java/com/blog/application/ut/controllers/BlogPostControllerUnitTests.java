@@ -193,11 +193,12 @@ public class BlogPostControllerUnitTests {
 		blogPost.setBlogPostId(new Long(1));
 		blogPost.setBlogPostTitle("blogPostTitle");
 		blogPost.setBlogPostBody("blogPostBody");
+		blogPost.setBlogId(new Long(1));
 
 		Gson gson = new Gson();
 		String blogJson = gson.toJson(blogPost);
 
-		doNothing().when(blogPostService).addBlogPost(blogPost);
+		doNothing().when(blogPostService).addBlogPost(blogPost, blogPost.getBlogId());
 
 		ResultActions resultActions = mvc
 				.perform(post("/blogs/blog/{blogId}/posts/post/add", 1).header(ORIGIN, "*")
@@ -221,11 +222,12 @@ public class BlogPostControllerUnitTests {
 		blogPost.setBlogPostId(new Long(1));
 		blogPost.setBlogPostTitle("blogPostTitle");
 		blogPost.setBlogPostBody("blogPostBody");
+		blogPost.setBlogId(new Long(1));
 
 		Gson gson = new Gson();
 		String blogJson = gson.toJson(blogPost);
 
-		doNothing().when(blogPostService).deleteBlogPost(1);
+		doNothing().when(blogPostService).deleteBlogPost(blogPost.getBlogPostId(), blogPost.getBlogId());
 
 		ResultActions resultActions = mvc
 				.perform(delete("/blogs/blog/1/posts/post/delete/{blogPostId}", 1).header(ORIGIN, "*")
@@ -248,11 +250,12 @@ public class BlogPostControllerUnitTests {
 		blogPost.setBlogPostId(new Long(1));
 		blogPost.setBlogPostTitle("blogPostTitle");
 		blogPost.setBlogPostBody("blogPostBody");
+		blogPost.setBlogId(new Long(1));
 
 		Gson gson = new Gson();
 		String blogJson = gson.toJson(blogPost);
 
-		doNothing().when(blogPostService).editBlogPost(1, blogPost);
+		doNothing().when(blogPostService).editBlogPost(blogPost.getBlogPostId(), blogPost.getBlogId(), blogPost);
 
 		ResultActions resultActions = mvc
 				.perform(put("/blogs/blog/{blogId}/posts/post/edit/{blogPostId}", 1, 1).header(ORIGIN, "*")
@@ -263,24 +266,26 @@ public class BlogPostControllerUnitTests {
 	}
 
 	/**
-	 * Gets the blog post by id.
+	 * Gets the blog post by id and blog Id.
 	 *
 	 * @return the blog post by id
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void getBlogPostById() throws Exception {
+	public void getBlogPostByIdAndBlogId() throws Exception {
 		LOGGER.info("getBlogPostById()");
 
 		BlogPost blogPost = new BlogPost();
 		blogPost.setBlogPostId(new Long(1));
 		blogPost.setBlogPostTitle("blogPostTitle");
 		blogPost.setBlogPostBody("blogPostBody");
+		blogPost.setBlogId(new Long(1));
 
 		Gson gson = new Gson();
 		String accountJson = gson.toJson(blogPost);
 
-		when(blogPostService.findByBlogPostIdAndBlogId(1, 1)).thenReturn(blogPost);
+		when(blogPostService.findByBlogPostIdAndBlogId(blogPost.getBlogPostId(), blogPost.getBlogId()))
+				.thenReturn(blogPost);
 
 		mvc.perform(get("/blogs/blog/{blogId}/posts/{blogPostId}", 1, 1).header(ORIGIN, "*")
 				.contentType(MediaType.APPLICATION_JSON).content(accountJson)).andExpect(status().isOk())

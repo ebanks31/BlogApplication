@@ -85,9 +85,9 @@ public class BlogPostService implements IBlogPostService {
 	 * application.model.BlogPost)
 	 */
 	@Override
-	public void addBlogPost(BlogPost blogPost) {
+	public void addBlogPost(BlogPost blogPost, long blogId) {
 		LOGGER.info("addBlogPost()");
-
+		blogPost.setBlogId(blogId);
 		repository.save(blogPost);
 	}
 
@@ -97,8 +97,8 @@ public class BlogPostService implements IBlogPostService {
 	 * @see com.blog.application.service.IBlogPostService#deleteBlogPost(long)
 	 */
 	@Override
-	public void deleteBlogPost(long blogPostId) {
-		repository.deleteById(blogPostId);
+	public void deleteBlogPost(long blogPostId, long blogId) {
+		repository.deleteByBlogPostIdAndBlogId(blogPostId, blogId);
 	}
 
 	/*
@@ -107,14 +107,14 @@ public class BlogPostService implements IBlogPostService {
 	 * @see com.blog.application.service.IBlogPostService#editBlogPost(long)
 	 */
 	@Override
-	public void editBlogPost(long blogPostId, BlogPost blogpost) {
+	public void editBlogPost(long blogPostId, long blogId, BlogPost blogpost) {
 		LOGGER.info("editBlogPost()");
-
 		LOGGER.info("blogPostId {}", blogPostId);
 
 		if (blogPostId != 0) {
 			// BlogPost blogPostOptional = repository.findByBlogPostId(blogPostId);
 			BlogPost retrievedBlogPost = repository.findByBlogPostId(blogPostId);
+			retrievedBlogPost.setBlogId(blogId);
 
 			/*
 			 * BlogPost retrievedBlogPost = repository.findByBlogPostId(blogPostId);;

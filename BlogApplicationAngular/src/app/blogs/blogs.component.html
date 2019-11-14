@@ -5,10 +5,13 @@
 </p>
 
 <h2>Your Blogs</h2>
-<div *ngIf="blogs">
+
+<div class="blogs" *ngIf="blogs">
+    <ul class="list-group">
   <div *ngFor="let blog of blogs">
-    <a routerLink="blog/{{blog.blogId}}">{{blog.blogTitle}}</a>
+      <li class="list-group-item d-flex justify-content-center"> <a routerLink="blog/{{blog.blogId}}">{{blog.blogTitle}}</a></li>
   </div>
+</ul>
 </div>
   
 <div>

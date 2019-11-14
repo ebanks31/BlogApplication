@@ -16,8 +16,10 @@ export class BlogService {
   blogPostsByBlogIdUrl = "/posts";
   blogPostByBlogIdUrl = "/posts/";
   post = "/post/";
+  postNoPrefixSlash = "post/";
   edit = "edit/";
   add = "add";
+  delete = "delete/";
   headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
@@ -137,5 +139,21 @@ export class BlogService {
     console.log("JSON.stringify({blogPost} " + JSON.stringify(blogPost));
 
     return this.http.put(saveBlogPostUrl, JSON.stringify(blogPost), { headers: this.headers, responseType: 'json' });
+  }
+
+    /**
+   * Saves blog post
+   * @param blogId 
+   * @param blogPostId 
+   * @param blogPost 
+   * @returns blog post 
+   */
+  deleteBlogPost(blogPostId: number, blogId: number): Observable<any> {
+    console.log("saveBlogPost");
+
+    let deleteBlogPostUrl = this.blogUrl.concat(String(blogId)).concat(this.blogPostByBlogIdUrl).concat(this.postNoPrefixSlash).concat(this.delete).concat(String(blogPostId));
+    console.log("deleteBlogPostUrl " + deleteBlogPostUrl);
+
+    return this.http.delete(deleteBlogPostUrl, { headers: this.headers, responseType: 'json' });
   }
 }

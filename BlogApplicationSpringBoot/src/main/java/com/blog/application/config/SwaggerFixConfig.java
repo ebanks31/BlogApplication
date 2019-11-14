@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.util.UriTemplate;
 
+import com.blog.application.exception.BlogException;
 import com.fasterxml.classmate.TypeResolver;
 
 import springfox.documentation.builders.OperationBuilder;
@@ -89,7 +90,11 @@ public class SwaggerFixConfig {
 		 */
 		@Override
 		public void apply(final OperationContext context) {
-			removeBodyParametersForReadMethods(context);
+			try {
+				removeBodyParametersForReadMethods(context);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			addOperationParametersForPathParams(context);
 		}
 
@@ -107,8 +112,9 @@ public class SwaggerFixConfig {
 		 * Removes the body parameters for read methods.
 		 *
 		 * @param context the context
+		 * @throws Exception
 		 */
-		private void removeBodyParametersForReadMethods(final OperationContext context) {
+		private void removeBodyParametersForReadMethods(final OperationContext context) throws Exception {
 			if (HttpMethod.GET.equals(context.httpMethod()) || HttpMethod.HEAD.equals(context.httpMethod())) {
 				final List<Parameter> parameters = getParameters(context);
 				parameters.removeIf(param -> "body".equals(param.getName()));
@@ -146,16 +152,17 @@ public class SwaggerFixConfig {
 		 *
 		 * @param context the context
 		 * @return the parameters
+		 * @throws Exception
 		 */
 		@SuppressWarnings("unchecked")
-		private List<Parameter> getParameters(final OperationContext context) {
+		private List<Parameter> getParameters(final OperationContext context) throws Exception {
 			final OperationBuilder operationBuilder = context.operationBuilder();
 			try {
 				Field paramField = OperationBuilder.class.getDeclaredField("parameters");
 				paramField.setAccessible(true);
 				return (List<Parameter>) paramField.get(operationBuilder);
 			} catch (NoSuchFieldException | IllegalAccessException e) {
-				throw new RuntimeException("Unable to modify parameter field!", e);
+				throw new BlogException("Unable to modify parameter field!");
 			}
 		}
 	}

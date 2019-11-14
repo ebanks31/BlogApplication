@@ -1,0 +1,42 @@
+2019-11-14 00:11:12,606 INFO com.blog.application.BlogApplication [restartedMain] Starting BlogApplication on DESKTOP-T1TUAP6 with PID 51744 (D:\Programming\angularProgramming\blogApplication\blogApplication\BlogApplicationSpringBoot\target\classes started by k4pol in D:\Programming\angularProgramming\blogApplication\blogApplication\BlogApplicationSpringBoot)
+2019-11-14 00:11:12,606 DEBUG com.blog.application.BlogApplication [restartedMain] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-11-14 00:11:12,606 INFO com.blog.application.BlogApplication [restartedMain] The following profiles are active: prod
+2019-11-14 00:11:14,084 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esHost: localhost
+2019-11-14 00:11:14,085 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esPort: 9300
+2019-11-14 00:11:14,085 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esClusterName: blog-application
+2019-11-14 00:11:19,474 ERROR org.springframework.data.elasticsearch.repository.support.AbstractElasticsearchRepository [restartedMain] failed to load elasticsearch nodes : org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available: [{#transport#-1}{6QyhmjpoRzqyi6OC4-2MvQ}{localhost}{127.0.0.1:9300}]
+2019-11-14 00:11:19,781 INFO com.blog.application.config.SwaggerConfig [restartedMain] Setting up swagger 2
+2019-11-14 00:11:19,782 INFO com.blog.application.config.SwaggerConfig [restartedMain] host: {}127.0.0.1/9600
+2019-11-14 00:11:20,087 INFO com.blog.application.BlogApplication [restartedMain] Started BlogApplication in 7.518 seconds (JVM running for 100070.37)
+2019-11-14 00:11:24,798 INFO com.blog.application.BlogApplication [restartedMain] Starting BlogApplication on DESKTOP-T1TUAP6 with PID 51744 (D:\Programming\angularProgramming\blogApplication\blogApplication\BlogApplicationSpringBoot\target\classes started by k4pol in D:\Programming\angularProgramming\blogApplication\blogApplication\BlogApplicationSpringBoot)
+2019-11-14 00:11:24,798 DEBUG com.blog.application.BlogApplication [restartedMain] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-11-14 00:11:24,798 INFO com.blog.application.BlogApplication [restartedMain] The following profiles are active: prod
+2019-11-14 00:11:26,418 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esHost: localhost
+2019-11-14 00:11:26,419 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esPort: 9300
+2019-11-14 00:11:26,419 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esClusterName: blog-application
+2019-11-14 00:11:31,909 ERROR org.springframework.data.elasticsearch.repository.support.AbstractElasticsearchRepository [restartedMain] failed to load elasticsearch nodes : org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available: [{#transport#-1}{eyKIMuTkSrGrs4PhNQpTfg}{localhost}{127.0.0.1:9300}]
+2019-11-14 00:11:32,194 INFO com.blog.application.config.SwaggerConfig [restartedMain] Setting up swagger 2
+2019-11-14 00:11:32,194 INFO com.blog.application.config.SwaggerConfig [restartedMain] host: {}127.0.0.1/9600
+2019-11-14 00:11:32,526 INFO com.blog.application.BlogApplication [restartedMain] Started BlogApplication in 7.762 seconds (JVM running for 100082.809)
+2019-11-14 00:15:12,991 INFO com.blog.application.controllers.BlogRestController [http-nio-9100-exec-2] blogs: [com.blog.application.model.Blog@170ecab5, com.blog.application.model.Blog@6b0fd90f, com.blog.application.model.Blog@5950b37d, com.blog.application.model.Blog@756370d5, com.blog.application.model.Blog@14d957ae, com.blog.application.model.Blog@10b339b, com.blog.application.model.Blog@5d9ca39c, com.blog.application.model.Blog@33979522, com.blog.application.model.Blog@6d2dc0d9, com.blog.application.model.Blog@35e2b10c, com.blog.application.model.Blog@dda746f]
+2019-11-14 00:16:19,317 INFO com.blog.application.BlogApplication [restartedMain] Starting BlogApplication on DESKTOP-T1TUAP6 with PID 51744 (D:\Programming\angularProgramming\blogApplication\blogApplication\BlogApplicationSpringBoot\target\classes started by k4pol in D:\Programming\angularProgramming\blogApplication\blogApplication\BlogApplicationSpringBoot)
+2019-11-14 00:16:19,317 DEBUG com.blog.application.BlogApplication [restartedMain] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-11-14 00:16:19,317 INFO com.blog.application.BlogApplication [restartedMain] The following profiles are active: prod
+2019-11-14 00:16:20,910 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esHost: localhost
+2019-11-14 00:16:20,910 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esPort: 9300
+2019-11-14 00:16:20,910 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esClusterName: blog-application
+2019-11-14 00:16:26,657 ERROR org.springframework.data.elasticsearch.repository.support.AbstractElasticsearchRepository [restartedMain] failed to load elasticsearch nodes : org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available: [{#transport#-1}{hQ5CuOJhSMqS2vi_Qjh0Rg}{localhost}{127.0.0.1:9300}]
+2019-11-14 00:16:26,953 INFO com.blog.application.config.SwaggerConfig [restartedMain] Setting up swagger 2
+2019-11-14 00:16:26,953 INFO com.blog.application.config.SwaggerConfig [restartedMain] host: {}127.0.0.1/9600
+2019-11-14 00:16:27,280 INFO com.blog.application.BlogApplication [restartedMain] Started BlogApplication in 8.019 seconds (JVM running for 100377.563)
+2019-11-14 00:16:40,866 INFO com.blog.application.BlogApplication [restartedMain] Starting BlogApplication on DESKTOP-T1TUAP6 with PID 51744 (D:\Programming\angularProgramming\blogApplication\blogApplication\BlogApplicationSpringBoot\target\classes started by k4pol in D:\Programming\angularProgramming\blogApplication\blogApplication\BlogApplicationSpringBoot)
+2019-11-14 00:16:40,866 DEBUG com.blog.application.BlogApplication [restartedMain] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-11-14 00:16:40,866 INFO com.blog.application.BlogApplication [restartedMain] The following profiles are active: prod
+2019-11-14 00:16:42,350 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esHost: localhost
+2019-11-14 00:16:42,350 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esPort: 9300
+2019-11-14 00:16:42,350 INFO com.blog.application.config.ElasticSearchConfig [restartedMain] esClusterName: blog-application
+2019-11-14 00:16:47,468 ERROR org.springframework.data.elasticsearch.repository.support.AbstractElasticsearchRepository [restartedMain] failed to load elasticsearch nodes : org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available: [{#transport#-1}{qlRZnvKATyW9IYuq2yYnxg}{localhost}{127.0.0.1:9300}]
+2019-11-14 00:16:47,805 INFO com.blog.application.config.SwaggerConfig [restartedMain] Setting up swagger 2
+2019-11-14 00:16:47,805 INFO com.blog.application.config.SwaggerConfig [restartedMain] host: {}127.0.0.1/9600
+2019-11-14 00:16:48,172 INFO com.blog.application.BlogApplication [restartedMain] Started BlogApplication in 7.333 seconds (JVM running for 100398.456)
+2019-11-14 00:16:55,620 INFO com.blog.application.controllers.BlogRestController [http-nio-9100-exec-2] blogs: [com.blog.application.model.Blog@7a1fabd7, com.blog.application.model.Blog@12bcb45d, com.blog.application.model.Blog@7f016525, com.blog.application.model.Blog@66ddca75, com.blog.application.model.Blog@611b846a, com.blog.application.model.Blog@16f2ca48, com.blog.application.model.Blog@622ebdfe, com.blog.application.model.Blog@6aa85dac, com.blog.application.model.Blog@572dbc47, com.blog.application.model.Blog@578d8c60, com.blog.application.model.Blog@405b1a22]

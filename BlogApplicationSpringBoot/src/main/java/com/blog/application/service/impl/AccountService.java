@@ -32,8 +32,7 @@ public class AccountService implements IAccountService {
 	 */
 	@Override
 	public List<Account> findAll() {
-		List<Account> accounts = repository.findAll();
-		return accounts;
+		return repository.findAll();
 	}
 
 	/*

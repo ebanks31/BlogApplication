@@ -1,86 +1,51 @@
-package com.blog.application.model;
+package com.blog.application.model.elasticsearch;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 /**
- * The Class Blog.
+ * Entity bean with JPA annotations for User table. Hibernate provides JPA
+ * implementation
+ *
+ * @author ebanks
+ *
  */
-@Entity
-@Table(name = "blog")
-public class Blog {
+@Document(indexName = "blogs", type = "blog")
+public class BlogEs {
 
-	/** The blog post id. */
 	@Id
-	@GeneratedValue
-	@Column(name = "blog_id", columnDefinition = "BINARY(16)")
-	private Long blogId;
+	private String _id = UUID.randomUUID().toString();
 
-	/** The account id. */
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "account_id", nullable = false, insertable = false, updatable = false)
-	private Account account;
+	/** The blog id. */
+	private Long blog_id;
 
 	/** The blog created date. */
-	@Column(name = "blog_created_date")
 	private Date blogCreatedDate;
 
 	/** The blog terminated date. */
-	@Column(name = "blog_terminated_date")
 	private Date blogTerminatedDate;
 
 	/** The status. */
-	@Column(name = "status")
 	private String status;
 
 	/** The blogDescription. */
 	@Column(name = "blog_description")
 	private String blogDescription;
 
-	/** The blogDescription. */
-	@Column(name = "blog_title")
+	/** The blogTitle. */
 	private String blogTitle;
 
 	/** The last update date. */
 	@Column(name = "last_updated_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdateDate;
-
-	/** The accounts. */
-	@JsonIgnore
-	@OneToMany(mappedBy = "blog")
-	private Set<BlogPost> blogPosts;
-
-	/** The status. */
-	@Column(name = "account_id")
-	private Long accountId;
-
-	/**
-	 * Gets the account id.
-	 *
-	 * @return the account id
-	 */
-	public Long getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(Long accountId) {
-		this.accountId = accountId;
-	}
 
 	/**
 	 * Gets the blog title.
@@ -106,7 +71,7 @@ public class Blog {
 	 * @return the blog id
 	 */
 	public Long getBlogId() {
-		return blogId;
+		return blog_id;
 	}
 
 	/**
@@ -115,25 +80,7 @@ public class Blog {
 	 * @param blogId the new blog id
 	 */
 	public void setBlogId(Long blogId) {
-		this.blogId = blogId;
-	}
-
-	/**
-	 * Gets the account.
-	 *
-	 * @return the account
-	 */
-	public Account getAccount() {
-		return account;
-	}
-
-	/**
-	 * Sets the account.
-	 *
-	 * @param account the new account
-	 */
-	public void setAccount(Account account) {
-		this.account = account;
+		this.blog_id = blogId;
 	}
 
 	/**
@@ -225,23 +172,4 @@ public class Blog {
 	public void setLastUpdateDate(Date lastUpdateDate) {
 		this.lastUpdateDate = lastUpdateDate;
 	}
-
-	/**
-	 * Gets the blog posts.
-	 *
-	 * @return the blog posts
-	 */
-	public Set<BlogPost> getBlogPosts() {
-		return blogPosts;
-	}
-
-	/**
-	 * Sets the blog posts.
-	 *
-	 * @param blogPosts the new blog posts
-	 */
-	public void setBlogPosts(Set<BlogPost> blogPosts) {
-		this.blogPosts = blogPosts;
-	}
-
 }

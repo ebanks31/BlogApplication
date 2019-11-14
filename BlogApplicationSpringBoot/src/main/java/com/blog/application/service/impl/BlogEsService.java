@@ -3,27 +3,28 @@ package com.blog.application.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.IterableUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blog.application.model.Blog;
-import com.blog.application.repositories.BlogRepository;
-import com.blog.application.service.IBlogService;
+import com.blog.application.elasticsearch.repositories.BlogEsRepository;
+import com.blog.application.model.elasticsearch.BlogEs;
+import com.blog.application.service.IBlogEsService;
 
 /**
  * The Class BlogService.
  */
 @Service
-public class BlogService implements IBlogService {
+public class BlogEsService implements IBlogEsService {
 
 	/** The logger. */
-	private final Logger LOGGER = LoggerFactory.getLogger(BlogService.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(BlogEsService.class);
 
 	/** The repository. */
 	@Autowired
-	private BlogRepository repository;
+	private BlogEsRepository repository;
 
 	/*
 	 * (non-Javadoc)
@@ -31,8 +32,8 @@ public class BlogService implements IBlogService {
 	 * @see com.blog.application.service.IBlogService#findAll()
 	 */
 	@Override
-	public List<Blog> findAll() {
-		return repository.findAll();
+	public List<BlogEs> findAll() {
+		return IterableUtils.toList(repository.findAll());
 	}
 
 	/*
@@ -41,9 +42,9 @@ public class BlogService implements IBlogService {
 	 * @see com.blog.application.service.IBlogService#findByBlogId(long)
 	 */
 	@Override
-	public Blog findByBlogId(long id) {
-		Optional<Blog> value = repository.findById(id);
-		Blog blog = null;
+	public BlogEs findByBlogId(long id) {
+		Optional<BlogEs> value = repository.findById(id);
+		BlogEs blog = null;
 		// ...
 
 		if (value.isPresent()) {
@@ -60,7 +61,7 @@ public class BlogService implements IBlogService {
 	 * Blog)
 	 */
 	@Override
-	public void addBlog(Blog blog) {
+	public void addBlog(BlogEs blog) {
 		repository.save(blog);
 	}
 
@@ -80,12 +81,12 @@ public class BlogService implements IBlogService {
 	 * @see com.blog.application.service.IBlogService#editBlog(long)
 	 */
 	@Override
-	public void editBlog(long blogId, Blog blog) {
+	public void editBlog(long blogId, BlogEs blog) {
 		LOGGER.info("blogId {}", blogId);
 
 		if (blogId != 0) {
-			Optional<Blog> blogOptional = repository.findByBlogPostId(blogId);
-			Blog retrievedBlog = null;
+			Optional<BlogEs> blogOptional = repository.findById(blogId);
+			BlogEs retrievedBlog = null;
 
 			if (blogOptional.isPresent()) {
 				retrievedBlog = blogOptional.get();

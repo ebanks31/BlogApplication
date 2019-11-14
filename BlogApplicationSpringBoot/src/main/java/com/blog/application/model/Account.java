@@ -57,6 +57,7 @@ public class Account {
 	private User user;
 
 	/** The blogs. */
+	@JsonIgnore
 	@OneToMany(mappedBy = "account")
 	private Set<Blog> blogs;
 

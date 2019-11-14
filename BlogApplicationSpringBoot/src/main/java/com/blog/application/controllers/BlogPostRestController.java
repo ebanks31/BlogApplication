@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.application.model.BlogPost;
 import com.blog.application.service.IBlogPostService;
+import com.google.gson.Gson;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -34,6 +35,7 @@ import io.swagger.annotations.ApiResponses;
 public class BlogPostRestController {
 	/** The logger. */
 	private final Logger LOGGER = LoggerFactory.getLogger(BlogPostRestController.class);
+	private static final Gson gson = new Gson();
 
 	/** The blog post service. */
 	@Autowired
@@ -52,9 +54,10 @@ public class BlogPostRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<List<BlogPost>> getBlogPostsByBlogId(@PathVariable("blogId") long blogId) {
-		LOGGER.info("blogId: {}", blogId);
+		LOGGER.info("blogId:  {}", blogId);
 		List<BlogPost> blogposts = blogPostService.findByBlogId(blogId);
 		LOGGER.info("blogposts: {}", blogposts);
+		// blogposts.forEach(System.out::println);
 
 		return new ResponseEntity<>(blogposts, HttpStatus.OK);
 	}
@@ -96,13 +99,13 @@ public class BlogPostRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> addBlogPost(@RequestBody BlogPost blogpost, @PathVariable("blogId") long blogId) {
-		LOGGER.info("addBlogPost: {}");
+		LOGGER.info("addBlogPost");
 
 		LOGGER.info("blogpost: {}", blogpost);
 
-		blogPostService.addBlogPost(blogpost);
+		blogPostService.addBlogPost(blogpost, blogId);
 
-		return new ResponseEntity<>("Blog post has been added successfully", HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson("Blog post has been added successfully"), HttpStatus.OK);
 	}
 
 	/**
@@ -119,12 +122,11 @@ public class BlogPostRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> editBlogPost(@PathVariable("blogPostId") Long blogPostId,
-			@RequestBody BlogPost blogPost) {
+			@PathVariable("blogId") Long blogId, @RequestBody BlogPost blogPost) {
 		LOGGER.info("editBlogPost");
-
 		LOGGER.info("blogPostId: {}", blogPostId);
 
-		blogPostService.editBlogPost(blogPostId, blogPost);
+		blogPostService.editBlogPost(blogPostId, blogId, blogPost);
 		return new ResponseEntity<>("Blog post has been edited successfully", HttpStatus.OK);
 	}
 
@@ -141,10 +143,12 @@ public class BlogPostRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<String> deleteBlogPost(@PathVariable("blogPostId") Long blogPostId) {
+	public ResponseEntity<String> deleteBlogPost(@PathVariable("blogPostId") Long blogPostId,
+			@PathVariable("blogId") Long blogId) {
 		LOGGER.info("blogPostId: {}", blogPostId);
+		LOGGER.info("blogId: {}", blogId);
 
-		blogPostService.deleteBlogPost(blogPostId);
+		blogPostService.deleteBlogPost(blogPostId, blogId);
 		return new ResponseEntity<>("Blog post has been deleted", HttpStatus.OK);
 	}
 }

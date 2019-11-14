@@ -29,9 +29,7 @@ export class AccountsComponent implements OnInit {
   getAccounts(): void {
     this.accountService.getAccounts()
       .subscribe(data => this.accounts = data,
-        error => console.log(error))
-    console.log("22222 " + this.accounts)
-
+        err => console.log(err),() => console.log('Got all accounts'))
   }
 
   /**

@@ -2,19 +2,15 @@ package com.blog.application.service;
 
 import java.util.List;
 
-import com.blog.application.model.Blog;
+import com.blog.application.model.elasticsearch.BlogEs;
 
-/**
- * The Interface IBlogService.
- */
-public interface IBlogService {
-
+public interface IBlogEsService {
 	/**
 	 * Find all.
 	 *
 	 * @return the list
 	 */
-	public List<Blog> findAll();
+	public List<BlogEs> findAll();
 
 	/**
 	 * Find by blog id.
@@ -22,14 +18,14 @@ public interface IBlogService {
 	 * @param blogId the blog id
 	 * @return the blog
 	 */
-	public Blog findByBlogId(long blogId);
+	public BlogEs findByBlogId(long blogId);
 
 	/**
 	 * Adds the blog.
 	 *
 	 * @param blog the blog
 	 */
-	public void addBlog(Blog blog);
+	public void addBlog(BlogEs blog);
 
 	/**
 	 * Edits the blog.
@@ -37,7 +33,7 @@ public interface IBlogService {
 	 * @param blogId the blog id
 	 * @param blog   the blog
 	 */
-	public void editBlog(long blogId, Blog blog);
+	public void editBlog(long blogId, BlogEs blog);
 
 	/**
 	 * Delete blog.

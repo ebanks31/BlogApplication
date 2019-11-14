@@ -39,12 +39,14 @@ export class BlogComponent implements OnInit {
   blogPost: BlogPostModel;
   blogPosts: BlogPostModel[];
   blogId: number;
+  currentBlogPostId: number;
   ckeConfig: any;
   mycontent: string;
   showTextFormattingToolbar: boolean = false;
   saveButtonClick: boolean = false;
   color: string = "light blue";
   @ViewChild("myckeditor") ckeditor: any;
+  qtd:any;
 
   /**
    * on init
@@ -96,6 +98,7 @@ export class BlogComponent implements OnInit {
     this.route.params.subscribe(params => this.blogId = params.id,
       error => console.log(error))
   }
+
   /**
    * Gets blog by id
    * @param blogid 
@@ -129,6 +132,26 @@ export class BlogComponent implements OnInit {
 
     console.log("this.blogPost " + this.blogPosts)
   }
+
+    /**
+   * Gets blog by id
+   * @param blogid 
+   */
+  deleteByBlogPostAndBlogId(blogpostId: number, blogid: number): void {
+    console.log("getBlogById() ")
+
+    this.blogService.deleteBlogPost(blogpostId, blogid)
+      .subscribe(data => this.blog = data,
+        error => console.log(error));
+
+    /*
+    this.blogService.getBlogsById(id)
+    .subscribe(data => console.log(data),
+    error => console.log(error));*/
+
+    console.log("this.blog " + this.blog)
+  }
+
   /**
    * Converts to json
    * @param account 
@@ -148,11 +171,35 @@ export class BlogComponent implements OnInit {
     console.log("myForm " + myForm.invalid);
     this.mycontent = myForm;
   }
+
   /**
-   * Adds blog post
+   * Adds a blog post
    * @param $event 
    */
   addBlogPost($event: any): void {
     this.router.navigate(['blogs/blog/' + this.blogId + "/posts/post/add"]);
+  }
+
+  /**
+   * Edit a blog post
+   * @param $event 
+   */
+  editBlogPost(blogPostId: number): void {
+    this.router.navigate(['blogs/blog/' + this.blogId + "/posts/" + blogPostId]);
+  }  
+
+  /**
+   * Deletes a blog post
+   * @param $event 
+   */
+  deleteBlogPost(blogpostId: number): void {
+    console.log("deleteBlogPost: ");
+
+    console.log("blogpostId: " + blogpostId);
+    console.log("this.blogId: " + this.blogId);
+
+
+    this.deleteByBlogPostAndBlogId(blogpostId, this.blogId);
+    this.router.navigate(['blog/' + this.blogId]);
   }
 }

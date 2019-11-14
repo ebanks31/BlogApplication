@@ -29,7 +29,7 @@ public class BlogLoggingAspect {
 	public void logBefore(JoinPoint joinPoint) {
 
 		LOGGER.info("logBefore() runs");
-		LOGGER.info("Getting joinpoint signature name: " + joinPoint.getSignature().getName());
+		LOGGER.info("Getting joinpoint signature name: {}", joinPoint.getSignature().getName());
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class BlogLoggingAspect {
 	public void logAfter(JoinPoint joinPoint) {
 
 		LOGGER.info("logAfter() runs");
-		LOGGER.info("Getting joinpoint signature name: " + joinPoint.getSignature().getName());
+		LOGGER.info("Getting joinpoint signature name: {}", joinPoint.getSignature().getName());
 
 	}
 
@@ -55,8 +55,8 @@ public class BlogLoggingAspect {
 	public void logAround(ProceedingJoinPoint joinPoint) throws Throwable {
 
 		LOGGER.info("logAround() runs");
-		LOGGER.info("Getting joinpoint signature name: " + joinPoint.getSignature().getName());
-		LOGGER.info("Getting joinpoint arguments : " + Arrays.toString(joinPoint.getArgs()));
+		LOGGER.info("Getting joinpoint signature name: {}", joinPoint.getSignature().getName());
+		LOGGER.info("Getting joinpoint arguments : {}", Arrays.toString(joinPoint.getArgs()));
 
 		LOGGER.info("Around before runs");
 		joinPoint.proceed(); // continue on the intercepted method

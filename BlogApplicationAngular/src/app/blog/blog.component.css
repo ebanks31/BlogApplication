@@ -1,1 +1,6 @@
 #content {background-color: white;}
+
+.blogPosts {
+    width: 500px;
+    margin: 50px auto;
+}
