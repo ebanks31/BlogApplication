@@ -14,4 +14,6 @@ The text editor I am using is https://ckeditor.com/. This is a great editor that
 
 This application isn't finished just yet but this project is used to help me better understand the Angular framework.
 
-The database I used was MYSQL. I have attached the scripts that I used under the BlogApplication.sql file
+The database I used was MYSQL. I have attached the scripts that I used under the BlogApplication.sql file.
+
+I have added Documents folder that will contain various documents for this project.
