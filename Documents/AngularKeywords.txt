@@ -1,0 +1,14 @@
+Start new Angular project
+ng new angular-tour-of-heroes
+
+Install latest Angular
+npm install -g @angular/cli
+
+Start a new angular application. (Keeps the window open)
+ng serve --open
+
+Generates a component
+ng generate Component blogComponent
+
+Generates a blog service
+ng generate service BlogService

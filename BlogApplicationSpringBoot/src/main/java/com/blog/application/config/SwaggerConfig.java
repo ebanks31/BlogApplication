@@ -39,7 +39,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 	@Bean
 	public Docket apiProd() {
 		LOGGER.info("Setting up swagger 2");
-		LOGGER.info("host: {}" + host);
+		LOGGER.info("host: {}", host);
 		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
 				.paths(PathSelectors.any()).build().apiInfo(metaData());
 	}

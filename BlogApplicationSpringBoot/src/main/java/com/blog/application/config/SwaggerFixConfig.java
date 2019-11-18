@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +31,7 @@ import springfox.documentation.spi.service.contexts.OperationContext;
 @ConditionalOnProperty(name = "dirty.fix.enabled", havingValue = "true")
 @Profile("!test")
 public class SwaggerFixConfig {
+	private final static Logger LOGGER = LoggerFactory.getLogger(SwaggerConfig.class);
 
 	/**
 	 * Because of the new Actuator implementation in Spring Boot 2, all actuator
@@ -92,9 +95,10 @@ public class SwaggerFixConfig {
 		public void apply(final OperationContext context) {
 			try {
 				removeBodyParametersForReadMethods(context);
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (Exception exception) {
+				LOGGER.info("Exception message: {}", exception.getMessage());
 			}
+
 			addOperationParametersForPathParams(context);
 		}
 
@@ -155,7 +159,7 @@ public class SwaggerFixConfig {
 		 * @throws Exception
 		 */
 		@SuppressWarnings("unchecked")
-		private List<Parameter> getParameters(final OperationContext context) throws Exception {
+		private List<Parameter> getParameters(final OperationContext context) throws BlogException {
 			final OperationBuilder operationBuilder = context.operationBuilder();
 			try {
 				Field paramField = OperationBuilder.class.getDeclaredField("parameters");

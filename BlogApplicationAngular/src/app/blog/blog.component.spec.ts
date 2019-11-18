@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 describe('BlogComponent', () => {
   let component: BlogComponent;
   let fixture: ComponentFixture<BlogComponent>;
+  let h1:        HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({imports: [
@@ -25,5 +26,9 @@ describe('BlogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display original title', () => {
+    expect(h1.textContent).toContain(component.color);
   });
 });

@@ -13,14 +13,6 @@ import com.blog.application.model.BlogPost;
 @RepositoryRestResource
 public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
-	// @Query("from BlogPost t where t.blogId = :blogId")
-	// List<BlogPost> findAllBlogPostsByBlogId(@Param("blogId") long blogId);
-
-	// @Query("from BlogPost t where t.blogId = :blogId and t.blogPostId =
-	// :blogPostId")
-	// BlogPost findByBlogPostIdAndBlogId(@Param("blogId") long blogId,
-	// @Param("blogPostId") long blogPostId);
-
 	@Modifying
 	@Transactional
 	@Query(value = "delete from BlogPost t where blog_post_id= ?1 and blog_id = ?2")

@@ -32,9 +32,7 @@ public class BlogPostService implements IBlogPostService {
 	 */
 	@Override
 	public List<BlogPost> findAll() {
-
-		List<BlogPost> blogPosts = repository.findAll();
-		return blogPosts;
+		return repository.findAll();
 	}
 
 	/*
@@ -44,8 +42,7 @@ public class BlogPostService implements IBlogPostService {
 	 */
 	@Override
 	public List<BlogPost> findByBlogId(long id) {
-		List<BlogPost> blogPosts = repository.findAllBlogPostsByBlogId(id);
-		return blogPosts;
+		return repository.findAllBlogPostsByBlogId(id);
 	}
 
 	/*
@@ -57,8 +54,7 @@ public class BlogPostService implements IBlogPostService {
 	 */
 	@Override
 	public BlogPost findByBlogPostIdAndBlogId(long blogId, long blogPostId) {
-		BlogPost blogPost = repository.findByBlogPostIdAndBlogId(blogId, blogPostId);
-		return blogPost;
+		return repository.findByBlogPostIdAndBlogId(blogId, blogPostId);
 	}
 
 	/*
@@ -112,17 +108,8 @@ public class BlogPostService implements IBlogPostService {
 		LOGGER.info("blogPostId {}", blogPostId);
 
 		if (blogPostId != 0) {
-			// BlogPost blogPostOptional = repository.findByBlogPostId(blogPostId);
 			BlogPost retrievedBlogPost = repository.findByBlogPostId(blogPostId);
 			retrievedBlogPost.setBlogId(blogId);
-
-			/*
-			 * BlogPost retrievedBlogPost = repository.findByBlogPostId(blogPostId);;
-			 * 
-			 * 
-			 * if (blogPostOptional.isPresent()) { retrievedBlogPost =
-			 * blogPostOptional.get(); }
-			 */
 
 			if (retrievedBlogPost != null) {
 				LOGGER.info("retrievedBlogPost {}", retrievedBlogPost);

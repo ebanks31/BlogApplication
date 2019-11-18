@@ -27,9 +27,9 @@ import io.swagger.annotations.ApiResponses;
  */
 @RestController
 public class ElasticSearchRestController2 {
-
 	/** The logger. */
-	private final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchRestController2.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchRestController2.class);
+	private static final String BLOG_ID = "blogId: {}";
 
 	@Autowired
 	IBlogEsService blogEsService;
@@ -66,7 +66,7 @@ public class ElasticSearchRestController2 {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<BlogEs> getBlogById(@PathVariable("blogId") int blogId) {
-		LOGGER.info("blogId: {}", blogId);
+		LOGGER.info(BLOG_ID, blogId);
 		BlogEs blog = blogEsService.findByBlogId(blogId);
 		LOGGER.info("blog: {}", blog);
 
@@ -107,7 +107,7 @@ public class ElasticSearchRestController2 {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> editBlog(@PathVariable("blogId") Long blogId, @RequestBody BlogEs blog) {
-		LOGGER.info("blogId: {}", blogId);
+		LOGGER.info(BLOG_ID, blogId);
 
 		blogEsService.editBlog(blogId, blog);
 		return new ResponseEntity<>("Blog has been edited successfully", HttpStatus.OK);
@@ -126,7 +126,7 @@ public class ElasticSearchRestController2 {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> deleteBlogPost(@PathVariable("blogId") Long blogId) {
-		LOGGER.info("blogId: {}", blogId);
+		LOGGER.info(BLOG_ID, blogId);
 
 		blogEsService.deleteBlog(blogId);
 		return new ResponseEntity<>("Blog post has been deleted", HttpStatus.OK);

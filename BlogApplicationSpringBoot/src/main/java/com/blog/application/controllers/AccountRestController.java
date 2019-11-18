@@ -2,7 +2,6 @@ package com.blog.application.controllers;
 
 import java.util.List;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +53,6 @@ public class AccountRestController {
 		LOGGER.info("getAccounts()");
 		List<Account> accounts = accountService.findAll();
 
-		if (!CollectionUtils.isEmpty(accounts)) {
-			accounts.forEach(account -> {
-				System.out.println(account.getAccountId());
-				System.out.println(account.getStatus());
-			});
-		}
 		return new ResponseEntity<>(accounts, HttpStatus.OK);
 	}
 

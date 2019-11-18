@@ -36,6 +36,8 @@ public class BlogPostRestController {
 	/** The logger. */
 	private final Logger LOGGER = LoggerFactory.getLogger(BlogPostRestController.class);
 	private static final Gson gson = new Gson();
+	private static final String BLOG_POST_ID_LOG = "blogPostId: {}";
+	private static final String BLOG_ID_LOG = "blog Id: {}";
 
 	/** The blog post service. */
 	@Autowired
@@ -56,8 +58,7 @@ public class BlogPostRestController {
 	public ResponseEntity<List<BlogPost>> getBlogPostsByBlogId(@PathVariable("blogId") long blogId) {
 		LOGGER.info("blogId:  {}", blogId);
 		List<BlogPost> blogposts = blogPostService.findByBlogId(blogId);
-		LOGGER.info("blogposts: {}", blogposts);
-		// blogposts.forEach(System.out::println);
+		LOGGER.info(BLOG_POST_ID_LOG, blogposts);
 
 		return new ResponseEntity<>(blogposts, HttpStatus.OK);
 	}
@@ -77,11 +78,11 @@ public class BlogPostRestController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<BlogPost> getBlogPostByBlogPostIdAndBlogId(@PathVariable("blogId") long blogId,
 			@PathVariable("blogPostId") long blogPostId) {
-		LOGGER.info("blogId: {}", blogId);
-		LOGGER.info("blogPostId: {}", blogPostId);
+		LOGGER.info(BLOG_ID_LOG, blogId);
+		LOGGER.info(BLOG_POST_ID_LOG, blogPostId);
 
 		BlogPost blogpost = blogPostService.findByBlogPostIdAndBlogId(blogId, blogPostId);
-		LOGGER.info("blogpost {}", blogpost);
+		LOGGER.info("blog post {}", blogpost);
 
 		return new ResponseEntity<>(blogpost, HttpStatus.OK);
 	}
@@ -124,7 +125,7 @@ public class BlogPostRestController {
 	public ResponseEntity<String> editBlogPost(@PathVariable("blogPostId") Long blogPostId,
 			@PathVariable("blogId") Long blogId, @RequestBody BlogPost blogPost) {
 		LOGGER.info("editBlogPost");
-		LOGGER.info("blogPostId: {}", blogPostId);
+		LOGGER.info(BLOG_POST_ID_LOG, blogPostId);
 
 		blogPostService.editBlogPost(blogPostId, blogId, blogPost);
 		return new ResponseEntity<>("Blog post has been edited successfully", HttpStatus.OK);
@@ -145,8 +146,8 @@ public class BlogPostRestController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> deleteBlogPost(@PathVariable("blogPostId") Long blogPostId,
 			@PathVariable("blogId") Long blogId) {
-		LOGGER.info("blogPostId: {}", blogPostId);
-		LOGGER.info("blogId: {}", blogId);
+		LOGGER.info(BLOG_POST_ID_LOG, blogPostId);
+		LOGGER.info(BLOG_ID_LOG, blogId);
 
 		blogPostService.deleteBlogPost(blogPostId, blogId);
 		return new ResponseEntity<>("Blog post has been deleted", HttpStatus.OK);
