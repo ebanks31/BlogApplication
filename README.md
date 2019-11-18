@@ -16,7 +16,7 @@ This application isn't finished just yet but this project is used in order to he
 
 The database I use is MYSQL. I have attached  database scripts that I used under the BlogApplication.sql file.
 
-I have added a <b>Documents folder</b> that will contain various documents for this project.
+I have added a <b>Documents</b> folder that will contain various documents for this project.
 
 Documents include
 1.) UML Diagram
