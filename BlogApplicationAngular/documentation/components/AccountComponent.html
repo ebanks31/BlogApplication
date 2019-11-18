@@ -64,6 +64,13 @@
     <code>src/app/account/account.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component</p>
+
+    </p>
 
 
     <p class="comment">
@@ -121,6 +128,26 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#account">account</a>
+                            </li>
+                            <li>
+                                <a href="#id">id</a>
+                            </li>
+                            <li>
+                                <a href="#user">user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -131,7 +158,16 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#getAccountsById">getAccountsById</a>
+                            </li>
+                            <li>
+                                <a href="#getUserById">getUserById</a>
+                            </li>
+                            <li>
                                 <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#saveAccount">saveAccount</a>
                             </li>
                         </ul>
                     </td>
@@ -145,6 +181,78 @@
     </table>
 </section>
 
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(accountService: <a href="../injectables/AccountService.html">AccountService</a>, userService: <a href="../injectables/UserService.html">UserService</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/account/account.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>accountService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AccountService.html" target="_self" >AccountService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
 
 
 
@@ -155,6 +263,150 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAccountsById"></a>
+                    <span class="name">
+                        <b>
+                            getAccountsById
+                        </b>
+                        <a href="#getAccountsById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAccountsById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/app/account/account.component.ts:40</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gets accounts by id</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUserById"></a>
+                    <span class="name">
+                        <b>
+                            getUserById
+                        </b>
+                        <a href="#getUserById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUserById(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">src/app/account/account.component.ts:61</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gets user by id</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>userId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -177,14 +429,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="10"
-                            class="link-to-prism">src/app/account/account.component.ts:10</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/app/account/account.component.ts:30</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>on init</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -194,6 +448,165 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveAccount"></a>
+                    <span class="name">
+                        <b>
+                            saveAccount
+                        </b>
+                        <a href="#saveAccount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveAccount($event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">src/app/account/account.component.ts:54</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Saves account</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>$event</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="account"></a>
+                        <span class="name">
+                            <b>
+                            account</b>
+                            <a href="#account"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/AccountModel.html" target="_self" >AccountModel</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/account/account.component.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="id"></a>
+                        <span class="name">
+                            <b>
+                            id</b>
+                            <a href="#id"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/account/account.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="user"></a>
+                        <span class="name">
+                            <b>
+                            user</b>
+                            <a href="#user"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/UserModel.html" target="_self" >UserModel</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/account/account.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
 </section>
 
 </div>
@@ -201,15 +614,71 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { AccountService } from &#x27;../account.service&#x27;;
+import { AccountModel } from &#x27;../account.component&#x27;;
+import { ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { UserModel } from &#x27;../user.component&#x27;;
+import { UserService } from &#x27;../user.service&#x27;;
 
+/**
+ * Component
+ */
 @Component({
   selector: &#x27;app-account&#x27;,
   templateUrl: &#x27;./account.component.html&#x27;,
   styleUrls: [&#x27;./account.component.css&#x27;]
 })
-export class AccountComponent implements OnInit {
 
+export class AccountComponent implements OnInit {
+  account: AccountModel;
+  user: UserModel;
+  id: number;
+
+  constructor(private accountService: AccountService, private userService: UserService,
+    private route: ActivatedRoute) {
+    this.route.params.subscribe(params &#x3D;&gt; this.id &#x3D; params.id,
+      error &#x3D;&gt; console.log(error))
+  }
+  /**
+   * on init
+   */
   ngOnInit() {
+    this.getAccountsById(this.id);
+    this.getUserById(1);
+    console.log(&quot;this.account: &quot; + this.account);
+    console.log(&quot;this.user: &quot; + this.user);
+  }
+  /**
+   * Gets accounts by id
+   * @param id 
+   */
+  getAccountsById(id: number): void {
+    console.log(&quot;getAccountsById()&quot;);
+
+    console.log(&quot;this.id: &quot; + this.id)
+
+    this.accountService.getAccountsById(this.id)
+      .subscribe(data &#x3D;&gt; this.account &#x3D; data,
+        error &#x3D;&gt; console.log(error))
+    console.log(&quot;account &quot; + this.account)
+  }
+  /**
+   * Saves account
+   * @param $event 
+   */
+  saveAccount($event: any): void {
+    console.log(&quot;saveAccount&quot;);
+  }
+  /**
+   * Gets user by id
+   * @param userId 
+   */
+  getUserById(userId: number) {
+    console.log(&quot;getUserById()&quot;);
+
+    this.userService.getUserById(this.id)
+      .subscribe(data &#x3D;&gt; this.user &#x3D; data,
+        error &#x3D;&gt; console.log(error))
   }
 
 }
@@ -222,14 +691,72 @@ export class AccountComponent implements OnInit {
 &lt;p&gt;
   account works!
 &lt;/p&gt;
-</code></pre>
+
+&lt;h2&gt;Account List&lt;/h2&gt;
+&lt;div *ngIf&#x3D;&quot;account&quot;&gt;
+  &lt;div class&#x3D;&quot;login-form col-8&quot;&gt;
+    &lt;form&gt;
+      &lt;h2 class&#x3D;&quot;text-center&quot;&gt;Change your profile information&lt;/h2&gt;
+      &lt;div class&#x3D;&quot;form-group col-10&quot;&gt;
+        &lt;label for&#x3D;&quot;username&quot;&gt;Change your user name&lt;/label&gt;
+        &lt;input class&#x3D;&quot;input-sm&quot; type&#x3D;&quot;text&quot; [(ngModel)]&#x3D;&quot;account.username&quot; id&#x3D;&quot;username&quot; class&#x3D;&quot;form-control&quot;
+          placeholder&#x3D;&quot;Username&quot; required&#x3D;&quot;required&quot; name&#x3D;&quot;account&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-group col-10&quot;&gt;
+        &lt;label for&#x3D;&quot;password&quot;&gt;Change your password&lt;/label&gt;
+        &lt;input type&#x3D;&quot;password&quot; id&#x3D;&quot;password&quot; [(ngModel)]&#x3D;&quot;account.password&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;Password&quot;
+          required&#x3D;&quot;required&quot; name&#x3D;&quot;password&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-group col-10&quot;&gt;
+        &lt;label for&#x3D;&quot;email&quot;&gt;Change your email&lt;/label&gt;
+        &lt;input type&#x3D;&quot;email&quot; id&#x3D;&quot;email&quot; [(ngModel)]&#x3D;&quot;account.email&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;Email&quot;
+          required&#x3D;&quot;required&quot; name&#x3D;&quot;email&quot;&gt;
+      &lt;/div&gt;
+      &lt;div *ngIf&#x3D;&quot;user&quot;&gt;
+        &lt;div class&#x3D;&quot;form-group col-10&quot;&gt;
+          &lt;label for&#x3D;&quot;firstname&quot;&gt;Change your first name&lt;/label&gt;
+          &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;firstname&quot; [(ngModel)]&#x3D;&quot;user.firstname&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;First name&quot;
+            required&#x3D;&quot;required&quot; name&#x3D;&quot;firstname&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;form-group col-10&quot;&gt;
+          &lt;label for&#x3D;&quot;lastname&quot;&gt;Change your last name&lt;/label&gt;
+          &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;lastname&quot; [(ngModel)]&#x3D;&quot;user.lastname&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;Last name&quot;
+            required&#x3D;&quot;required&quot; name&#x3D;&quot;lastname&quot;&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;d-flex flex-column bd-highlight mb-3&quot;&gt;
+        &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary btn-block&quot; (click)&#x3D;&quot;saveAccount()&quot;&gt;Save&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
                 <p class="comment">
                     <code>./account.component.css</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss"></code></pre>
+                <pre class="line-numbers"><code class="language-scss">.login-form {
+    width: 500px;
+    margin: 50px auto;
+}
+.login-form form {
+    margin-bottom: 15px;
+    background: #f7f7f7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.login-form h2 {
+    margin: 0 0 15px;
+}
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+.btn {        
+    font-size: 15px;
+    font-weight: bold;
+}</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -257,8 +784,8 @@ export class AccountComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><h2>Accounts</h2><p>  account works!</p></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountComponent', 'selector': 'app-account'},{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogPostComponent', 'selector': 'app-blogpost'},{'name': 'BlogsComponent', 'selector': 'app-blogs'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DeveloperComponent', 'selector': 'app-developer'},{'name': 'HomeComponent', 'selector': 'app-home'}];
+        var COMPONENT_TEMPLATE = '<div><h2>Accounts</h2><p>  account works!</p><h2>Account List</h2><div *ngIf="account">  <div class="login-form col-8">    <form>      <h2 class="text-center">Change your profile information</h2>      <div class="form-group col-10">        <label for="username">Change your user name</label>        <input class="input-sm" type="text" [(ngModel)]="account.username" id="username" class="form-control"          placeholder="Username" required="required" name="account">      </div>      <div class="form-group col-10">        <label for="password">Change your password</label>        <input type="password" id="password" [(ngModel)]="account.password" class="form-control" placeholder="Password"          required="required" name="password">      </div>      <div class="form-group col-10">        <label for="email">Change your email</label>        <input type="email" id="email" [(ngModel)]="account.email" class="form-control" placeholder="Email"          required="required" name="email">      </div>      <div *ngIf="user">        <div class="form-group col-10">          <label for="firstname">Change your first name</label>          <input type="text" id="firstname" [(ngModel)]="user.firstname" class="form-control" placeholder="First name"            required="required" name="firstname">        </div>        <div class="form-group col-10">          <label for="lastname">Change your last name</label>          <input type="text" id="lastname" [(ngModel)]="user.lastname" class="form-control" placeholder="Last name"            required="required" name="lastname">        </div>      </div>      <div class="d-flex flex-column bd-highlight mb-3">        <button type="submit" class="btn btn-primary btn-block" (click)="saveAccount()">Save</button>      </div>    </form>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountComponent', 'selector': 'app-account'},{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AddBlogComponent', 'selector': 'app-add-blog'},{'name': 'AddBlogPostComponent', 'selector': 'app-add-blog-post'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogPostComponent', 'selector': 'app-blogpost'},{'name': 'BlogsComponent', 'selector': 'app-blogs'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DeveloperComponent', 'selector': 'app-developer'},{'name': 'HomeComponent', 'selector': 'app-home'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'AccountComponent'};
 </script>

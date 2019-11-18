@@ -7,13 +7,21 @@
 <h2>Your Blogs</h2>
 
 <div class="blogs" *ngIf="blogs">
-    <ul class="list-group">
-  <div *ngFor="let blog of blogs">
-      <li class="list-group-item d-flex justify-content-center"> <a routerLink="blog/{{blog.blogId}}">{{blog.blogTitle}}</a></li>
-  </div>
-</ul>
+  <ul class="list-group">
+    <div *ngFor="let blog of blogs">
+      <li class="list-group-item d-flex justify-content-center">
+        <a routerLink="blog/{{ blog.blogId }}">{{ blog.blogTitle }}</a>
+      </li>
+    </div>
+  </ul>
 </div>
-  
+
 <div>
-    <button id="addButton" (click)="router.navigate(['blogs/addBlog']);" class="btn btn-primary">Add Blog</button>
-  </div>
+  <button
+    id="addButton"
+    (click)="router.navigate(['blogs/addBlog'])"
+    class="btn btn-primary"
+  >
+    Add Blog
+  </button>
+</div>

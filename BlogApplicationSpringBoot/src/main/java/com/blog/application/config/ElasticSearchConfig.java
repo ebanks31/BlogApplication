@@ -43,20 +43,22 @@ public class ElasticSearchConfig {
 	@SuppressWarnings("resource")
 	@Bean
 	public Client client() {
-		TransportClient client = null;
+		TransportClient foundClient = null;
 		LOGGER.info("esHost: {}", esHost);
 		LOGGER.info("esPort: {}", esPort);
 		LOGGER.info("esClusterName: {}", esClusterName);
 
 		try {
 			Settings settings = Settings.builder().put("cluster.name", esClusterName).build();
-			client = new PreBuiltTransportClient(settings)
-					.addTransportAddress(new TransportAddress(InetAddress.getByName(esHost), esPort));
+			try (TransportClient client = new PreBuiltTransportClient(settings)
+					.addTransportAddress(new TransportAddress(InetAddress.getByName(esHost), esPort))) {
+				foundClient = client;
+			}
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception: {}", e.getMessage());
 		}
 
-		return client;
+		return foundClient;
 	}
 
 	/**

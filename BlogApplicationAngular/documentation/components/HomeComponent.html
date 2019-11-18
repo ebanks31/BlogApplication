@@ -64,6 +64,13 @@
     <code>src/app/home/home.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component</p>
+
+    </p>
 
 
     <p class="comment">
@@ -156,7 +163,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/home/home.component.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/home/home.component.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -195,14 +202,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">src/app/home/home.component.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="17"
+                            class="link-to-prism">src/app/home/home.component.ts:17</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>on init</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -220,6 +229,9 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 
+/**
+ * Component
+ */
 @Component({
   selector: &#x27;app-home&#x27;,
   templateUrl: &#x27;./home.component.html&#x27;,
@@ -228,10 +240,11 @@
 export class HomeComponent implements OnInit {
 
   constructor() { }
-
+  /**
+   * on init
+   */
   ngOnInit() {
   }
-
 }
 </code></pre>
     </div>
@@ -276,7 +289,7 @@ export class HomeComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><p>  home works!</p></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountComponent', 'selector': 'app-account'},{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogPostComponent', 'selector': 'app-blogpost'},{'name': 'BlogsComponent', 'selector': 'app-blogs'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DeveloperComponent', 'selector': 'app-developer'},{'name': 'HomeComponent', 'selector': 'app-home'}];
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountComponent', 'selector': 'app-account'},{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AddBlogComponent', 'selector': 'app-add-blog'},{'name': 'AddBlogPostComponent', 'selector': 'app-add-blog-post'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogPostComponent', 'selector': 'app-blogpost'},{'name': 'BlogsComponent', 'selector': 'app-blogs'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DeveloperComponent', 'selector': 'app-developer'},{'name': 'HomeComponent', 'selector': 'app-home'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
 </script>

@@ -42,7 +42,7 @@ import io.swagger.annotations.ApiResponses;
 public class ElasticSearchRestController {
 
 	/** The logger. */
-	private final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchRestController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchRestController.class);
 
 	/** The account service. */
 	@Autowired
@@ -85,10 +85,12 @@ public class ElasticSearchRestController {
 				.doc(jsonBuilder().startObject().field(Constants.BLOG_DESCRIPTION, "test").endObject());
 		try {
 			UpdateResponse updateResponse = client.update(updateRequest).get();
-			System.out.println(updateResponse.status());
+			LOGGER.info("updateResponse.status(): {}", updateResponse.status());
 			return updateResponse.status().toString();
 		} catch (InterruptedException | ExecutionException e) {
-			System.out.println(e);
+			LOGGER.warn("Interrupted!", e);
+			// Restore interrupted state...
+			Thread.currentThread().interrupt();
 		}
 		return "Exception";
 	}
@@ -105,7 +107,7 @@ public class ElasticSearchRestController {
 				.setSource(jsonBuilder().startObject().field(Constants.BLOG_TITLE, blog.getBlogTitle())
 						.field(Constants.BLOG_DESCRIPTION, blog.getBlogDescription()).endObject())
 				.get();
-		System.out.println("response id:" + response.getId());
+		LOGGER.info("response.getId(): {}", response.getId());
 		return response.getResult().toString();
 	}
 }

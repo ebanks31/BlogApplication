@@ -59,6 +59,13 @@
             <code>src/app/account.service.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Injectable</p>
+
+            </p>
 
 
 
@@ -130,7 +137,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/account.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/account.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -195,17 +202,25 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="24"
-                            class="link-to-prism">src/app/account.service.ts:24</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">src/app/account.service.ts:31</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Gets accounts</p>
+</div>
 
+                    <div>
+                    </div>
                     <div class="io-description">
                         <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>accounts </p>
 
                     </div>
                 </td>
@@ -227,21 +242,23 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getAccountsById(id)</code>
+<code>getAccountsById(accountId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">src/app/account.service.ts:33</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">src/app/account.service.ts:45</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Gets accounts by id</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -249,12 +266,16 @@
                             <thead>
                                 <tr>
                                     <td>Name</td>
+                                    <td>Type</td>
                                     <td>Optional</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>id</td>
+                                    <td>accountId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
 
                                     <td>
                                         No
@@ -272,7 +293,8 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>accounts by id </p>
+
                     </div>
                 </td>
             </tr>
@@ -309,7 +331,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/account.service.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/account.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -341,7 +363,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/account.service.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/account.service.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -373,7 +395,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/account.service.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/account.service.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -400,7 +422,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/account.service.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/account.service.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -427,7 +449,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/account.service.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/account.service.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -445,46 +467,60 @@ import { HttpClient } from &#x27;@angular/common/http&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 import { HttpHeaders, HttpParams } from &#x27;@angular/common/http&#x27;;
 
+/**
+ * Injectable
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export class AccountService {
-getAccountUrl &#x3D; &quot;http://localhost:9100/accounts&quot;;
-getAccountByIdUrl &#x3D; &quot;http://localhost:9100/accounts/&quot;;
-headers:any;
-id:any;
-auth &#x3D; &quot;user:password&quot;;
+  getAccountUrl &#x3D; &quot;http://localhost:9100/accounts&quot;;
+  getAccountByIdUrl &#x3D; &quot;http://localhost:9100/accounts/&quot;;
+  headers: any;
+  id: any;
+  auth &#x3D; &quot;user:password&quot;;
 
   constructor(private http: HttpClient) {
-	    this.headers &#x3D; new HttpHeaders({      
+    this.headers &#x3D; new HttpHeaders({
       &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
       &#x27;Content-Encoding&#x27;: &#x27;none&#x27;,
       &#x27;Authorization&#x27;: &#x27;Basic &#x27; + btoa(this.auth)
     });
   }
 
+  /**
+   * Gets accounts
+   * @returns accounts 
+   */
   getAccounts(): Observable&lt;any&gt; {
-	console.log(&quot;Hello1&quot;);
-	console.log(&quot;headers: &quot; + this.headers);
-    console.log(&quot;url: &quot; + this.getAccountUrl);
-	console.log(&quot;this.http.get(url)&quot; + this.http.get(this.getAccountUrl));
-	return this.http.get(this.getAccountUrl,{responseType: &#x27;json&#x27;});
-  //return this.http.get(this.url, {responseType: &#x27;text&#x27;}, this.headers);
-  }
-
-  getAccountsById(id): Observable&lt;any&gt; {
     console.log(&quot;Hello1&quot;);
     console.log(&quot;headers: &quot; + this.headers);
-    console.log(&quot;url: &quot; + this.getAccountByIdUrl);
-    let getAccountByIdUrlFinal &#x3D; this.getAccountByIdUrl + this.id;
-    console.log(&quot;url: &quot; + this.getAccountByIdUrl);
-
-    console.log(&quot;this.http.get(url)&quot; + this.http.get(this.getAccountByIdUrl));
-    return this.http.get(getAccountByIdUrlFinal,{responseType: &#x27;json&#x27;});
+    console.log(&quot;url: &quot; + this.getAccountUrl);
+    console.log(&quot;this.http.get(url)&quot; + this.http.get(this.getAccountUrl));
+    return this.http.get(this.getAccountUrl, { responseType: &#x27;json&#x27; });
     //return this.http.get(this.url, {responseType: &#x27;text&#x27;}, this.headers);
-    }
- 
   }
+
+  /**
+   * Gets accounts by id
+   * @param accountId 
+   * @returns accounts by id 
+   */
+  getAccountsById(accountId: number): Observable&lt;any&gt; {
+    console.log(&quot;Hello1&quot;);
+    console.log(&quot;headers: &quot; + this.headers);
+    console.log(&quot;this.getAccountByIdUrl: &quot; + this.getAccountByIdUrl);
+    console.log(&quot;accountId: &quot; + accountId);
+    let getAccountByIdUrlFinal &#x3D; this.getAccountByIdUrl + String(accountId);
+    console.log(&quot;getAccountByIdUrlFinal: &quot; + getAccountByIdUrlFinal);
+
+
+    console.log(&quot;this.http.get(url)&quot; + this.http.get(getAccountByIdUrlFinal));
+    return this.http.get(getAccountByIdUrlFinal, { responseType: &#x27;json&#x27; });
+    //return this.http.get(this.url, {responseType: &#x27;text&#x27;}, this.headers);
+  }
+
+}
 </code></pre>
     </div>
 

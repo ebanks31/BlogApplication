@@ -1,21 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 /**
  * Component
  */
 @Component({
-  selector: 'app-developer',
-  templateUrl: './developer.component.html',
-  styleUrls: ['./developer.component.css']
+  selector: "app-developer",
+  templateUrl: "./developer.component.html",
+  styleUrls: ["./developer.component.css"]
 })
 export class DeveloperComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   /**
    * on init
    */
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

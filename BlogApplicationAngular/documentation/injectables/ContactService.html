@@ -27,93 +27,81 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content module">
+               <div class="content injectable">
                    <div class="content-data">
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-    <li>Modules</li>
-    <li>AppRoutingModule</li>
+  <li>Injectables</li>
+  <li>ContactService</li>
 </ol>
 
-
 <ul class="nav nav-tabs" role="tablist">
-    <li  class="active" >
-        <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
-    </li>
-    <li >
-        <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
-    </li>
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
 </ul>
 
 <div class="tab-content">
     <div class="tab-pane fade active in" id="c-info">
-
         <p class="comment">
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/app-routing.module.ts</code>
+            <code>src/contact.service.ts</code>
         </p>
 
 
 
 
-        <div class="container-fluid module">
-            <div class="row">
-            </div>
-        </div>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/contact.service.ts:6</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
 
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
-import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
-import { CommonModule } from &#x27;@angular/common&#x27;;
-import { AccountComponent } from &#x27;./account/account.component&#x27;;
-import { AccountsComponent } from &#x27;./accounts/accounts.component&#x27;;
-import { BlogComponent } from &#x27;./blog/blog.component&#x27;;
-import { BlogsComponent } from &#x27;./blogs/blogs.component&#x27;;
-import { BlogPostComponent } from &#x27;./blogpost/blogpost.component&#x27;;
-import { AboutComponent } from &#x27;./about/about.component&#x27;;
-import { ContactComponent } from &#x27;./contact/contact.component&#x27;;
-import { AddBlogComponent } from &#x27;./add-blog/add-blog.component&#x27;;
-import { AddBlogPostComponent } from &#x27;./add-blog-post/add-blog-post.component&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 
-const routes: Routes &#x3D; [
-  { path: &#x27;&#x27;, redirectTo: &#x27;/&#x27;, pathMatch: &#x27;full&#x27; },
-  { path: &#x27;home&#x27;, redirectTo: &#x27;/&#x27;, pathMatch: &#x27;full&#x27; },
-  { path: &#x27;account&#x27;, component: AccountComponent },
-  { path: &#x27;accounts/:id&#x27;, component: AccountComponent },
-  { path: &#x27;accounts&#x27;, component: AccountsComponent, pathMatch: &#x27;full&#x27; },
-  { path: &#x27;blogs&#x27;, component: BlogsComponent },
-  { path: &#x27;blogs/blog/:id&#x27;, component: BlogComponent },
-  { path: &#x27;blogs/blog/:blogId/posts/:blogPostId&#x27;, component: BlogPostComponent, pathMatch: &#x27;full&#x27;  },
-  { path: &#x27;blog/:id&#x27;, component: BlogComponent },
-  { path: &#x27;about&#x27;, component: AboutComponent },
-  { path: &#x27;contact&#x27;, component: ContactComponent },
-  { path: &#x27;blogs/addBlog&#x27;, component: AddBlogComponent },
-  { path: &#x27;blogs/blog/:blogId/posts/post/add&#x27;, component: AddBlogPostComponent }
-];
-
-@NgModule({
-  declarations: [],
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [ RouterModule ]
+@Injectable({
+  providedIn: &#x27;root&#x27;
 })
+export class ContactService {
 
-export class AppRoutingModule { }
+constructor() { }
+
+}
 </code></pre>
     </div>
+
 </div>
-
-
-
 
 
 
@@ -141,8 +129,8 @@ export class AppRoutingModule { }
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'module';
-            var COMPODOC_CURRENT_PAGE_URL = 'AppRoutingModule.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ContactService.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

@@ -31,7 +31,7 @@ import springfox.documentation.spi.service.contexts.OperationContext;
 @ConditionalOnProperty(name = "dirty.fix.enabled", havingValue = "true")
 @Profile("!test")
 public class SwaggerFixConfig {
-	private final static Logger LOGGER = LoggerFactory.getLogger(SwaggerConfig.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SwaggerConfig.class);
 
 	/**
 	 * Because of the new Actuator implementation in Spring Boot 2, all actuator
@@ -118,7 +118,7 @@ public class SwaggerFixConfig {
 		 * @param context the context
 		 * @throws Exception
 		 */
-		private void removeBodyParametersForReadMethods(final OperationContext context) throws Exception {
+		private void removeBodyParametersForReadMethods(final OperationContext context) throws BlogException {
 			if (HttpMethod.GET.equals(context.httpMethod()) || HttpMethod.HEAD.equals(context.httpMethod())) {
 				final List<Parameter> parameters = getParameters(context);
 				parameters.removeIf(param -> "body".equals(param.getName()));

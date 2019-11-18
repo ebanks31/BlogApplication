@@ -55,13 +55,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/AppModule.html" data-type="entity-link">AppModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-AppModule-d5bbfc987494ac34de83f377dc9b5e23"' : 'data-target="#xs-components-links-module-AppModule-d5bbfc987494ac34de83f377dc9b5e23"' }>
+                                            'data-target="#components-links-module-AppModule-1107328e8abb6bb57bb3f540aaca5b15"' : 'data-target="#xs-components-links-module-AppModule-1107328e8abb6bb57bb3f540aaca5b15"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AppModule-d5bbfc987494ac34de83f377dc9b5e23"' :
-                                            'id="xs-components-links-module-AppModule-d5bbfc987494ac34de83f377dc9b5e23"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AppModule-1107328e8abb6bb57bb3f540aaca5b15"' :
+                                            'id="xs-components-links-module-AppModule-1107328e8abb6bb57bb3f540aaca5b15"' }>
                                             <li class="link">
                                                 <a href="components/AboutComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">AboutComponent</a>
@@ -73,6 +73,14 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             <li class="link">
                                                 <a href="components/AccountsComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">AccountsComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/AddBlogComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">AddBlogComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/AddBlogPostComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">AddBlogPostComponent</a>
                                             </li>
                                             <li class="link">
                                                 <a href="components/AppComponent.html"
@@ -130,6 +138,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <li class="link">
                                 <a href="classes/BlogPostModel.html" data-type="entity-link">BlogPostModel</a>
                             </li>
+                            <li class="link">
+                                <a href="classes/UserModel.html" data-type="entity-link">UserModel</a>
+                            </li>
                         </ul>
                     </li>
                         <li class="chapter">
@@ -151,6 +162,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="injectables/CommentService.html" data-type="entity-link">CommentService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/ContactService.html" data-type="entity-link">ContactService</a>
                                 </li>
                                 <li class="link">
                                     <a href="injectables/UserService.html" data-type="entity-link">UserService</a>

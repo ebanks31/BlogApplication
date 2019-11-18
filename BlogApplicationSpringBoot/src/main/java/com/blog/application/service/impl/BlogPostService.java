@@ -1,6 +1,7 @@
 package com.blog.application.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -111,7 +112,7 @@ public class BlogPostService implements IBlogPostService {
 			BlogPost retrievedBlogPost = repository.findByBlogPostId(blogPostId);
 			retrievedBlogPost.setBlogId(blogId);
 
-			if (retrievedBlogPost != null) {
+			if (retrievedBlogPost != null || !Objects.isNull(retrievedBlogPost)) {
 				LOGGER.info("retrievedBlogPost {}", retrievedBlogPost);
 				LOGGER.info("blogpost.getVersion() {}", blogpost.getVersion());
 

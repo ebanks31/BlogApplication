@@ -64,6 +64,13 @@
     <code>src/app/contact/contact.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component</p>
+
+    </p>
 
 
     <p class="comment">
@@ -185,7 +192,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/contact/contact.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/contact/contact.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -224,14 +231,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/app/contact/contact.component.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="26"
+                            class="link-to-prism">src/app/contact/contact.component.ts:26</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>on init</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -263,14 +272,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="30"
-                            class="link-to-prism">src/app/contact/contact.component.ts:30</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/app/contact/contact.component.ts:40</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Determines whether change on</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -337,7 +348,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/contact/contact.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/contact/contact.component.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -373,7 +384,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/contact/contact.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/contact/contact.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -405,7 +416,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/contact/contact.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/contact/contact.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -432,7 +443,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/contact/contact.component.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/contact/contact.component.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -464,7 +475,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/contact/contact.component.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/contact/contact.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -479,6 +490,9 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
 
+/**
+ * Component
+ */
 @Component({
   selector: &#x27;app-contact&#x27;,
   templateUrl: &#x27;./contact.component.html&#x27;,
@@ -496,49 +510,36 @@ export class ContactComponent implements OnInit {
     this.mycontent &#x3D; &#x60;&lt;p&gt;My html content&lt;/p&gt;&#x60;;
   }
 
+  /**
+   * on init
+   */
   ngOnInit() {
     this.ckeConfig &#x3D; {
       allowedContent: false,
       extraPlugins: &#x27;divarea&#x27;,
-      forcePasteAsPlainText: true,   
+      forcePasteAsPlainText: true,
       toolbar: &#x27;Basic&#x27;,
       toolbar_Basic: [&#x27;Bold&#x27;, &#x27;Italic&#x27;] /* you can add more tools to the list */
     };
   }
 
+  /**
+   * Determines whether change on
+   * @param $event 
+   */
   onChange($event: any): void {
     console.log(&quot;onChange&quot;);
     //this.log +&#x3D; new Date() + &quot;&lt;br /&gt;&quot;;
   }
-
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;script src&#x3D;&quot;https://cdn.ckeditor.com/4.9.2/full-all/ckeditor.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt; CKEDITOR.config.forcePasteAsPlainText &#x3D; true; &lt;/script&gt;
-
-&lt;p&gt;
-  contact works!
-&lt;/p&gt;
-
-&lt;form role&#x3D;&quot;form&quot; #myForm&#x3D;&quot;ngForm&quot; accept-charset&#x3D;&quot;UTF-8&quot; novalidate&gt;
-  &lt;div class&#x3D;&quot;form-group has-feedback&quot; 
-        [ngClass]&#x3D;&quot;{ &#x27;has-error&#x27;: myckeditor.invalid &amp;&amp; myckeditor.touched }&quot;&gt;
-    &lt;ckeditor [(ngModel)]&#x3D;&quot;mycontent&quot; 
-              #myckeditor&#x3D;&quot;ngModel&quot;
-              name&#x3D;&quot;myckeditor&quot;
-              required
-              [config]&#x3D;&quot;ckeConfig&quot; 
-              debounce&#x3D;&quot;500&quot; 
-              (change)&#x3D;&quot;onChange($event)&quot;&gt;
-    &lt;/ckeditor&gt;
-    &lt;div *ngIf&#x3D;&quot;myckeditor.invalid &amp;&amp; myckeditor.touched&quot; class&#x3D;&quot;help-block&quot;&gt;Required field.&lt;/div&gt;
-  &lt;/div&gt;
-  &lt;button [disabled]&#x3D;&quot;myForm.invalid&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;Save&lt;/button&gt;
-  &lt;/form&gt;
-  &lt;div [innerHTML]&#x3D;&quot;mycontent&quot;&gt;&lt;/div&gt;</code></pre>
+        <pre class="line-numbers"><code class="language-html">&lt;p&gt;
+  contact works1!
+  This is the contact page.
+&lt;/p&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -573,8 +574,8 @@ export class ContactComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><script src="https://cdn.ckeditor.com/4.9.2/full-all/ckeditor.js"></script><script> CKEDITOR.config.forcePasteAsPlainText = true; </script><p>  contact works!</p><form role="form" #myForm="ngForm" accept-charset="UTF-8" novalidate>  <div class="form-group has-feedback"         [ngClass]="{ \'has-error\': myckeditor.invalid && myckeditor.touched }">    <ckeditor [(ngModel)]="mycontent"               #myckeditor="ngModel"              name="myckeditor"              required              [config]="ckeConfig"               debounce="500"               (change)="onChange($event)">    </ckeditor>    <div *ngIf="myckeditor.invalid && myckeditor.touched" class="help-block">Required field.</div>  </div>  <button [disabled]="myForm.invalid" class="btn btn-primary">Save</button>  </form>  <div [innerHTML]="mycontent"></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountComponent', 'selector': 'app-account'},{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogPostComponent', 'selector': 'app-blogpost'},{'name': 'BlogsComponent', 'selector': 'app-blogs'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DeveloperComponent', 'selector': 'app-developer'},{'name': 'HomeComponent', 'selector': 'app-home'}];
+        var COMPONENT_TEMPLATE = '<div><p>  contact works1!  This is the contact page.</p></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountComponent', 'selector': 'app-account'},{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AddBlogComponent', 'selector': 'app-add-blog'},{'name': 'AddBlogPostComponent', 'selector': 'app-add-blog-post'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogPostComponent', 'selector': 'app-blogpost'},{'name': 'BlogsComponent', 'selector': 'app-blogs'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DeveloperComponent', 'selector': 'app-developer'},{'name': 'HomeComponent', 'selector': 'app-home'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ContactComponent'};
 </script>

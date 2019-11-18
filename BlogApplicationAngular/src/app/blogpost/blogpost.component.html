@@ -3,49 +3,92 @@
 </p>
 
 <div *ngIf="blogPost">
-<h2>{{blogPost.blogPostTitle}}</h2>
+  <h2>{{ blogPost.blogPostTitle }}</h2>
 
-<div *ngIf="showTextFormattingToolbar">
-<form>
-    <div class="form-group container">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="text" class="form-control" id="blogPostId" [(ngModel)]="blogPost.blogPostTitle" aria-describedby="emailHelp" placeholder="Enter the blog post title" name ="blogPostTitle">
-    </div>
-  </form>
-</div>
+  <div *ngIf="showTextFormattingToolbar">
+    <form>
+      <div class="form-group container">
+        <label for="exampleInputEmail1">Email address</label>
+        <input
+          type="text"
+          class="form-control"
+          id="blogPostId"
+          [(ngModel)]="blogPost.blogPostTitle"
+          aria-describedby="emailHelp"
+          placeholder="Enter the blog post title"
+          name="blogPostTitle"
+        />
+      </div>
+    </form>
+  </div>
 
-<div class="blogPost border" *ngIf="blogPost">
-    <h2>{{blogPost.blogPostBody}}</h2>
-    </div>
-    
-<div class="container" *ngIf="!showTextFormattingToolbar" [innerHTML]="blogPostMessage">
+  <div class="blogPost border" *ngIf="blogPost">
+    <h2>{{ blogPost.blogPostBody }}</h2>
+  </div>
+
+  <div
+    class="container"
+    *ngIf="!showTextFormattingToolbar"
+    [innerHTML]="blogPostMessage"
+  >
     <div *ngIf="blogPost">
-        <h2>{{blogPost.blogPostBody}}</h2>
-        </div>
-</div>
+      <h2>{{ blogPost.blogPostBody }}</h2>
+    </div>
+  </div>
 
-<div *ngIf="showTextFormattingToolbar">
-    <form id="textFormattingToolbarForm" role="form" #myForm="ngForm" class="container" accept-charset="UTF-8" novalidate>
-      <div id="textFormattingToolbar" class="form-group has-feedback"
-        [ngClass]="{ 'has-error': myckeditor.invalid && myckeditor.touched }">
-        <ckeditor [(ngModel)]="blogPost.blogPostBody" #myckeditor="ngModel" name="myckeditor" required [config]="ckeConfig"
-          debounce="500" (change)="onChange($event)">
+  <div *ngIf="showTextFormattingToolbar">
+    <form
+      id="textFormattingToolbarForm"
+      role="form"
+      #myForm="ngForm"
+      class="container"
+      accept-charset="UTF-8"
+      novalidate
+    >
+      <div
+        id="textFormattingToolbar"
+        class="form-group has-feedback"
+        [ngClass]="{ 'has-error': myckeditor.invalid && myckeditor.touched }"
+      >
+        <ckeditor
+          [(ngModel)]="blogPost.blogPostBody"
+          #myckeditor="ngModel"
+          name="myckeditor"
+          required
+          [config]="ckeConfig"
+          debounce="500"
+          (change)="onChange($event)"
+        >
         </ckeditor>
-        <div *ngIf="myckeditor.invalid && myckeditor.touched" class="help-block">Required field.</div>
+        <div
+          *ngIf="myckeditor.invalid && myckeditor.touched"
+          class="help-block"
+        >
+          Required field.
+        </div>
       </div>
     </form>
   </div>
 </div>
-  
-  <div *ngIf="!showTextFormattingToolbar">
-    <button id="editButton" (click)="editPost()" class="btn btn-primary">Edit</button>
-  </div>
-  
-  <div *ngIf="showTextFormattingToolbar">
-    <button id="saveButton" (click)="savePost()" class="btn btn-primary">Save</button>
-  </div>
 
-  <div *ngIf="saveButtonClick" id="saveButtonAlert" [@changeDivSize]=currentState class="alert alert-success container" role="alert">
-      The post has been successfully saved.
-    </div>
-    
+<div *ngIf="!showTextFormattingToolbar">
+  <button id="editButton" (click)="editPost()" class="btn btn-primary">
+    Edit
+  </button>
+</div>
+
+<div *ngIf="showTextFormattingToolbar">
+  <button id="saveButton" (click)="savePost()" class="btn btn-primary">
+    Save
+  </button>
+</div>
+
+<div
+  *ngIf="saveButtonClick"
+  id="saveButtonAlert"
+  [@changeDivSize]="currentState"
+  class="alert alert-success container"
+  role="alert"
+>
+  The post has been successfully saved.
+</div>

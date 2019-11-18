@@ -6,8 +6,15 @@
   <form>
     <div class="form-group container">
       <label for="blogTitle">Enter your Blog post title:</label>
-      <input type="text" class="form-control" id="blogTitle" [(ngModel)]="blogTitle" aria-describedby="emailHelp"
-        placeholder="Enter the blog title" name="blogTitle">
+      <input
+        type="text"
+        class="form-control"
+        id="blogTitle"
+        [(ngModel)]="blogTitle"
+        aria-describedby="emailHelp"
+        placeholder="Enter the blog title"
+        name="blogTitle"
+      />
     </div>
   </form>
 </div>
@@ -15,17 +22,33 @@
 <div>
   <form>
     <div class="form-group container">
-      <label for="blogDescription">Enter your blog description: (Optional)</label>
-      <input type="text" class="form-control" id="blogDescription" [(ngModel)]="blogDescription"
-        aria-describedby="emailHelp" placeholder="Enter the blog description" name="blogDescription">
+      <label for="blogDescription"
+        >Enter your blog description: (Optional)</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="blogDescription"
+        [(ngModel)]="blogDescription"
+        aria-describedby="emailHelp"
+        placeholder="Enter the blog description"
+        name="blogDescription"
+      />
     </div>
   </form>
 </div>
 <div>
-  <button id="saveButton" (click)="addBlog()" class="btn btn-primary">Save</button>
+  <button id="saveButton" (click)="addBlog()" class="btn btn-primary">
+    Save
+  </button>
 </div>
 
-<div *ngIf="saveButtonClick" id="saveButtonAlert" [@changeDivSize]=currentState class="alert alert-success container"
-  role="alert">
+<div
+  *ngIf="saveButtonClick"
+  id="saveButtonAlert"
+  [@changeDivSize]="currentState"
+  class="alert alert-success container"
+  role="alert"
+>
   The post has been successfully saved.
 </div>

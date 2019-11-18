@@ -64,6 +64,13 @@
     <code>src/app/accounts/accounts.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component</p>
+
+    </p>
 
 
     <p class="comment">
@@ -176,7 +183,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/accounts/accounts.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/accounts/accounts.component.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -245,14 +252,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">src/app/accounts/accounts.component.ts:28</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/app/accounts/accounts.component.ts:40</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Converts to json</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -315,14 +324,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/app/accounts/accounts.component.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="29"
+                            class="link-to-prism">src/app/accounts/accounts.component.ts:29</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Gets accounts</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -354,14 +365,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="14"
-                            class="link-to-prism">src/app/accounts/accounts.component.ts:14</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="20"
+                            class="link-to-prism">src/app/accounts/accounts.component.ts:20</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>on init</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -397,7 +410,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/accounts/accounts.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/accounts/accounts.component.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -414,6 +427,9 @@
 import { AccountService } from &#x27;../account.service&#x27;;
 import { AccountModel } from &#x27;../account.component&#x27;;
 
+/**
+ * Component
+ */
 @Component({
   selector: &#x27;app-accounts&#x27;,
   templateUrl: &#x27;./accounts.component.html&#x27;,
@@ -423,24 +439,33 @@ export class AccountsComponent implements OnInit {
   accounts: AccountModel[];
   constructor(private accountService: AccountService) { }
 
+  /**
+   * on init
+   */
   ngOnInit() {
     this.getAccounts();
     console.log(&quot;this.v: &quot; + this.accounts)
 
   }
-  
+
+  /**
+   * Gets accounts
+   */
   getAccounts(): void {
     this.accountService.getAccounts()
-        .subscribe(data &#x3D;&gt; this.accounts &#x3D; data,
-          error &#x3D;&gt; console.log(error))
-          console.log(&quot;22222 &quot; + this.accounts)
-
+      .subscribe(data &#x3D;&gt; this.accounts &#x3D; data,
+        err &#x3D;&gt; console.log(err),() &#x3D;&gt; console.log(&#x27;Got all accounts&#x27;))
   }
 
+  /**
+   * Converts to json
+   * @param account 
+   * @returns  
+   */
   ConvertToJSON(account: any) {
     console.log(&quot;account &quot; + account);
     return JSON.parse(account);
-}
+  }
 }
 </code></pre>
     </div>
@@ -456,39 +481,61 @@ export class AccountsComponent implements OnInit {
 
 &lt;h2&gt;Account List&lt;/h2&gt;
 
-&lt;div *ngFor&#x3D;&quot;let account of accounts&quot;&gt;
-  &lt;div&gt;Hello there&lt;/div&gt;
-  &lt;ul&gt;
-      &lt;li&gt;{{account.accountId}}&lt;/li&gt;
-      &lt;li&gt;{{account.accountCreatedDate}}&lt;/li&gt;
-      &lt;li&gt;{{account.accountTerminatedDate}}&lt;/li&gt;
-      &lt;li&gt;{{account.status}}&lt;/li&gt;
-      &lt;li&gt;{{account.role}}&lt;/li&gt;
-      &lt;li&gt;{{account.lastUpdatedDate}}&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/div&gt;
-
-&lt;!-- Example single danger button --&gt;
-&lt;div class&#x3D;&quot;btn-group&quot;&gt;
-    &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-danger dropdown-toggle&quot; data-toggle&#x3D;&quot;dropdown&quot; aria-haspopup&#x3D;&quot;true&quot; aria-expanded&#x3D;&quot;false&quot;&gt;
-      Action
-    &lt;/button&gt;
-    &lt;div class&#x3D;&quot;dropdown-menu&quot;&gt;
-      &lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Action&lt;/a&gt;
-      &lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Another action&lt;/a&gt;
-      &lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Something else here&lt;/a&gt;
-      &lt;div class&#x3D;&quot;dropdown-divider&quot;&gt;&lt;/div&gt;
-      &lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Separated link&lt;/a&gt;
+&lt;div class&#x3D;&quot;login-form container&quot;&gt;
+  &lt;form method&#x3D;&quot;post&quot;&gt;
+    &lt;h2 class&#x3D;&quot;text-center&quot;&gt;Change your profile information&lt;/h2&gt;
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;label for&#x3D;&quot;username&quot;&gt;Change your user name&lt;/label&gt;
+      &lt;input class&#x3D;&quot;input-sm&quot; type&#x3D;&quot;text&quot; id&#x3D;&quot;username&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;Username&quot; required&#x3D;&quot;required&quot;&gt;
     &lt;/div&gt;
-  &lt;/div&gt;
-</code></pre>
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;label for&#x3D;&quot;password&quot;&gt;Change your password&lt;/label&gt;
+      &lt;input type&#x3D;&quot;password&quot; id&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;Password&quot; required&#x3D;&quot;required&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;label for&#x3D;&quot;email&quot;&gt;Change your email&lt;/label&gt;
+      &lt;input type&#x3D;&quot;email&quot; id&#x3D;&quot;email&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;Email&quot; required&#x3D;&quot;required&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;label for&#x3D;&quot;firstname&quot;&gt;Change your first name&lt;/label&gt;
+      &lt;input type&#x3D;&quot;email&quot; id&#x3D;&quot;firstname&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;First name&quot; required&#x3D;&quot;required&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;label for&#x3D;&quot;lastname&quot;&gt;Change your last name&lt;/label&gt;
+      &lt;input type&#x3D;&quot;email&quot; id&#x3D;&quot;lastname&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;Last name&quot; required&#x3D;&quot;required&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary btn-block&quot;&gt;Save&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
                 <p class="comment">
                     <code>./accounts.component.css</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss"></code></pre>
+                <pre class="line-numbers"><code class="language-scss">.login-form {
+    width: 340px;
+    margin: 50px auto;
+}
+.login-form form {
+    margin-bottom: 15px;
+    background: #f7f7f7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.login-form h2 {
+    margin: 0 0 15px;
+}
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+.btn {        
+    font-size: 15px;
+    font-weight: bold;
+}</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -516,8 +563,8 @@ export class AccountsComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><p>  {{accounts}}</p><p>  accounts work</p><h2>Account List</h2><div *ngFor="let account of accounts">  <div>Hello there</div>  <ul>      <li>{{account.accountId}}</li>      <li>{{account.accountCreatedDate}}</li>      <li>{{account.accountTerminatedDate}}</li>      <li>{{account.status}}</li>      <li>{{account.role}}</li>      <li>{{account.lastUpdatedDate}}</li>    </ul></div><!-- Example single danger button --><div class="btn-group">    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">      Action    </button>    <div class="dropdown-menu">      <a class="dropdown-item" href="#">Action</a>      <a class="dropdown-item" href="#">Another action</a>      <a class="dropdown-item" href="#">Something else here</a>      <div class="dropdown-divider"></div>      <a class="dropdown-item" href="#">Separated link</a>    </div>  </div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountComponent', 'selector': 'app-account'},{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogPostComponent', 'selector': 'app-blogpost'},{'name': 'BlogsComponent', 'selector': 'app-blogs'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DeveloperComponent', 'selector': 'app-developer'},{'name': 'HomeComponent', 'selector': 'app-home'}];
+        var COMPONENT_TEMPLATE = '<div><p>  {{accounts}}</p><p>  accounts work</p><h2>Account List</h2><div class="login-form container">  <form method="post">    <h2 class="text-center">Change your profile information</h2>    <div class="form-group">      <label for="username">Change your user name</label>      <input class="input-sm" type="text" id="username" class="form-control" placeholder="Username" required="required">    </div>    <div class="form-group">      <label for="password">Change your password</label>      <input type="password" id="password" class="form-control" placeholder="Password" required="required">    </div>    <div class="form-group">      <label for="email">Change your email</label>      <input type="email" id="email" class="form-control" placeholder="Email" required="required">    </div>    <div class="form-group">      <label for="firstname">Change your first name</label>      <input type="email" id="firstname" class="form-control" placeholder="First name" required="required">    </div>    <div class="form-group">      <label for="lastname">Change your last name</label>      <input type="email" id="lastname" class="form-control" placeholder="Last name" required="required">    </div>    <div class="form-group">      <button type="submit" class="btn btn-primary btn-block">Save</button>    </div>  </form></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AccountComponent', 'selector': 'app-account'},{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AddBlogComponent', 'selector': 'app-add-blog'},{'name': 'AddBlogPostComponent', 'selector': 'app-add-blog-post'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogPostComponent', 'selector': 'app-blogpost'},{'name': 'BlogsComponent', 'selector': 'app-blogs'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DeveloperComponent', 'selector': 'app-developer'},{'name': 'HomeComponent', 'selector': 'app-home'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'AccountsComponent'};
 </script>
