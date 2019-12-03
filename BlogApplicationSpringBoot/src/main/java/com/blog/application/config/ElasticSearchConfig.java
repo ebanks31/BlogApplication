@@ -1,25 +1,14 @@
 package com.blog.application.config;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.TransportAddress;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 /**
  * This class keeps track of the Elastic Search configurations.
  */
-@Configuration
-@EnableElasticsearchRepositories(basePackages = "com.blog.application.elasticsearch.repositories")
+//@Configuration
+//@EnableElasticsearchRepositories(basePackages = "com.blog.application.elasticsearch.repositories")
 public class ElasticSearchConfig {
 	private final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchConfig.class);
 
@@ -41,25 +30,20 @@ public class ElasticSearchConfig {
 	 * @return the client
 	 */
 	@SuppressWarnings("resource")
-	@Bean
-	public Client client() {
-		TransportClient foundClient = null;
-		LOGGER.info("esHost: {}", esHost);
-		LOGGER.info("esPort: {}", esPort);
-		LOGGER.info("esClusterName: {}", esClusterName);
-
-		try {
-			Settings settings = Settings.builder().put("cluster.name", esClusterName).build();
-			try (TransportClient client = new PreBuiltTransportClient(settings)
-					.addTransportAddress(new TransportAddress(InetAddress.getByName(esHost), esPort))) {
-				foundClient = client;
-			}
-		} catch (UnknownHostException e) {
-			LOGGER.error("Exception: {}", e.getMessage());
-		}
-
-		return foundClient;
-	}
+	/*
+	 * public Client client() { TransportClient foundClient = null;
+	 * LOGGER.info("esHost: {}", esHost); LOGGER.info("esPort: {}", esPort);
+	 * LOGGER.info("esClusterName: {}", esClusterName);
+	 * 
+	 * try { Settings settings = Settings.builder().put("cluster.name",
+	 * esClusterName).build(); try (TransportClient client = new
+	 * PreBuiltTransportClient(settings) .addTransportAddress(new
+	 * TransportAddress(InetAddress.getByName(esHost), esPort))) { foundClient =
+	 * client; } } catch (UnknownHostException e) { LOGGER.error("Exception: {}",
+	 * e.getMessage()); }
+	 * 
+	 * return foundClient; }
+	 */
 
 	/**
 	 * Gets the es host.

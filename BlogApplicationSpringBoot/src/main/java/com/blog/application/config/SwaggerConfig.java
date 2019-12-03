@@ -4,7 +4,6 @@ import java.util.Collections;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -27,9 +26,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 	private final Logger LOGGER = LoggerFactory.getLogger(SwaggerConfig.class);
 
-	@Value("${swagger.host}")
-	String host;
-
 	/**
 	 * Api.
 	 *
@@ -39,7 +35,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 	@Bean
 	public Docket apiProd() {
 		LOGGER.info("Setting up swagger 2");
-		LOGGER.info("host: {}", host);
 		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
 				.paths(PathSelectors.any()).build().apiInfo(metaData());
 	}

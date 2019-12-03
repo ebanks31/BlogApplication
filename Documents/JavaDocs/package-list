@@ -1,0 +1,14 @@
+com.blog.application
+com.blog.application.aspects
+com.blog.application.config
+com.blog.application.controllers
+com.blog.application.exception
+com.blog.application.filter
+com.blog.application.it
+com.blog.application.model
+com.blog.application.model.elasticsearch
+com.blog.application.repositories
+com.blog.application.service
+com.blog.application.service.impl
+com.blog.application.ut.controllers
+com.blog.application.utils

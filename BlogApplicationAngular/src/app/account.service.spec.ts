@@ -1,55 +1,64 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
-import { AccountService } from './account.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed, getTestBed } from "@angular/core/testing";
+import { AccountService } from "./account.service";
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from "@angular/common/http/testing";
 
-describe('AccountService', () => {
+describe("AccountService", () => {
   let injector: TestBed;
   let accountService: AccountService;
-  let httpMock: HttpTestingController;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [AccountService],
       imports: [HttpClientTestingModule]
-      })
-      .compileComponents();
-      injector = getTestBed();
-      accountService = injector.get(AccountService);
-      httpMock = injector.get(HttpTestingController);
+    }).compileComponents();
+    injector = getTestBed();
+    accountService = injector.get(AccountService);
+    // We inject our service (which imports the HttpClient) and the Test Controller
+    httpTestingController = TestBed.get(HttpTestingController);
+    accountService = TestBed.get(AccountService);
 
-      const req = httpMock.expectOne({ method: 'GET', url: 'http://localhost:9100/accounts' });
-      req.flush(dummyAccount);
-
+    // const req = httpMock.expectOne({ method: 'GET', url: 'http://localhost:9100/accounts' });
+    // req.flush(dummyAccount);
+    /*
       accountService.getAccounts().subscribe(users => {
         expect(users.length).toBe(1);
         expect(users).toEqual(dummyAccount);
-      });
+      });*/
   });
 
   const dummyAccount = [
-    { accountId: 1},
-    { accountCreatedDate: '2011-09-09' },
-    { accountTerminatedDate: '2011-09-09' },
-    { status: 'Active' },
-    { role: 'User' },
-    { lastUpdatedDate: '2011-09-09' },
+    { accountId: 1 },
+    { accountCreatedDate: "2011-09-09" },
+    { accountTerminatedDate: "2011-09-09" },
+    { status: "Active" },
+    { role: "User" },
+    { lastUpdatedDate: "2011-09-09" }
   ];
 
-  it('should be created', () => {
-    const service: AccountService = TestBed.get(AccountService);
-    expect(service).toBeTruthy();
+  it("should be created", () => {
+    expect(accountService).toBeTruthy();
   });
 
-  it('#getObservableValue should return value from observable',
-    (done: DoneFn) => {
-      accountService.getAccounts().subscribe(value => {
-      expect(value).toBe('observable value');
-      done();
-    });
+  it("#getAccounts should return value from acconts", () => {
+    (_done: DoneFn) => {
+      accountService.getAccounts().subscribe(accountData => {
+        expect(accountData.status).toEqual("Active");
+      });
+
+      const req = httpTestingController.expectOne(
+        "http://localhost:9100/accounts"
+      );
+      expect(req.request.method).toEqual("GET");
+
+      req.flush(dummyAccount);
+    };
   });
 
-  
-afterEach(() => {
-  httpMock.verify();
-});
+  afterEach(() => {
+    httpTestingController.verify();
+  });
 });

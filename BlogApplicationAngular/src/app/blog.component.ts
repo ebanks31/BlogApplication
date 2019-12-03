@@ -7,8 +7,4 @@ export class BlogModel  {
   status: string;
   accountId: number;
   last_updated_date:string
-  
-  ngOnInit() {
-  }
-
 }

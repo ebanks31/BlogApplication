@@ -8,7 +8,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 /**
  * Entity bean with JPA annotations for User table. Hibernate provides JPA
@@ -17,7 +16,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
  * @author ebanks
  *
  */
-@Document(indexName = "blogs", type = "blog")
+//@Document(indexName = "blogs", type = "blog")
 public class BlogEs {
 
 	@Id
