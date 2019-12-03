@@ -1,6 +1,6 @@
 <b> Blog Application</b>
 
-This is a blog application that uses Spring boot and Angular 7.
+This is a blog application that uses Java 8, Spring boot and Angular 8.
 
 This application allows users to create blog, add blog posts, and add comments to blog posts.
 
@@ -13,7 +13,7 @@ I am looking to include Spring Security sometimes later.
 
 <b>Frontend</b>
 
-The front end consists of Angular 7,CSS, and Bootstrap.
+The front end consists of Angular 8,CSS, and Bootstrap.
 The text editor I am using is https://ckeditor.com/. This is a great editor that contains a formatting toolbar that is compatible with Angular 7.
 
 This application isn't finished just yet but this project is used in order to help me better understand the AngularJS framework.
@@ -30,6 +30,6 @@ Documents include
 2. Unit tests scenarios.
 3. UML Diagram
 4. JavaDocs (Java)
-5. CompoDocs (AngularJS)
+5. CompoDocs (Angular 8)
 
 I will add additional documents as I worked through this project including user stories and integration test scenarios (i.e. testing multiple facets of the application including backend and front end parts of the application).
