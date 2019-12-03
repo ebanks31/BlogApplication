@@ -26,8 +26,10 @@ I have added a <b>Documents</b> folder that will contain various documents for t
 
 Documents include
 
-1. Requirements. (DOCX,XLSX)
+1. Requirements. (.docx,.xlsx)
 2. Unit tests scenarios.
 3. UML Diagram
+4. JavaDocs (Java)
+5. CompoDocs (AngularJS)
 
 I will add additional documents as I worked through this project including user stories and integration test scenarios (i.e. testing multiple facets of the application including backend and front end parts of the application).
