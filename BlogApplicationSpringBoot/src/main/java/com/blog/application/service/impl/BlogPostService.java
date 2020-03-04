@@ -112,7 +112,7 @@ public class BlogPostService implements IBlogPostService {
 			BlogPost retrievedBlogPost = repository.findByBlogPostId(blogPostId);
 			retrievedBlogPost.setBlogId(blogId);
 
-			if (retrievedBlogPost != null || !Objects.isNull(retrievedBlogPost)) {
+			if (!Objects.isNull(retrievedBlogPost)) {
 				LOGGER.info("retrievedBlogPost {}", retrievedBlogPost);
 				LOGGER.info("blogpost.getVersion() {}", blogpost.getVersion());
 

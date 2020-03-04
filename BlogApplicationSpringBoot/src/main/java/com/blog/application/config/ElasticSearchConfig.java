@@ -1,7 +1,5 @@
 package com.blog.application.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 //@Configuration
 //@EnableElasticsearchRepositories(basePackages = "com.blog.application.elasticsearch.repositories")
 public class ElasticSearchConfig {
-	private final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchConfig.class);
 
 	/** The es host. */
 	@Value("${elasticsearch.host}")

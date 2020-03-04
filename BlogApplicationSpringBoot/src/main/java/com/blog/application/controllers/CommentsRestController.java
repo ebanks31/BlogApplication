@@ -31,6 +31,10 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/blogs/blog")
 public class CommentsRestController {
+	private static final String BLOG_POST_ID2 = "blogPostId";
+	private static final String BLOG_ID = "blogId: {}";
+	private static final String BLOG_POST_ID = "blogPostId: {}";
+
 	/** The logger. */
 	private final Logger LOGGER = LoggerFactory.getLogger(CommentsRestController.class);
 
@@ -52,9 +56,9 @@ public class CommentsRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<List<Comment>> getBlogPostComments(@PathVariable("blogId") long blogId,
-			@PathVariable("blogPostId") long blogPostId) {
-		LOGGER.info("blogId: {}", blogId);
-		LOGGER.info("blogPostId: {}", blogPostId);
+			@PathVariable(BLOG_POST_ID2) long blogPostId) {
+		LOGGER.info(BLOG_ID, blogId);
+		LOGGER.info(BLOG_POST_ID, blogPostId);
 
 		List<Comment> comments = commentService.findAll();
 		LOGGER.info("comments {}", comments);
@@ -77,9 +81,9 @@ public class CommentsRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> addBlogPostComments(@PathVariable("blogId") long blogId,
-			@PathVariable("blogPostId") long blogPostId, @RequestBody Comment comment) {
-		LOGGER.info("blogId: {}", blogId);
-		LOGGER.info("blogPostId: {}", blogPostId);
+			@PathVariable(BLOG_POST_ID2) long blogPostId, @RequestBody Comment comment) {
+		LOGGER.info(BLOG_ID, blogId);
+		LOGGER.info(BLOG_POST_ID, blogPostId);
 
 		commentService.addComment(comment);
 
@@ -101,10 +105,10 @@ public class CommentsRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> editBlogPostComments(@PathVariable("blogId") long blogId,
-			@PathVariable("blogPostId") long blogPostId, @PathVariable("commentId") long commentId,
+			@PathVariable(BLOG_POST_ID2) long blogPostId, @PathVariable("commentId") long commentId,
 			@RequestBody Comment comment) {
-		LOGGER.info("blogId: {}", blogId);
-		LOGGER.info("blogPostId: {}", blogPostId);
+		LOGGER.info(BLOG_ID, blogId);
+		LOGGER.info(BLOG_POST_ID, blogPostId);
 
 		commentService.editComment(commentId, comment);
 
@@ -126,9 +130,9 @@ public class CommentsRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> deleteBlogPostComments(@PathVariable("blogId") long blogId,
-			@PathVariable("blogPostId") long blogPostId, @PathVariable("commentId") long commentId) {
-		LOGGER.info("blogId: {}", blogId);
-		LOGGER.info("blogPostId: {}", blogPostId);
+			@PathVariable(BLOG_POST_ID2) long blogPostId, @PathVariable("commentId") long commentId) {
+		LOGGER.info(BLOG_ID, blogId);
+		LOGGER.info(BLOG_POST_ID, blogPostId);
 
 		commentService.deleteComment(commentId);
 

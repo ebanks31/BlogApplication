@@ -46,7 +46,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 	 */
 	private ApiInfo metaData() {
 		return new ApiInfo("My REST API", "This API is used to retrieve the blog information for a user.", "API TOS",
-				"Terms of service", new Contact("Craig Marduk", "www.example.com", "myeaddress@company.com"),
+				"Terms of service", new Contact("Craig Marduk", "www.example.com", "myaddress@company.com"),
 				"License of API", "API license URL", Collections.emptyList());
 	}
 

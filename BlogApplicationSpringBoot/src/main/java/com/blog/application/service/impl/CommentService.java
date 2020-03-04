@@ -32,9 +32,7 @@ public class CommentService implements ICommentService {
 	 */
 	@Override
 	public List<Comment> findAll() {
-
-		List<Comment> comments = repository.findAll();
-		return comments;
+		return repository.findAll();
 	}
 
 	/*

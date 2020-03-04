@@ -30,9 +30,10 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class BlogRestController {
-
-	/** The logger. */
+	/** The LOGGER. */
 	private final Logger LOGGER = LoggerFactory.getLogger(BlogRestController.class);
+	private static final String BLOG2 = "blog: {}";
+	private static final String BLOG_ID = "blogId: {}";
 	private final HazelcastInstance hazelcastInstance;
 
 	/** The blog service. */
@@ -70,15 +71,15 @@ public class BlogRestController {
 	 * @return the blog by id
 	 */
 	@GetMapping(value = "/blogs/blog/{blogId}", produces = "application/json")
-	@ApiOperation(value = "Retreives the blog by blog id", response = Iterable.class)
+	@ApiOperation(value = "Retrieves the blog by blog id", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved the blog"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<Blog> getBlogById(@PathVariable("blogId") int blogId) {
-		LOGGER.info("blogId: {}", blogId);
+		LOGGER.info(BLOG_ID, blogId);
 		Blog blog = blogService.findByBlogId(blogId);
-		LOGGER.info("blog: {}", blog);
+		LOGGER.info(BLOG2, blog);
 
 		return new ResponseEntity<>(blog, HttpStatus.OK);
 	}
@@ -96,7 +97,7 @@ public class BlogRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> addBlog(@RequestBody Blog blog) {
-		LOGGER.info("blog: {}", blog);
+		LOGGER.info(BLOG2, blog);
 		LOGGER.info("blog.getBlogTitle(): {}", blog.getBlogTitle());
 
 		blogService.addBlog(blog);
@@ -117,7 +118,7 @@ public class BlogRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> editBlog(@PathVariable("blogId") Long blogId, @RequestBody Blog blog) {
-		LOGGER.info("blogId: {}", blogId);
+		LOGGER.info(BLOG_ID, blogId);
 
 		blogService.editBlog(blogId, blog);
 		return new ResponseEntity<>("Blog has been edited successfully", HttpStatus.OK);
@@ -136,7 +137,7 @@ public class BlogRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> deleteBlogPost(@PathVariable("blogId") Long blogId) {
-		LOGGER.info("blogId: {}", blogId);
+		LOGGER.info(BLOG_ID, blogId);
 
 		blogService.deleteBlog(blogId);
 		return new ResponseEntity<>("Blog post has been deleted", HttpStatus.OK);
@@ -150,7 +151,7 @@ public class BlogRestController {
 	 * @return the blog by id and user id
 	 */
 	@GetMapping("/blog/{blogId}/{userId}")
-	@ApiOperation(value = "View a list of blog Posts", response = Iterable.class)
+	@ApiOperation(value = "View a list of blogs", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved the blog"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
@@ -160,5 +161,4 @@ public class BlogRestController {
 		List<Blog> blog = blogService.findAll();
 		return new ResponseEntity<>(blog, HttpStatus.OK);
 	}
-
 }

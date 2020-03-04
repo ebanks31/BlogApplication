@@ -1,7 +1,5 @@
 package com.blog.application.aspects;
 
-import java.util.Arrays;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -57,7 +55,8 @@ public class BlogLoggingAspect {
 
 		LOGGER.info("logAround() runs");
 		LOGGER.info(JOINPOINT_SIGNATURE_NAME, joinPoint.getSignature().getName());
-		LOGGER.info("Getting joinpoint arguments : {}", Arrays.toString(joinPoint.getArgs()));
+		// LOGGER.info("Getting joinpoint arguments : {}",
+		// Arrays.toString(joinPoint.getArgs()));
 
 		LOGGER.info("Around before runs");
 		joinPoint.proceed(); // continue on the intercepted method
