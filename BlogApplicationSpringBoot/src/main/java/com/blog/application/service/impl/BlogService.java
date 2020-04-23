@@ -43,6 +43,7 @@ public class BlogService implements IBlogService {
 	@Override
 	public Blog findByBlogId(long id) {
 		Optional<Blog> value = repository.findById(id);
+
 		Blog blog = null;
 		// ...
 

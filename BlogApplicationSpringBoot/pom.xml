@@ -145,45 +145,30 @@
 			<version>0.8.5</version>
 		</dependency>
 
-		<!--<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-elasticsearch</artifactId>
-			<exclusions>
-				<exclusion>  declare the exclusion here 
-					<groupId>org.elasticsearch</groupId>
-					<artifactId>elasticsearch</artifactId>
-				</exclusion>
-				<exclusion>  declare the exclusion here 
-					<groupId>org.elasticsearch.plugin</groupId>
-					<artifactId>elasticsearch</artifactId>
-				</exclusion>
-				<exclusion>  declare the exclusion here
-					<groupId>org.elasticsearch</groupId>
-					<artifactId>elasticsearch.client</artifactId>
-				</exclusion>
-			</exclusions>
-			<version>3.2.1.RELEASE</version>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<!-- send email -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
-		https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch
-		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
-			<version>6.2.2</version>
-		</dependency>
-      https://mvnrepository.com/artifact/org.elasticsearch.client/transport 
-		<dependency>
-			<groupId>org.elasticsearch.client</groupId>
-			<artifactId>transport</artifactId>
-			<version>6.2.2</version>
-		</dependency>
-
-		 https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client 
-		<dependency>
-			<groupId>org.elasticsearch.client</groupId>
-			<artifactId>elasticsearch-rest-high-level-client</artifactId>
-			<version>6.2.2</version>
-		</dependency>-->
+		<!--<dependency> <groupId>org.springframework.data</groupId> <artifactId>spring-data-elasticsearch</artifactId> 
+			<exclusions> <exclusion> declare the exclusion here <groupId>org.elasticsearch</groupId> 
+			<artifactId>elasticsearch</artifactId> </exclusion> <exclusion> declare the 
+			exclusion here <groupId>org.elasticsearch.plugin</groupId> <artifactId>elasticsearch</artifactId> 
+			</exclusion> <exclusion> declare the exclusion here <groupId>org.elasticsearch</groupId> 
+			<artifactId>elasticsearch.client</artifactId> </exclusion> </exclusions> 
+			<version>3.2.1.RELEASE</version> </dependency> https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch 
+			<dependency> <groupId>org.elasticsearch</groupId> <artifactId>elasticsearch</artifactId> 
+			<version>6.2.2</version> </dependency> https://mvnrepository.com/artifact/org.elasticsearch.client/transport 
+			<dependency> <groupId>org.elasticsearch.client</groupId> <artifactId>transport</artifactId> 
+			<version>6.2.2</version> </dependency> https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client 
+			<dependency> <groupId>org.elasticsearch.client</groupId> <artifactId>elasticsearch-rest-high-level-client</artifactId> 
+			<version>6.2.2</version> </dependency> -->
 
 
 		<!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->
@@ -191,13 +176,6 @@
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>
 			<version>7.4.0</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
@@ -234,6 +212,10 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

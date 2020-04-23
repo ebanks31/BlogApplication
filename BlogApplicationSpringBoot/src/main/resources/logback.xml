@@ -1,7 +1,13 @@
 <configuration>
 
     <property name="HOME_LOG" value="logs/app.log"/>
-
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %blue([%thread])
+				%highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+		</encoder>
+	</appender>
     <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${HOME_LOG}</file>
 
@@ -31,5 +37,9 @@
     <root level="error">
         <appender-ref ref="ASYNC"/>
     </root>
+    
+   <root level="info">
+		<appender-ref ref="STDOUT" />
+	</root>
 
 </configuration>

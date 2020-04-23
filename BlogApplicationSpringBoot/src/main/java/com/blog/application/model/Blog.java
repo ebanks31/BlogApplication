@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,7 +32,7 @@ public class Blog {
 
 	/** The account id. */
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "account_id", nullable = false, insertable = false, updatable = false)
 	private Account account;
 
@@ -62,7 +63,7 @@ public class Blog {
 
 	/** The accounts. */
 	@JsonIgnore
-	@OneToMany(mappedBy = "blog")
+	@OneToMany(mappedBy = "blog", fetch = FetchType.LAZY)
 	private Set<BlogPost> blogPosts;
 
 	/** The status. */
