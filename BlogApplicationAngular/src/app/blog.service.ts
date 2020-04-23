@@ -10,8 +10,8 @@ import { BlogPostModel } from "./blogpost.component";
   providedIn: "root"
 })
 export class BlogService {
-  blogsUrl = "http://localhost:9100/blogs";
-  blogUrl = "http://localhost:9100/blogs/blog/";
+  blogsUrl = "http://localhost:9600/blogs";
+  blogUrl = "http://localhost:9600/blogs/blog/";
   blogPostsByBlogIdUrl = "/posts";
   blogPostByBlogIdUrl = "/posts/";
   post = "/post/";

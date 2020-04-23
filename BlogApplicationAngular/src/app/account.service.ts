@@ -10,8 +10,8 @@ import { HttpHeaders, HttpParams } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AccountService {
-  getAccountUrl = "http://localhost:9100/accounts";
-  getAccountByIdUrl = "http://localhost:9100/accounts/";
+  getAccountUrl = "http://localhost:9600/accounts";
+  getAccountByIdUrl = "http://localhost:9600/accounts/";
   headers: any;
   id: any;
   auth = "user:password";

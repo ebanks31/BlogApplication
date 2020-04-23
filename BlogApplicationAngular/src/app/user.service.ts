@@ -11,8 +11,8 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: "root"
 })
 export class UserService {
-  userByIdUrl = "http://localhost:9100/users/";
-  users = "http://localhost:9100/users";
+  userByIdUrl = "http://localhost:9600/users/";
+  users = "http://localhost:9600/users";
   edit = "/edit";
   user = "/user/";
   add = "/add";
