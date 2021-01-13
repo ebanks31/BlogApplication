@@ -3,11 +3,13 @@ package com.blog.application.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blog.application.cache.BlogCacheService;
 import com.blog.application.model.Blog;
 import com.blog.application.repositories.BlogRepository;
 import com.blog.application.service.IBlogService;
@@ -25,19 +27,31 @@ public class BlogService implements IBlogService {
 	@Autowired
 	private BlogRepository repository;
 
+	@Autowired
+	BlogCacheService blogCacheService;
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.blog.application.service.IBlogService#findAll()
 	 */
 	@Override
 	public List<Blog> findAll() {
-		return repository.findAll();
+		List<Blog> finalBlogListReturned = null;
+		List<Blog> blogCachedList = blogCacheService.findAllBlogsFromCache();
+
+		if (CollectionUtils.isNotEmpty(blogCachedList)) {
+			finalBlogListReturned = blogCachedList;
+		} else {
+			finalBlogListReturned = repository.findAll();
+		}
+
+		return finalBlogListReturned;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.blog.application.service.IBlogService#findByBlogId(long)
 	 */
 	@Override
@@ -45,7 +59,6 @@ public class BlogService implements IBlogService {
 		Optional<Blog> value = repository.findById(id);
 
 		Blog blog = null;
-		// ...
 
 		if (value.isPresent()) {
 			blog = value.get();
@@ -55,7 +68,7 @@ public class BlogService implements IBlogService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.blog.application.service.IBlogService#addBlog(com.blog.application.model.
 	 * Blog)
@@ -67,7 +80,7 @@ public class BlogService implements IBlogService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.blog.application.service.IBlogService#deleteBlog(long)
 	 */
 	@Override
@@ -77,7 +90,7 @@ public class BlogService implements IBlogService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.blog.application.service.IBlogService#editBlog(long)
 	 */
 	@Override

@@ -16,53 +16,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import com.blog.application.controllers.BlogPostRestController;
 import com.blog.application.model.BlogPost;
-import com.blog.application.service.IBlogPostService;
 import com.google.gson.Gson;
 
-/**
- * The Class AccountController.
- */
-@RunWith(SpringRunner.class)
-@WebMvcTest(BlogPostRestController.class)
-public class BlogPostControllerUnitTests {
-
-	/** The logger. */
-	private final Logger LOGGER = LoggerFactory.getLogger(BlogPostControllerUnitTests.class);
-
-	/** The Constant ORIGIN. */
-	private static final String ORIGIN = "origin";
-
-	/** The mvc. */
-	@Autowired
-	private MockMvc mvc;
-
-	/** The blog post service. */
-	@MockBean
-	IBlogPostService blogPostService;
-
-	/**
-	 * Sets the up.
-	 */
-	@Before()
-	public void setUp() {
-
-	}
+public class BlogPostControllerUnitTests extends TestOperations {
 
 	/**
 	 * Gets the blog posts one blog post.
@@ -72,8 +34,6 @@ public class BlogPostControllerUnitTests {
 	 */
 	@Test
 	public void getBlogPostsOneBlogPost() throws Exception {
-		LOGGER.info("getBlogPostsOneBlogPost()");
-
 		BlogPost blogPost = new BlogPost();
 		blogPost.setBlogPostId(new Long(1));
 		blogPost.setBlogPostTitle("blogPostTitle");
@@ -84,7 +44,8 @@ public class BlogPostControllerUnitTests {
 		long value = 1;
 		when(blogPostService.findByBlogId(value)).thenReturn(blogPosts);
 
-		mvc.perform(get("/blogs/blog/{blogId}/posts", 1).header(ORIGIN, "*").contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(
+				get("/blogs/blog/{blogId}/posts", 1).header(ORIGIN, "*").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(1)))
 				.andExpect(jsonPath("$[0].blogPostId", is(1)))
 				.andExpect(jsonPath("$[0].blogPostTitle", is("blogPostTitle")))
@@ -99,8 +60,6 @@ public class BlogPostControllerUnitTests {
 	 */
 	@Test
 	public void getBlogPostsTestMultipleBlogPosts() throws Exception {
-		LOGGER.info("getBlogPostsTestMultipleBlogPosts()");
-
 		BlogPost firstBlogPost = new BlogPost();
 		firstBlogPost.setBlogPostId(new Long(1));
 		firstBlogPost.setBlogPostTitle("blogPostTitle");
@@ -115,7 +74,8 @@ public class BlogPostControllerUnitTests {
 
 		when(blogPostService.findByBlogId(1)).thenReturn(blogPosts);
 
-		mvc.perform(get("/blogs/blog/{blogId}/posts", 1).header(ORIGIN, "*").contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(
+				get("/blogs/blog/{blogId}/posts", 1).header(ORIGIN, "*").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(2)))
 				.andExpect(jsonPath("$[0].blogPostId", is(1)))
 				.andExpect(jsonPath("$[0].blogPostTitle", is("blogPostTitle")))
@@ -133,8 +93,6 @@ public class BlogPostControllerUnitTests {
 	 */
 	@Test
 	public void getBlogPostsTestNoBlogPost() throws Exception {
-		LOGGER.info("getBlogPostsTestNoBlogPost()");
-
 		BlogPost blogPost = new BlogPost();
 		blogPost.setBlogPostId(new Long(1));
 		blogPost.setBlogPostTitle("blogPostTitle");
@@ -144,7 +102,7 @@ public class BlogPostControllerUnitTests {
 
 		when(blogPostService.findByBlogId(1)).thenReturn(blogs);
 
-		ResultActions resultActions = mvc
+		ResultActions resultActions = mockMvc
 				.perform(get("/blogs/blog/{blogPostId}/posts", 1).header(ORIGIN, "*")
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(content().string(containsString(""))).andExpect(status().isOk())
@@ -161,8 +119,6 @@ public class BlogPostControllerUnitTests {
 	 */
 	@Test
 	public void getBlogPostsTestBlogPostNull() throws Exception {
-		LOGGER.info("getBlogPostsTestBlogPostNull()");
-
 		BlogPost blogPost = new BlogPost();
 		blogPost.setBlogPostId(new Long(1));
 		blogPost.setBlogPostTitle("blogPostTitle");
@@ -172,7 +128,7 @@ public class BlogPostControllerUnitTests {
 
 		when(blogPostService.findByBlogId(1)).thenReturn(blogs);
 
-		ResultActions resultActions = mvc
+		ResultActions resultActions = mockMvc
 				.perform(get("/blogs/blog/{blogPostId}/posts", 1).header(ORIGIN, "*")
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(content().string(containsString(""))).andExpect(status().isOk());
@@ -187,20 +143,14 @@ public class BlogPostControllerUnitTests {
 	 */
 	@Test
 	public void addBlogPostTest() throws Exception {
-		LOGGER.info("addBlogPostTest()");
-
-		BlogPost blogPost = new BlogPost();
-		blogPost.setBlogPostId(new Long(1));
-		blogPost.setBlogPostTitle("blogPostTitle");
-		blogPost.setBlogPostBody("blogPostBody");
-		blogPost.setBlogId(new Long(1));
+		BlogPost blogPost = mockBlogPost();
 
 		Gson gson = new Gson();
 		String blogJson = gson.toJson(blogPost);
 
 		doNothing().when(blogPostService).addBlogPost(blogPost, blogPost.getBlogId());
 
-		ResultActions resultActions = mvc
+		ResultActions resultActions = mockMvc
 				.perform(post("/blogs/blog/{blogId}/posts/post/add", 1).header(ORIGIN, "*")
 						.contentType(MediaType.APPLICATION_JSON).content(blogJson))
 				.andExpect(content().string(containsString("Blog post has been added successfully")))
@@ -216,20 +166,14 @@ public class BlogPostControllerUnitTests {
 	 */
 	@Test
 	public void deleteBlogPostTest() throws Exception {
-		LOGGER.info("deleteBlogPostTest()");
-
-		BlogPost blogPost = new BlogPost();
-		blogPost.setBlogPostId(new Long(1));
-		blogPost.setBlogPostTitle("blogPostTitle");
-		blogPost.setBlogPostBody("blogPostBody");
-		blogPost.setBlogId(new Long(1));
+		BlogPost blogPost = mockBlogPost();
 
 		Gson gson = new Gson();
 		String blogJson = gson.toJson(blogPost);
 
 		doNothing().when(blogPostService).deleteBlogPost(blogPost.getBlogPostId(), blogPost.getBlogId());
 
-		ResultActions resultActions = mvc
+		ResultActions resultActions = mockMvc
 				.perform(delete("/blogs/blog/1/posts/post/delete/{blogPostId}", 1).header(ORIGIN, "*")
 						.contentType(MediaType.APPLICATION_JSON).content(blogJson))
 				.andExpect(content().string(containsString(""))).andExpect(status().isOk());
@@ -244,20 +188,14 @@ public class BlogPostControllerUnitTests {
 	 */
 	@Test
 	public void editBlogPostTest() throws Exception {
-		LOGGER.info("editBlogPostTest()");
-
-		BlogPost blogPost = new BlogPost();
-		blogPost.setBlogPostId(new Long(1));
-		blogPost.setBlogPostTitle("blogPostTitle");
-		blogPost.setBlogPostBody("blogPostBody");
-		blogPost.setBlogId(new Long(1));
+		BlogPost blogPost = mockBlogPost();
 
 		Gson gson = new Gson();
 		String blogJson = gson.toJson(blogPost);
 
 		doNothing().when(blogPostService).editBlogPost(blogPost.getBlogPostId(), blogPost.getBlogId(), blogPost);
 
-		ResultActions resultActions = mvc
+		ResultActions resultActions = mockMvc
 				.perform(put("/blogs/blog/{blogId}/posts/post/edit/{blogPostId}", 1, 1).header(ORIGIN, "*")
 						.contentType(MediaType.APPLICATION_JSON).content(blogJson))
 				.andExpect(content().string(containsString(""))).andExpect(status().isOk());
@@ -273,13 +211,7 @@ public class BlogPostControllerUnitTests {
 	 */
 	@Test
 	public void getBlogPostByIdAndBlogId() throws Exception {
-		LOGGER.info("getBlogPostById()");
-
-		BlogPost blogPost = new BlogPost();
-		blogPost.setBlogPostId(new Long(1));
-		blogPost.setBlogPostTitle("blogPostTitle");
-		blogPost.setBlogPostBody("blogPostBody");
-		blogPost.setBlogId(new Long(1));
+		BlogPost blogPost = mockBlogPost();
 
 		Gson gson = new Gson();
 		String accountJson = gson.toJson(blogPost);
@@ -287,7 +219,7 @@ public class BlogPostControllerUnitTests {
 		when(blogPostService.findByBlogPostIdAndBlogId(blogPost.getBlogPostId(), blogPost.getBlogId()))
 				.thenReturn(blogPost);
 
-		mvc.perform(get("/blogs/blog/{blogId}/posts/{blogPostId}", 1, 1).header(ORIGIN, "*")
+		mockMvc.perform(get("/blogs/blog/{blogId}/posts/{blogPostId}", 1, 1).header(ORIGIN, "*")
 				.contentType(MediaType.APPLICATION_JSON).content(accountJson)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.blogPostId", is(1))).andExpect(jsonPath("$.blogPostTitle", is("blogPostTitle")))
 				.andExpect(jsonPath("$.blogPostBody", is("blogPostBody")));

@@ -1,8 +1,7 @@
-package com.blog.application.controllers;
+package com.blog.application.model;
 
 import java.lang.reflect.Type;
 
-import com.blog.application.model.Blog;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;

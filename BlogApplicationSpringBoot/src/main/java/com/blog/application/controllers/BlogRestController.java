@@ -1,25 +1,14 @@
 package com.blog.application.controllers;
 
-import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.time.Clock;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.UUID;
 
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.blog.application.exception.BlogException;
 import com.blog.application.model.Blog;
 import com.blog.application.service.IBlogService;
 import com.blog.application.service.IEmailService;
-import com.blog.application.utils.Helper;
+import com.blog.application.service.IKafkaService;
+import com.blog.application.validator.BlogValidator;
 import com.hazelcast.core.HazelcastInstance;
 
 import io.swagger.annotations.ApiOperation;
@@ -46,6 +37,7 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class BlogRestController {
+	private static final String BLOG_VALIDATION_HAS_FAILED = "Blog validation has failed";
 	/** The LOGGER. */
 	private final Logger LOGGER = LoggerFactory.getLogger(BlogRestController.class);
 	private static final String BLOG2 = "blog: {}";
@@ -53,6 +45,9 @@ public class BlogRestController {
 	private final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	private final HazelcastInstance hazelcastInstance;
+
+	@Autowired
+	BlogValidator blogValidator;
 
 	/** The blog service. */
 	@Autowired
@@ -74,7 +69,7 @@ public class BlogRestController {
 	private static String emailAddresses;
 
 	@Autowired
-	Environment environment;
+	IKafkaService kafkaservice;
 
 	@Autowired
 	BlogRestController(HazelcastInstance hazelcastInstance) {
@@ -87,6 +82,7 @@ public class BlogRestController {
 	 * @param user the user
 	 * @return the blogs
 	 * @throws UnknownHostException
+	 * @throws BlogException
 	 */
 	@SuppressWarnings("unchecked")
 	@GetMapping("/blogs")
@@ -95,64 +91,21 @@ public class BlogRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<List<Blog>> getBlogs() throws UnknownHostException {
+	public ResponseEntity<List<Blog>> getBlogs() throws UnknownHostException, BlogException {
 		long startTime = System.currentTimeMillis();
 		// emailService.sendSimpleMessage("k4polo@gmail.com", "Hello", "World");
 
 		List<Blog> blogs = blogService.findAll();
+		boolean validation = blogValidator.validateBlogList(blogs);
+
 		LOGGER.info("blogs: {}", blogs);
 
-		HttpHeaders headers = new HttpHeaders();
-
-		// can set the content Type
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		// put your customBean to header
-		JSONObject messageJsonObject = new JSONObject();
-		messageJsonObject.put("id_number", 1);
-		messageJsonObject.put("hostAddress", InetAddress.getLocalHost().toString());
-		messageJsonObject.put("hostName", InetAddress.getLocalHost().getHostName());
-		messageJsonObject.put("hostPort", environment.getProperty("server.port"));
-		messageJsonObject.put("status", "Failure");
-		messageJsonObject.put("method", "getBlogs");
-		messageJsonObject.put("urlPath", "/blogs");
-		messageJsonObject.put("projectName", "TestProject");
-		messageJsonObject.put("statusCode", HttpStatus.OK.value());
-
-		UUID uuid = UUID.randomUUID();
-		messageJsonObject.put("uniqueIdentifier", uuid.toString());
-
-		String blogsJSON = Helper.createJson(blogs).toString();
-
-		messageJsonObject.put("details", blogsJSON);
-
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(TIMESTAMP_FORMAT);
-		LocalDateTime now = LocalDateTime.now(Clock.systemUTC());
-		LOGGER.info("Date time formatter: {}", dateTimeFormatter.format(now));
-
-		long endTime = System.currentTimeMillis();
-		long executeTime = endTime - startTime;
-
-		LOGGER.info("executeTime: {}", executeTime);
-		final float sec;
-
-		sec = executeTime / 1000.0f;
-		LOGGER.info("sec: {}", sec);
-
-		messageJsonObject.put("apiTransactionTime", sec);
-
-		HttpEntity<String> entity = new HttpEntity<>(messageJsonObject.toString(), headers);
-		restTemplate.postForObject(springbootKafkaAddress, entity, String.class);
-		return new ResponseEntity<>(blogs, HttpStatus.OK);
-	}
-
-	public static void sendEmail() {
-
-		SimpleMailMessage msg = new SimpleMailMessage();
-		msg.setTo(emailAddresses);
-		msg.setSubject("Testing from Spring Boot");
-		msg.setText("Hello World \n Spring Boot Email");
-
-		// javaMailSender.send(msg);
+		if (validation) {
+			kafkaservice.sendBlogsToKafka(startTime, blogs);
+			return new ResponseEntity<>(blogs, HttpStatus.OK);
+		} else {
+			throw new BlogException(BLOG_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -160,6 +113,7 @@ public class BlogRestController {
 	 *
 	 * @param blogId the blog id
 	 * @return the blog by id
+	 * @throws BlogException
 	 */
 	@GetMapping(value = "/blogs/blog/{blogId}", produces = "application/json")
 	@ApiOperation(value = "Retrieves the blog by blog id", response = Iterable.class)
@@ -167,12 +121,20 @@ public class BlogRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<Blog> getBlogById(@PathVariable("blogId") int blogId) {
+	public ResponseEntity<Blog> getBlogById(@PathVariable("blogId") int blogId) throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
 		Blog blog = blogService.findByBlogId(blogId);
+
+		boolean validation = blogValidator.validateBlog(blog);
+
 		LOGGER.info(BLOG2, blog);
 
-		return new ResponseEntity<>(blog, HttpStatus.OK);
+		if (validation) {
+			return new ResponseEntity<>(blog, HttpStatus.OK);
+		} else {
+			// Throw exception here. The Exception Advise will handle the response output
+			throw new BlogException(BLOG_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -180,6 +142,7 @@ public class BlogRestController {
 	 *
 	 * @param blog the blog
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@PostMapping(value = "/blogs/blog/add")
 	@ApiOperation(value = "Adds a blog", response = Iterable.class)
@@ -187,12 +150,19 @@ public class BlogRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<String> addBlog(@RequestBody Blog blog) {
+	public ResponseEntity<String> addBlog(@RequestBody Blog blog) throws BlogException {
 		LOGGER.info(BLOG2, blog);
 		LOGGER.info("blog.getBlogTitle(): {}", blog.getBlogTitle());
 
-		blogService.addBlog(blog);
-		return new ResponseEntity<>("Blog has been added successfully", HttpStatus.OK);
+		boolean validation = blogValidator.validateBlog(blog);
+
+		if (validation) {
+			blogService.addBlog(blog);
+			return new ResponseEntity<>("Blog has been added successfully", HttpStatus.OK);
+		} else {
+			// Throw exception here. The Exception Advise will handle the response output
+			throw new BlogException(BLOG_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -201,6 +171,7 @@ public class BlogRestController {
 	 * @param blogId the blog id
 	 * @param blog   the blog
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@PutMapping(value = "/blogs/blog/edit/{blogId}")
 	@ApiOperation(value = "Edits a blog", response = Iterable.class)
@@ -208,11 +179,18 @@ public class BlogRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<String> editBlog(@PathVariable("blogId") Long blogId, @RequestBody Blog blog) {
+	public ResponseEntity<String> editBlog(@PathVariable("blogId") Long blogId, @RequestBody Blog blog)
+			throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
+		boolean validation = blogValidator.validateBlog(blog);
 
-		blogService.editBlog(blogId, blog);
-		return new ResponseEntity<>("Blog has been edited successfully", HttpStatus.OK);
+		if (validation) {
+			blogService.editBlog(blogId, blog);
+			return new ResponseEntity<>("Blog has been edited successfully", HttpStatus.OK);
+		} else {
+			// Throw exception here. The Exception Advise will handle the response output
+			throw new BlogException(BLOG_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -220,6 +198,7 @@ public class BlogRestController {
 	 *
 	 * @param blogId the blog id
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@DeleteMapping(value = "/blogs/blog/delete/{blogId}")
 	@ApiOperation(value = "Delete a blog", response = Iterable.class)
@@ -227,11 +206,17 @@ public class BlogRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<String> deleteBlogPost(@PathVariable("blogId") Long blogId) {
+	public ResponseEntity<String> deleteBlogPost(@PathVariable("blogId") Long blogId) throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
+		boolean validation = blogValidator.validateNumber(blogId);
 
-		blogService.deleteBlog(blogId);
-		return new ResponseEntity<>("Blog post has been deleted", HttpStatus.OK);
+		if (validation) {
+			blogService.deleteBlog(blogId);
+			return new ResponseEntity<>("Blog post has been deleted", HttpStatus.OK);
+		} else {
+			// Throw exception here. The Exception Advise will handle the response output
+			throw new BlogException(BLOG_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -240,6 +225,7 @@ public class BlogRestController {
 	 * @param blogPostId the blog post id
 	 * @param userId     the user id
 	 * @return the blog by id and user id
+	 * @throws BlogException
 	 */
 	@GetMapping("/blog/{blogId}/{userId}")
 	@ApiOperation(value = "View a list of blogs", response = Iterable.class)
@@ -248,8 +234,15 @@ public class BlogRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<List<Blog>> getBlogByIdAndUserId(@PathVariable("blogId") int blogPostId,
-			@PathVariable("userId") int userId) {
-		List<Blog> blog = blogService.findAll();
-		return new ResponseEntity<>(blog, HttpStatus.OK);
+			@PathVariable("userId") int userId) throws BlogException {
+		List<Blog> blogList = blogService.findAll();
+		boolean validation = blogValidator.validateBlogList(blogList);
+
+		if (validation) {
+			return new ResponseEntity<>(blogList, HttpStatus.OK);
+		} else {
+			// Throw exception here. The Exception Advise will handle the response output
+			throw new BlogException(BLOG_VALIDATION_HAS_FAILED);
+		}
 	}
 }

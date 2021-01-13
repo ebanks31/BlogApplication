@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blog.application.exception.BlogException;
 import com.blog.application.model.User;
 import com.blog.application.service.IUserService;
+import com.blog.application.validator.UserValidator;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -32,14 +34,20 @@ public class UserRestController {
 	/** The logger. */
 	private final Logger LOGGER = LoggerFactory.getLogger(UserRestController.class);
 
+	private static final String THE_USER_IS_INVALID = "The user is invalid";
+
 	/** The user service. */
 	@Autowired
 	IUserService userService;
+
+	@Autowired
+	UserValidator userValidator;
 
 	/**
 	 * Gets the users.
 	 *
 	 * @return the users
+	 * @throws BlogException
 	 */
 	@GetMapping("/users")
 	@ApiOperation(value = "View a list of users", response = Iterable.class)
@@ -47,11 +55,16 @@ public class UserRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<List<User>> getUsers() {
+	public ResponseEntity<List<User>> getUsers() throws BlogException {
 		List<User> users = userService.findAll();
 		LOGGER.info("users12345 : {}", users);
+		boolean valid = userValidator.validateUserList(users);
 
-		return new ResponseEntity<>(users, HttpStatus.OK);
+		if (valid) {
+			return new ResponseEntity<>(users, HttpStatus.OK);
+		} else {
+			throw new BlogException(THE_USER_IS_INVALID);
+		}
 	}
 
 	/**
@@ -59,6 +72,7 @@ public class UserRestController {
 	 *
 	 * @param userId the user id
 	 * @return the user by id
+	 * @throws BlogException
 	 */
 	@GetMapping("/users/user/{userId}")
 	@ApiOperation(value = "Retreives a user by Id", response = Iterable.class)
@@ -66,11 +80,16 @@ public class UserRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<User> getUserById(@PathVariable("userId") int userId) {
+	public ResponseEntity<User> getUserById(@PathVariable("userId") int userId) throws BlogException {
 		User user = userService.findByUserId(userId);
-		LOGGER.info("user: {}", user);
+		boolean valid = userValidator.validateUser(user);
 
-		return new ResponseEntity<>(user, HttpStatus.OK);
+		if (valid) {
+			LOGGER.info("user: {}", user);
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		} else {
+			throw new BlogException(THE_USER_IS_INVALID);
+		}
 	}
 
 	/**
@@ -78,6 +97,7 @@ public class UserRestController {
 	 *
 	 * @param user the user
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@PostMapping(value = "/users/user/add", produces = "application/json")
 	@ApiOperation(value = "Adds an user", response = Iterable.class)
@@ -85,11 +105,16 @@ public class UserRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<String> addUser(@RequestBody User user) {
-		LOGGER.info("user: {}", user);
-		userService.addUser(user);
+	public ResponseEntity<String> addUser(@RequestBody User user) throws BlogException {
+		boolean valid = userValidator.validateUser(user);
 
-		return new ResponseEntity<>("User has been added successfully", HttpStatus.OK);
+		if (valid) {
+			LOGGER.info("user: {}", user);
+			userService.addUser(user);
+			return new ResponseEntity<>("User has been added successfully", HttpStatus.OK);
+		} else {
+			throw new BlogException(THE_USER_IS_INVALID);
+		}
 	}
 
 	/**
@@ -97,6 +122,7 @@ public class UserRestController {
 	 *
 	 * @param userId the user id
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@PutMapping(value = "/users/user/edit/{userId}", produces = "application/json")
 	@ApiOperation(value = "Edits an user", response = Iterable.class)
@@ -104,11 +130,18 @@ public class UserRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<String> editUser(@PathVariable("userId") long userId, @RequestBody User user) {
-		LOGGER.info("userId: {}", userId);
-		userService.editUser(userId, user);
+	public ResponseEntity<String> editUser(@PathVariable("userId") long userId, @RequestBody User user)
+			throws BlogException {
+		boolean validUserId = userValidator.validateNumber(userId);
+		boolean validUser = userValidator.validateUser(user);
 
-		return new ResponseEntity<>("User has been edited successfully", HttpStatus.OK);
+		if (validUserId && validUser) {
+			LOGGER.info("userId: {}", userId);
+			userService.editUser(userId, user);
+			return new ResponseEntity<>("User has been edited successfully", HttpStatus.OK);
+		} else {
+			throw new BlogException(THE_USER_IS_INVALID);
+		}
 	}
 
 	/**
@@ -116,6 +149,7 @@ public class UserRestController {
 	 *
 	 * @param userId the user id
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@DeleteMapping(value = "/users/user/delete/{userId}", produces = "application/json")
 	@ApiOperation(value = "Deletes an user", response = Iterable.class)
@@ -123,10 +157,14 @@ public class UserRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<String> deleteUser(@PathVariable("userId") long userId) {
-		LOGGER.info("userId: {}", userId);
-		userService.deleteUser(userId);
-
-		return new ResponseEntity<>("User has been edited successfully", HttpStatus.OK);
+	public ResponseEntity<String> deleteUser(@PathVariable("userId") long userId) throws BlogException {
+		boolean valid = userValidator.validateNumber(userId);
+		if (valid) {
+			LOGGER.info("userId: {}", userId);
+			userService.deleteUser(userId);
+			return new ResponseEntity<>("User has been edited successfully", HttpStatus.OK);
+		} else {
+			throw new BlogException(THE_USER_IS_INVALID);
+		}
 	}
 }

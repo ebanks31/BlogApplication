@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.blog.application.filter.ApiLogger;
+import com.blog.application.interceptors.ApiLogger;
 
 @Component
 public class ApiLoggerConfig implements WebMvcConfigurer {

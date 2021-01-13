@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blog.application.exception.BlogException;
 import com.blog.application.model.Account;
 import com.blog.application.service.IAccountService;
+import com.blog.application.validator.AccountValidator;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -30,6 +32,8 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 public class AccountRestController {
 
+	private static final String ACCOUNT_VALIDATION_HAS_FAILED = "Account validation has failed";
+
 	/** The logger. */
 	private final Logger LOGGER = LoggerFactory.getLogger(AccountRestController.class);
 
@@ -37,23 +41,32 @@ public class AccountRestController {
 	@Autowired
 	IAccountService accountService;
 
+	@Autowired
+	AccountValidator accountValidator;
+
 	/**
 	 * Gets the accounts.
 	 *
 	 * @return the accounts
+	 * @throws BlogException
 	 */
-	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping(value = "/accounts", produces = "application/json")
 	@ApiOperation(value = "View a list of accounts", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<List<Account>> getAccounts() {
+	public ResponseEntity<List<Account>> getAccounts() throws BlogException {
 		LOGGER.info("getAccounts()");
 		List<Account> accounts = accountService.findAll();
 
-		return new ResponseEntity<>(accounts, HttpStatus.OK);
+		boolean valid = accountValidator.validateAccountList(accounts);
+
+		if (valid) {
+			return new ResponseEntity<>(accounts, HttpStatus.OK);
+		} else {
+			throw new BlogException(ACCOUNT_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -61,6 +74,7 @@ public class AccountRestController {
 	 *
 	 * @param accountId the account id
 	 * @return the account by id
+	 * @throws BlogException
 	 */
 	@GetMapping("/accounts/{accountId}")
 	@ApiOperation(value = "Gets the account by account Id", response = Iterable.class)
@@ -68,12 +82,18 @@ public class AccountRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<Account> getAccountById(@PathVariable("accountId") long accountId) {
+	public ResponseEntity<Account> getAccountById(@PathVariable("accountId") long accountId) throws BlogException {
 		LOGGER.info("getAccountById()");
 		Account account = accountService.findByAccountId(accountId);
 
+		boolean valid = accountValidator.validateAccount(account);
 		LOGGER.info("Accounts: {}", account);
-		return new ResponseEntity<>(account, HttpStatus.OK);
+
+		if (valid) {
+			return new ResponseEntity<>(account, HttpStatus.OK);
+		} else {
+			throw new BlogException(ACCOUNT_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -81,6 +101,7 @@ public class AccountRestController {
 	 *
 	 * @param account the account
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@PostMapping("/accounts/add")
 	@ApiOperation(value = "Add an account", response = Iterable.class)
@@ -88,11 +109,16 @@ public class AccountRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<String> addAccount(@RequestBody Account account) {
+	public ResponseEntity<String> addAccount(@RequestBody Account account) throws BlogException {
 		LOGGER.info("addAccounts()");
-		accountService.addAccount(account);
+		boolean valid = accountValidator.validateAccount(account);
 
-		return new ResponseEntity<>("Account was added", HttpStatus.OK);
+		if (valid) {
+			accountService.addAccount(account);
+			return new ResponseEntity<>("Account was added", HttpStatus.OK);
+		} else {
+			throw new BlogException(ACCOUNT_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -100,6 +126,7 @@ public class AccountRestController {
 	 *
 	 * @param account the account
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@PutMapping("/accounts/edit/{accountId}")
 	@ApiOperation(value = "Edits the account", response = Iterable.class)
@@ -107,11 +134,18 @@ public class AccountRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<String> editAccount(@PathVariable("accountId") long accountId, @RequestBody Account account) {
+	public ResponseEntity<String> editAccount(@PathVariable("accountId") long accountId, @RequestBody Account account)
+			throws BlogException {
 		LOGGER.info("editAccount()");
-		accountService.editAccount(accountId, account);
+		boolean validAccount = accountValidator.validateAccount(account);
+		boolean validAccountId = accountValidator.validateNumber(accountId);
 
-		return new ResponseEntity<>("Account was edited", HttpStatus.OK);
+		if (validAccount && validAccountId) {
+			accountService.editAccount(accountId, account);
+			return new ResponseEntity<>("Account was edited", HttpStatus.OK);
+		} else {
+			throw new BlogException(ACCOUNT_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -119,6 +153,7 @@ public class AccountRestController {
 	 *
 	 * @param account the account
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@DeleteMapping("/accounts/delete/{accountId}")
 	@ApiOperation(value = "Deletes the account", response = Iterable.class)
@@ -126,10 +161,15 @@ public class AccountRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<String> deleteAccount(@PathVariable("accountId") long accountId) {
+	public ResponseEntity<String> deleteAccount(@PathVariable("accountId") long accountId) throws BlogException {
 		LOGGER.info("deleteAccount()");
 		accountService.deleteAccount(accountId);
+		boolean validAccountId = accountValidator.validateNumber(accountId);
 
-		return new ResponseEntity<>("Account was deleted", HttpStatus.OK);
+		if (validAccountId) {
+			return new ResponseEntity<>("Account was deleted", HttpStatus.OK);
+		} else {
+			throw new BlogException(ACCOUNT_VALIDATION_HAS_FAILED);
+		}
 	}
 }

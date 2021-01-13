@@ -1,7 +1,7 @@
 package com.blog.application.exception;
 
 /**
- * The class is a specific exception class for exception that occur throughout
+ * The class is a specific exception class for exceptions that occur throughout
  * this application.
  */
 public class BlogException extends Exception {

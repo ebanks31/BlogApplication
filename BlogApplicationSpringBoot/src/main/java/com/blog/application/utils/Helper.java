@@ -9,14 +9,15 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
 
-import com.blog.application.controllers.BlogAdapter;
 import com.blog.application.model.Blog;
+import com.blog.application.model.BlogAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @Component
 public class Helper {
-	private final static String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	private static DateFormat dateFormat = new SimpleDateFormat(TIMESTAMP_FORMAT);
 
 	public static String autosToJson(Blog blogs) {
 		GsonBuilder gsonBuilder = new GsonBuilder();
@@ -28,7 +29,6 @@ public class Helper {
 	public static JSONObject createJson(List<Blog> blogs) {
 		JSONObject messageJsonObject = new JSONObject();
 		JSONArray messageJsonArray = new JSONArray();
-		DateFormat dateFormat = new SimpleDateFormat(TIMESTAMP_FORMAT);
 		for (Blog blog : blogs) {
 			JSONObject messageDetailsObject = new JSONObject();
 			Date lastUpdatedDate = blog.getLastUpdateDate();
@@ -44,5 +44,16 @@ public class Helper {
 		}
 		messageJsonObject.put("blogs", messageJsonArray);
 		return messageJsonObject;
+	}
+
+	/**
+	 * Converts milliseconds to a date string.
+	 *
+	 * @param milliseconds the milliseconds
+	 * @return the date string
+	 */
+	public static String convertMillisecondsToDate(long milliseconds) {
+		Date date = new Date(milliseconds);
+		return dateFormat.format(date);
 	}
 }

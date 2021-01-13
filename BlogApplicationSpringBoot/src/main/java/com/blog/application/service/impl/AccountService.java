@@ -27,7 +27,7 @@ public class AccountService implements IAccountService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.blog.application.service.IAccountService#findAll()
 	 */
 	@Override
@@ -37,7 +37,7 @@ public class AccountService implements IAccountService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.blog.application.service.IAccountService#findByAccountId(long)
 	 */
 	@Override
@@ -54,7 +54,7 @@ public class AccountService implements IAccountService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.blog.application.service.IAccountService#addAccount(com.blog.application.
 	 * model.Account)
@@ -66,7 +66,7 @@ public class AccountService implements IAccountService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.blog.application.service.IAccountService#deleteAccount(long)
 	 */
 	@Override
@@ -76,7 +76,7 @@ public class AccountService implements IAccountService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.blog.application.service.IAccountService#editAccount(long)
 	 */
 	@Override

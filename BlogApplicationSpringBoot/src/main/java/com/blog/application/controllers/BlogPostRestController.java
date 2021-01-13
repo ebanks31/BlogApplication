@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blog.application.exception.BlogException;
 import com.blog.application.model.BlogPost;
 import com.blog.application.service.IBlogPostService;
+import com.blog.application.validator.BlogPostValidator;
 import com.google.gson.Gson;
 
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +35,8 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/blogs/blog")
 public class BlogPostRestController {
+	private static final String THE_BLOG_POST_IS_INVALID = "The blog post is invalid";
+
 	/** The logger. */
 	private final Logger LOGGER = LoggerFactory.getLogger(BlogPostRestController.class);
 	private static final Gson gson = new Gson();
@@ -43,11 +47,15 @@ public class BlogPostRestController {
 	@Autowired
 	IBlogPostService blogPostService;
 
+	@Autowired
+	BlogPostValidator blogPostValidator;
+
 	/**
 	 * Gets the blog posts by blog id.
 	 *
 	 * @param blogId the blog id
 	 * @return the blog posts by blog id
+	 * @throws BlogException
 	 */
 	@GetMapping(value = "/{blogId}/posts", produces = "application/json")
 	@ApiOperation(value = "View a list of blog Posts", response = Iterable.class)
@@ -55,12 +63,19 @@ public class BlogPostRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<List<BlogPost>> getBlogPostsByBlogId(@PathVariable("blogId") long blogId) {
+	public ResponseEntity<List<BlogPost>> getBlogPostsByBlogId(@PathVariable("blogId") long blogId)
+			throws BlogException {
 		LOGGER.info("blogId:  {}", blogId);
 		List<BlogPost> blogposts = blogPostService.findByBlogId(blogId);
 		LOGGER.info(BLOG_POST_ID_LOG, blogposts);
 
-		return new ResponseEntity<>(blogposts, HttpStatus.OK);
+		boolean valid = blogPostValidator.validateNumber(blogId);
+
+		if (valid) {
+			return new ResponseEntity<>(blogposts, HttpStatus.OK);
+		} else {
+			throw new BlogException(THE_BLOG_POST_IS_INVALID);
+		}
 	}
 
 	/**
@@ -69,6 +84,7 @@ public class BlogPostRestController {
 	 * @param blogId     the blog id
 	 * @param blogPostId the blog post id
 	 * @return the blog by id
+	 * @throws BlogException
 	 */
 	@GetMapping(value = "/{blogId}/posts/{blogPostId}", produces = "application/json")
 	@ApiOperation(value = "View a list of blog Posts", response = Iterable.class)
@@ -77,14 +93,19 @@ public class BlogPostRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<BlogPost> getBlogPostByBlogPostIdAndBlogId(@PathVariable("blogId") long blogId,
-			@PathVariable("blogPostId") long blogPostId) {
+			@PathVariable("blogPostId") long blogPostId) throws BlogException {
 		LOGGER.info(BLOG_ID_LOG, blogId);
 		LOGGER.info(BLOG_POST_ID_LOG, blogPostId);
+		boolean validBlogId = blogPostValidator.validateNumber(blogId);
+		boolean validBlogPostId = blogPostValidator.validateNumber(blogPostId);
 
-		BlogPost blogpost = blogPostService.findByBlogPostIdAndBlogId(blogId, blogPostId);
-		LOGGER.info("blog post {}", blogpost);
-
-		return new ResponseEntity<>(blogpost, HttpStatus.OK);
+		if (validBlogId && validBlogPostId) {
+			BlogPost blogpost = blogPostService.findByBlogPostIdAndBlogId(blogId, blogPostId);
+			LOGGER.info("blog post {}", blogpost);
+			return new ResponseEntity<>(blogpost, HttpStatus.OK);
+		} else {
+			throw new BlogException(THE_BLOG_POST_IS_INVALID);
+		}
 	}
 
 	/**
@@ -92,6 +113,7 @@ public class BlogPostRestController {
 	 *
 	 * @param blogpost the blogpost
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@PostMapping(value = "/{blogId}/posts/post/add")
 	@ApiOperation(value = "Adds a new blog Post", response = Iterable.class)
@@ -99,14 +121,20 @@ public class BlogPostRestController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<String> addBlogPost(@RequestBody BlogPost blogpost, @PathVariable("blogId") long blogId) {
+	public ResponseEntity<String> addBlogPost(@RequestBody BlogPost blogPost, @PathVariable("blogId") long blogId)
+			throws BlogException {
 		LOGGER.info("addBlogPost");
 
-		LOGGER.info("blogpost: {}", blogpost);
+		LOGGER.info("blogpost: {}", blogPost);
+		boolean validBlogPost = blogPostValidator.validateBlogPost(blogPost);
+		boolean validBlogId = blogPostValidator.validateNumber(blogId);
 
-		blogPostService.addBlogPost(blogpost, blogId);
-
-		return new ResponseEntity<>(gson.toJson("Blog post has been added successfully"), HttpStatus.OK);
+		if (validBlogPost && validBlogId) {
+			blogPostService.addBlogPost(blogPost, blogId);
+			return new ResponseEntity<>(gson.toJson("Blog post has been added successfully"), HttpStatus.OK);
+		} else {
+			throw new BlogException(THE_BLOG_POST_IS_INVALID);
+		}
 	}
 
 	/**
@@ -115,6 +143,7 @@ public class BlogPostRestController {
 	 * @param blogpost   the blogpost
 	 * @param blogPostId the blog post id
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@PutMapping(value = "/{blogId}/posts/post/edit/{blogPostId}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Editas a blog post", response = Iterable.class)
@@ -123,12 +152,20 @@ public class BlogPostRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> editBlogPost(@PathVariable("blogPostId") Long blogPostId,
-			@PathVariable("blogId") Long blogId, @RequestBody BlogPost blogPost) {
+			@PathVariable("blogId") Long blogId, @RequestBody BlogPost blogPost) throws BlogException {
 		LOGGER.info("editBlogPost");
 		LOGGER.info(BLOG_POST_ID_LOG, blogPostId);
 
-		blogPostService.editBlogPost(blogPostId, blogId, blogPost);
-		return new ResponseEntity<>("Blog post has been edited successfully", HttpStatus.OK);
+		boolean validBlogPost = blogPostValidator.validateBlogPost(blogPost);
+		boolean validBlogId = blogPostValidator.validateNumber(blogId);
+
+		if (validBlogPost && validBlogId) {
+			blogPostService.editBlogPost(blogPostId, blogId, blogPost);
+			return new ResponseEntity<>("Blog post has been edited successfully", HttpStatus.OK);
+		} else {
+			throw new BlogException(THE_BLOG_POST_IS_INVALID);
+		}
+
 	}
 
 	/**
@@ -137,6 +174,7 @@ public class BlogPostRestController {
 	 * @param blogpost   the blogpost
 	 * @param blogPostId the blog post id
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@DeleteMapping(value = "/{blogId}/posts/post/delete/{blogPostId}")
 	@ApiOperation(value = "View a list of blog Posts", response = Iterable.class)
@@ -145,11 +183,18 @@ public class BlogPostRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> deleteBlogPost(@PathVariable("blogPostId") Long blogPostId,
-			@PathVariable("blogId") Long blogId) {
+			@PathVariable("blogId") Long blogId) throws BlogException {
 		LOGGER.info(BLOG_POST_ID_LOG, blogPostId);
 		LOGGER.info(BLOG_ID_LOG, blogId);
 
-		blogPostService.deleteBlogPost(blogPostId, blogId);
-		return new ResponseEntity<>("Blog post has been deleted", HttpStatus.OK);
+		boolean validBlogId = blogPostValidator.validateNumber(blogId);
+		boolean validBlogPostId = blogPostValidator.validateNumber(blogPostId);
+
+		if (validBlogId && validBlogPostId) {
+			blogPostService.deleteBlogPost(blogPostId, blogId);
+			return new ResponseEntity<>("Blog post has been deleted", HttpStatus.OK);
+		} else {
+			throw new BlogException(THE_BLOG_POST_IS_INVALID);
+		}
 	}
 }

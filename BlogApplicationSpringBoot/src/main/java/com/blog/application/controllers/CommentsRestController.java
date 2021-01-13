@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blog.application.exception.BlogException;
 import com.blog.application.model.Comment;
 import com.blog.application.service.ICommentService;
+import com.blog.application.validator.CommentValidator;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -31,6 +33,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/blogs/blog")
 public class CommentsRestController {
+	private static final String COMMENT_VALIDATION_HAS_FAILED = "Comment validation has failed";
 	private static final String BLOG_POST_ID2 = "blogPostId";
 	private static final String BLOG_ID = "blogId: {}";
 	private static final String BLOG_POST_ID = "blogPostId: {}";
@@ -42,12 +45,16 @@ public class CommentsRestController {
 	@Autowired
 	ICommentService commentService;
 
+	@Autowired
+	CommentValidator commentValidator;
+
 	/**
 	 * Gets the blog post comments.
 	 *
 	 * @param blogId     the blog id
 	 * @param blogPostId the blog post id
 	 * @return the blog post comments
+	 * @throws BlogException
 	 */
 	@GetMapping(value = "/{blogId}/posts/{blogPostId}/comments", produces = "application/json")
 	@ApiOperation(value = "View a list of blog Posts", response = Iterable.class)
@@ -56,14 +63,21 @@ public class CommentsRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<List<Comment>> getBlogPostComments(@PathVariable("blogId") long blogId,
-			@PathVariable(BLOG_POST_ID2) long blogPostId) {
+			@PathVariable(BLOG_POST_ID2) long blogPostId) throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
 		LOGGER.info(BLOG_POST_ID, blogPostId);
 
-		List<Comment> comments = commentService.findAll();
-		LOGGER.info("comments {}", comments);
+		boolean validBlogId = commentValidator.validateNumber(blogId);
+		boolean validBlogPostId = commentValidator.validateNumber(blogPostId);
 
-		return new ResponseEntity<>(comments, HttpStatus.OK);
+		if (validBlogId && validBlogPostId) {
+			List<Comment> comments = commentService.findAll();
+			LOGGER.info("comments {}", comments);
+
+			return new ResponseEntity<>(comments, HttpStatus.OK);
+		} else {
+			throw new BlogException(COMMENT_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -73,6 +87,7 @@ public class CommentsRestController {
 	 * @param blogPostId the blog post id
 	 * @param comment    the comment
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@PostMapping(value = "/{blogId}/posts/{blogPostId}/comments/add", produces = "application/json")
 	@ApiOperation(value = "Adds a comment", response = Iterable.class)
@@ -81,13 +96,22 @@ public class CommentsRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> addBlogPostComments(@PathVariable("blogId") long blogId,
-			@PathVariable(BLOG_POST_ID2) long blogPostId, @RequestBody Comment comment) {
+			@PathVariable(BLOG_POST_ID2) long blogPostId, @RequestBody Comment comment) throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
 		LOGGER.info(BLOG_POST_ID, blogPostId);
 
 		commentService.addComment(comment);
 
-		return new ResponseEntity<>("Successfully added the comment", HttpStatus.OK);
+		boolean validBlogId = commentValidator.validateNumber(blogId);
+		boolean validBlogPostId = commentValidator.validateNumber(blogPostId);
+		boolean validComment = commentValidator.validateComment(comment);
+
+		if (validBlogId && validBlogPostId && validComment) {
+			commentService.addCommentWithBlogIdAndBlogPostId(comment, blogId, blogPostId);
+			return new ResponseEntity<>("Successfully added the comment", HttpStatus.OK);
+		} else {
+			throw new BlogException(COMMENT_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -97,6 +121,7 @@ public class CommentsRestController {
 	 * @param blogPostId the blog post id
 	 * @param commentId  the comment id
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@PutMapping(value = "/{blogId}/posts/{blogPostId}/comments/edit/{commentId}", produces = "application/json")
 	@ApiOperation(value = "Edits a comment", response = Iterable.class)
@@ -106,13 +131,20 @@ public class CommentsRestController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> editBlogPostComments(@PathVariable("blogId") long blogId,
 			@PathVariable(BLOG_POST_ID2) long blogPostId, @PathVariable("commentId") long commentId,
-			@RequestBody Comment comment) {
+			@RequestBody Comment comment) throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
 		LOGGER.info(BLOG_POST_ID, blogPostId);
 
-		commentService.editComment(commentId, comment);
+		boolean validBlogId = commentValidator.validateNumber(blogId);
+		boolean validBlogPostId = commentValidator.validateNumber(blogPostId);
+		boolean validComment = commentValidator.validateComment(comment);
 
-		return new ResponseEntity<>("Successfully edited the comment", HttpStatus.OK);
+		if (validBlogId && validBlogPostId && validComment) {
+			commentService.editCommentByBlogIdAndBlogPostId(comment, commentId, blogId, blogPostId);
+			return new ResponseEntity<>("Successfully edited the comment", HttpStatus.OK);
+		} else {
+			throw new BlogException(COMMENT_VALIDATION_HAS_FAILED);
+		}
 	}
 
 	/**
@@ -122,6 +154,7 @@ public class CommentsRestController {
 	 * @param blogPostId the blog post id
 	 * @param commentId  the comment id
 	 * @return the response entity
+	 * @throws BlogException
 	 */
 	@DeleteMapping(value = "/{blogId}/posts/{blogPostId}/comments/delete/{commentId}", produces = "application/json")
 	@ApiOperation(value = "Deletes a blog post", response = Iterable.class)
@@ -130,12 +163,19 @@ public class CommentsRestController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<String> deleteBlogPostComments(@PathVariable("blogId") long blogId,
-			@PathVariable(BLOG_POST_ID2) long blogPostId, @PathVariable("commentId") long commentId) {
+			@PathVariable(BLOG_POST_ID2) long blogPostId, @PathVariable("commentId") long commentId)
+			throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
 		LOGGER.info(BLOG_POST_ID, blogPostId);
 
-		commentService.deleteComment(commentId);
+		boolean validBlogId = commentValidator.validateNumber(blogId);
+		boolean validBlogPostId = commentValidator.validateNumber(blogPostId);
 
-		return new ResponseEntity<>("Successfully deleted the comment", HttpStatus.OK);
+		if (validBlogId && validBlogPostId) {
+			commentService.deleteComment(commentId);
+			return new ResponseEntity<>("Successfully deleted the comment", HttpStatus.OK);
+		} else {
+			throw new BlogException(COMMENT_VALIDATION_HAS_FAILED);
+		}
 	}
 }

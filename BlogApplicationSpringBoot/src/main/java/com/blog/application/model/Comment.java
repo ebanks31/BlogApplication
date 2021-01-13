@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Comment .
  */
@@ -26,7 +27,12 @@ public class Comment {
 	/** The comment. */
 	private String comment;
 
+	/** The blog id. */
+	@Column(name = "blog_id")
+	private Long blogId;
+
 	/** The blog post id. */
+	@Column(name = "blog_post_id")
 	private Long blogPostId;
 
 	/** The comment created date. */
@@ -171,4 +177,21 @@ public class Comment {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 
+	/**
+	 * Gets the blog id.
+	 *
+	 * @return the blog id
+	 */
+	public Long getBlogId() {
+		return blogId;
+	}
+
+	/**
+	 * Sets the blog id.
+	 *
+	 * @param blogId the new blog id
+	 */
+	public void setBlogId(Long blogId) {
+		this.blogId = blogId;
+	}
 }

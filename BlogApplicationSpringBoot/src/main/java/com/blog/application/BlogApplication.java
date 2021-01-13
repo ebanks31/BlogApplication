@@ -1,18 +1,19 @@
 package com.blog.application;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.autoconfigure.elasticsearch.ElasticSearchRestHealthIndicatorAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAutoConfiguration;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
- * The Class BlogApplication.
+ * The main class for starting the blogging application.
  */
-@SpringBootApplication(exclude = { ElasticsearchAutoConfiguration.class,
-		ElasticSearchRestHealthIndicatorAutoConfiguration.class })
+//@SpringBootApplication(exclude = { ElasticsearchAutoConfiguration.class,
+// ElasticSearchRestHealthIndicatorAutoConfiguration.class })
 //@EnableElasticsearchRepositories(basePackages = "com.blog.application.elasticsearch.repositories")
+@SpringBootApplication
 @EnableJpaRepositories(basePackages = { "com.blog.application.repositories" })
+@EnableCaching
 public class BlogApplication {
 
 	/**
