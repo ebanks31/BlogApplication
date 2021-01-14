@@ -42,5 +42,5 @@ I will add additional documents as I worked through this project including user 
 
 <b>TODO</b>
 
-For the backend, I need to add the functionality to send API statistics to ELK (Elastic Search, Logstash, Kibana) via Kafka.
+- For the backend, I need to add the functionality to send API statistics to ELK (Elastic Search, Logstash, Kibana) via Kafka.
 API statistics can include the response time, request counts, etc.
