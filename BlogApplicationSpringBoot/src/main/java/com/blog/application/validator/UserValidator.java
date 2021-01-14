@@ -3,6 +3,8 @@ package com.blog.application.validator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.blog.application.model.User;
 
 public class UserValidator extends BaseUserValidator {
@@ -22,9 +24,13 @@ public class UserValidator extends BaseUserValidator {
 	public boolean validateUserList(List<User> userList) {
 		boolean valid = true;
 
-		Predicate<User> userPredicate = user -> user != null && user.getUserId() > 0;
+		if (!CollectionUtils.isEmpty(userList)) {
+			Predicate<User> userPredicate = user -> user != null && user.getUserId() > 0;
+			valid = userList.stream().noneMatch(userPredicate);
+		} else {
+			valid = false;
+		}
 
-		valid = userList.stream().noneMatch(userPredicate);
 		return valid;
 	}
 

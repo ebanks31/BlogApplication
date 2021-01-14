@@ -39,7 +39,7 @@ public class CommentsRestController {
 	private static final String BLOG_POST_ID = "blogPostId: {}";
 
 	/** The logger. */
-	private final Logger LOGGER = LoggerFactory.getLogger(CommentsRestController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CommentsRestController.class);
 
 	/** The blog post service. */
 	@Autowired
@@ -172,7 +172,7 @@ public class CommentsRestController {
 		boolean validBlogPostId = commentValidator.validateNumber(blogPostId);
 
 		if (validBlogId && validBlogPostId) {
-			commentService.deleteComment(commentId);
+			commentService.deleteCommentWithBlogIdAndBlogPostId(commentId, blogId, blogPostId);
 			return new ResponseEntity<>("Successfully deleted the comment", HttpStatus.OK);
 		} else {
 			throw new BlogException(COMMENT_VALIDATION_HAS_FAILED);

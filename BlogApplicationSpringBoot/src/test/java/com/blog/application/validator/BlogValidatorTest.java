@@ -84,7 +84,7 @@ public class BlogValidatorTest extends ServiceOperations {
 		Blog blog = mockBlog();
 		blog.setBlogId(0L);
 		boolean valid = validator.validateBlogList(mockBlogList(blog));
-		assertTrue(valid);
+		assertFalse(valid);
 	}
 
 	@Test
@@ -92,6 +92,6 @@ public class BlogValidatorTest extends ServiceOperations {
 		Blog blog = mockBlog();
 		blog.setAccountId(0L);
 		boolean valid = validator.validateBlogList(mockBlogList(blog));
-		assertTrue(valid);
+		assertFalse(valid);
 	}
 }

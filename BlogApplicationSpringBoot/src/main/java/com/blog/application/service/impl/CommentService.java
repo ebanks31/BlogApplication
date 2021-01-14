@@ -163,7 +163,6 @@ public class CommentService implements ICommentService {
 
 			if (retrievedComment != null) {
 				retrievedComment.setComment(comment.getComment());
-
 				repository.save(retrievedComment);
 			} else {
 				LOGGER.info("No comment was found");

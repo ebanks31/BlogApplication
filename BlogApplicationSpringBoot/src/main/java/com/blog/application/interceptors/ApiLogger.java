@@ -37,6 +37,7 @@ public class ApiLogger implements HandlerInterceptor {
 		long startTime = System.currentTimeMillis();
 		long seconds = TimeUnit.MILLISECONDS.toSeconds(startTime);
 
+		// MDC.put("startTime", startTime);
 		request.setAttribute("startTime", startTime);
 		request.setAttribute(REQUEST_ID, requestId);
 

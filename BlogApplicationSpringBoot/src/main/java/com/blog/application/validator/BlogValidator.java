@@ -3,6 +3,8 @@ package com.blog.application.validator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.blog.application.model.Blog;
 
 import io.micrometer.core.instrument.util.StringUtils;
@@ -25,10 +27,14 @@ public class BlogValidator extends BaseBlogValidator {
 	public boolean validateBlogList(List<Blog> bloglist) {
 		boolean valid = true;
 
-		Predicate<Blog> blogPredicate = blog -> blog != null
-				&& (blog.getBlogId() > 0 || blog.getAccountId() > 0 || StringUtils.isBlank(blog.getBlogTitle()));
+		if (!CollectionUtils.isEmpty(bloglist)) {
+			Predicate<Blog> blogPredicate = blog -> blog != null
+					&& (blog.getBlogId() > 0 || blog.getAccountId() > 0 || StringUtils.isBlank(blog.getBlogTitle()));
 
-		valid = bloglist.stream().noneMatch(blogPredicate);
+			valid = bloglist.stream().noneMatch(blogPredicate);
+		} else {
+			valid = false;
+		}
 
 		return valid;
 	}

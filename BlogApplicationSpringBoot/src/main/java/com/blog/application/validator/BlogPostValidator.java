@@ -3,6 +3,8 @@ package com.blog.application.validator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.blog.application.model.BlogPost;
 
 public class BlogPostValidator extends BaseBlogPostValidator {
@@ -22,10 +24,14 @@ public class BlogPostValidator extends BaseBlogPostValidator {
 	public boolean validateBlogPostList(List<BlogPost> blogPostlist) {
 		boolean valid = true;
 
-		Predicate<BlogPost> blogPostPredicate = blogPost -> blogPost != null
-				&& (blogPost.getBlogPostId() > 0 || blogPost.getBlogId() > 0);
+		if (!CollectionUtils.isEmpty(blogPostlist)) {
+			Predicate<BlogPost> blogPostPredicate = blogPost -> blogPost != null
+					&& (blogPost.getBlogPostId() > 0 || blogPost.getBlogId() > 0);
 
-		valid = blogPostlist.stream().noneMatch(blogPostPredicate);
+			valid = blogPostlist.stream().noneMatch(blogPostPredicate);
+		} else {
+			valid = false;
+		}
 
 		return valid;
 	}

@@ -27,7 +27,7 @@ public class AccountValidator extends BaseAccountValidator {
 	public boolean validateAccountList(List<Account> accountList) {
 		boolean valid = true;
 
-		if (CollectionUtils.isEmpty(accountList)) {
+		if (!CollectionUtils.isEmpty(accountList)) {
 			Predicate<Account> accountPredicate = account -> account != null
 					&& (account.getAccountId() > 0 || account.getUserId() > 0 || account.getUser() == null
 							|| StringUtils.isBlank(account.getUsername()));
