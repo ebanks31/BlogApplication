@@ -3,6 +3,8 @@ package com.blog.application.validator;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
+
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +65,18 @@ public class BlogValidatorTest extends ServiceOperations {
 	public void testValidateBlogListSuccess() throws Exception {
 		boolean valid = validator.validateBlogList(mockBlogList());
 		assertTrue(valid);
+	}
+
+	@Test
+	public void testValidateBlogListNullFailure() throws Exception {
+		boolean valid = validator.validateBlogList(null);
+		assertFalse(valid);
+	}
+
+	@Test
+	public void testValidateBlogListEmptyFailure() throws Exception {
+		boolean valid = validator.validateBlogList(Collections.emptyList());
+		assertFalse(valid);
 	}
 
 	@Test

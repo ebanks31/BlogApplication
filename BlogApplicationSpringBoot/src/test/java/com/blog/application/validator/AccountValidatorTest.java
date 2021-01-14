@@ -3,17 +3,17 @@ package com.blog.application.validator;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
+
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.blog.application.model.Account;
 import com.blog.application.service.impl.ServiceOperations;
 
 public class AccountValidatorTest extends ServiceOperations {
 
-	@Autowired
-	AccountValidator validator;
+	AccountValidator validator = new AccountValidator();
 
 	@Test
 	public void testValidateAccountSuccess() throws Exception {
@@ -71,6 +71,18 @@ public class AccountValidatorTest extends ServiceOperations {
 	public void testValidateAccountListSuccess() throws Exception {
 		boolean valid = validator.validateAccountList(mockAccountList());
 		assertTrue(valid);
+	}
+
+	@Test
+	public void testValidateAccountListNullFailure() throws Exception {
+		boolean valid = validator.validateAccountList(null);
+		assertFalse(valid);
+	}
+
+	@Test
+	public void testValidateAccountListEmptyFailure() throws Exception {
+		boolean valid = validator.validateAccountList(Collections.emptyList());
+		assertFalse(valid);
 	}
 
 	@Test

@@ -27,7 +27,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.blog.application.model.Account;
 import com.google.gson.Gson;
 
-public class AccountControllerUnitTests extends TestOperations {
+public class AccountControllerUnitTests extends TestControllerOperations {
 
 	private static final String ORIGIN = "origin";
 

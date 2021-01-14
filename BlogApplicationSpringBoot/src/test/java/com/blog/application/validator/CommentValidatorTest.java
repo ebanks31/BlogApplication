@@ -3,6 +3,8 @@ package com.blog.application.validator;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -60,6 +62,18 @@ public class CommentValidatorTest extends ServiceOperations {
 	public void testValidateCommentListSuccess() throws Exception {
 		boolean valid = validator.validateCommentList(mockCommentList());
 		assertTrue(valid);
+	}
+
+	@Test
+	public void testValidateCommentListNullFailure() throws Exception {
+		boolean valid = validator.validateCommentList(null);
+		assertFalse(valid);
+	}
+
+	@Test
+	public void testValidateCommentListEmptyFailure() throws Exception {
+		boolean valid = validator.validateCommentList(Collections.emptyList());
+		assertFalse(valid);
 	}
 
 	@Test

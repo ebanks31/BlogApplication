@@ -27,7 +27,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.blog.application.model.Blog;
 import com.google.gson.Gson;
 
-public class BlogControllerUnitTests extends TestOperations {
+public class BlogControllerUnitTests extends TestControllerOperations {
 
 	@Before()
 	public void setUp() {

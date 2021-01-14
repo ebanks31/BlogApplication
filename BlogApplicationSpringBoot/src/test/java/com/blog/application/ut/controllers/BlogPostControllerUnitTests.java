@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import com.blog.application.model.BlogPost;
 import com.google.gson.Gson;
 
-public class BlogPostControllerUnitTests extends TestOperations {
+public class BlogPostControllerUnitTests extends TestControllerOperations {
 
 	/**
 	 * Gets the blog posts one blog post.

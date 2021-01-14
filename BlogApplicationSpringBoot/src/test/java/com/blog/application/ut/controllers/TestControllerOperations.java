@@ -45,7 +45,7 @@ import com.blog.application.service.IUserService;
 @ContextConfiguration(classes = AccountRestController.class)
 @EnableWebMvc
 @SpringBootTest(classes = { BlogApplication.class, TestConfig.class })
-public class TestOperations {
+public class TestControllerOperations {
 
 	/** The Constant ORIGIN. */
 	protected static final String ORIGIN = "origin";

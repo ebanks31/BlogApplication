@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import com.blog.application.model.User;
 import com.google.gson.Gson;
 
-public class UserControllerUnitTests extends TestOperations {
+public class UserControllerUnitTests extends TestControllerOperations {
 
 	/** The logger. */
 	private final Logger LOGGER = LoggerFactory.getLogger(UserControllerUnitTests.class);
