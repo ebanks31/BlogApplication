@@ -41,5 +41,6 @@ Documents include
 I will add additional documents as I worked through this project including user stories and integration test scenarios (i.e. testing multiple facets of the application including backend and front end parts of the application).
 
 <b>TODO</b>
+
 For the backend, I need to add the functionality to send API statistics to ELK (Elastic Search, Logstash, Kibana) via Kafka.
 API statistics can include the response time, request counts, etc.
