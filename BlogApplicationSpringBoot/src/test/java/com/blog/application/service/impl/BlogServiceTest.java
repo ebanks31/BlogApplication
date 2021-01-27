@@ -21,7 +21,7 @@ public class BlogServiceTest extends ServiceOperations {
 		when(blogCacheService.findAllBlogsFromCache()).thenReturn(null);
 		when(blogRepository.findAll()).thenReturn(mockBlogList());
 
-		List<Blog> blogList = blogservice.findAll();
+		List<Blog> blogList = blogService.findAll();
 		assertNotNull(blogList);
 		Blog resultBlog = blogList.get(0);
 
@@ -33,7 +33,7 @@ public class BlogServiceTest extends ServiceOperations {
 	@Test
 	public void testFindAllBlogsFromCache() throws Exception {
 		when(blogCacheService.findAllBlogsFromCache()).thenReturn(mockBlogList());
-		List<Blog> blogList = blogservice.findAll();
+		List<Blog> blogList = blogService.findAll();
 		assertNotNull(blogList);
 		Blog resultBlog = blogList.get(0);
 
@@ -48,7 +48,7 @@ public class BlogServiceTest extends ServiceOperations {
 		when(blogCacheService.findAllBlogsFromCache()).thenReturn(null);
 		when(blogRepository.findById(1L)).thenReturn(Optional.of(mockBlog()));
 
-		Blog resultBlog = blogservice.findByBlogId(1);
+		Blog resultBlog = blogService.findByBlogId(1);
 		assertNotNull(resultBlog);
 
 		assertEquals(new Long(1), resultBlog.getBlogId());
@@ -58,55 +58,42 @@ public class BlogServiceTest extends ServiceOperations {
 
 	@Test
 	public void testAddBlog() throws Exception {
-		doNothing().when(blogRepository).save(Mockito.any());
-		blogservice.addBlog(mockBlog());
+		when(blogRepository.save(Mockito.any())).thenReturn(mockBlog());
+		blogService.addBlog(mockBlog());
 		assertTrue(true);
 	}
 
 	@Test
 	public void testDeleteBlog() throws Exception {
 		doNothing().when(blogRepository).delete(Mockito.any());
-		blogservice.deleteBlog(1L);
+		blogService.deleteBlog(1L);
 		assertTrue(true);
 	}
 
 	@Test
 	public void testEditBlog() throws Exception {
 		when(blogRepository.findByBlogPostId(1L)).thenReturn(Optional.of(mockBlog()));
-		doNothing().when(blogRepository).save(Mockito.any());
+		when(blogRepository.save(Mockito.any())).thenReturn(mockBlog());
 
-		Blog blog = mockBlog();
-
-		blogservice.editBlog(blog.getBlogId(), blog);
+		blogService.editBlog(1L, mockBlog());
+		assertTrue(true);
 	}
 
 	@Test
 	public void testEditBlogAccountEmpty() throws Exception {
 		when(blogRepository.findByBlogPostId(1L)).thenReturn(Optional.empty());
-		doNothing().when(blogRepository).save(Mockito.any());
+		when(blogRepository.save(Mockito.any())).thenReturn(mockBlog());
 
-		Blog blog = mockBlog();
-
-		blogservice.editBlog(blog.getBlogId(), blog);
-	}
-
-	@Test
-	public void testEditBlogAccountNull() throws Exception {
-		when(blogRepository.findByBlogPostId(1L)).thenReturn(Optional.of(null));
-		doNothing().when(blogRepository).save(Mockito.any());
-
-		Blog blog = mockBlog();
-
-		blogservice.editBlog(blog.getBlogId(), blog);
+		blogService.editBlog(1L, mockBlog());
+		assertTrue(true);
 	}
 
 	@Test
 	public void testEditBlogNoBlogPostIdFound() throws Exception {
 		when(blogRepository.findByBlogPostId(1L)).thenReturn(Optional.empty());
-		doNothing().when(blogRepository).save(Mockito.any());
+		when(blogRepository.save(Mockito.any())).thenReturn(mockBlog());
 
-		Blog blog = mockBlog();
-
-		blogservice.editBlog(blog.getBlogId(), blog);
+		blogService.editBlog(1L, mockBlog());
+		assertTrue(true);
 	}
 }

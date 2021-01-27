@@ -2,10 +2,12 @@ package com.blog.application.service.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -17,13 +19,20 @@ public class BlogPostServiceTest extends ServiceOperations {
 
 	@Test
 	public void testFindAll() throws Exception {
-		doNothing().when(blogPostRepository.findAll());
-		blogPostService.findAll();
-		assertTrue(true);
+		when(blogPostRepository.findAll()).thenReturn(mockBlogPostList());
+		List<BlogPost> blogPostList = blogPostService.findAll();
+		assertNotNull(blogPostList);
+
+		BlogPost firstBlogPost = blogPostList.get(0);
+
+		assertEquals(new Long(1), firstBlogPost.getBlogPostId());
+		assertEquals("BlogPostTitle", firstBlogPost.getBlogPostTitle());
+		assertEquals("BlogPostBody", firstBlogPost.getBlogPostBody());
+		assertEquals("TestStatus", firstBlogPost.getStatus());
 	}
 
 	@Test
-	public void testFindByBlogId() throws Exception {
+	public void testFindByBlogPostId() throws Exception {
 		when(blogPostRepository.findById(1L)).thenReturn(Optional.of(mockBlogPost()));
 
 		BlogPost resultBlogPost = blogPostService.findByBlogPostId(1);
@@ -37,17 +46,29 @@ public class BlogPostServiceTest extends ServiceOperations {
 
 	@Test
 	public void testFindByBlogPostIdAndBlogId() throws Exception {
-		throw new RuntimeException("not yet implemented");
+		when(blogPostRepository.findByBlogPostIdAndBlogId(Mockito.anyLong(), Mockito.anyLong()))
+				.thenReturn(mockBlogPost());
+
+		BlogPost resultBlogPost = blogPostService.findByBlogPostIdAndBlogId(1L, 1L);
+		assertNotNull(resultBlogPost);
+
+		assertEquals(new Long(1), resultBlogPost.getBlogPostId());
+		assertEquals("BlogPostTitle", resultBlogPost.getBlogPostTitle());
+		assertEquals("BlogPostBody", resultBlogPost.getBlogPostBody());
+		assertEquals("TestStatus", resultBlogPost.getStatus());
 	}
 
 	@Test
-	public void testFindByBlogPostId() throws Exception {
-		throw new RuntimeException("not yet implemented");
+	public void testFindByBlogPostIdAndBlogIdNull() throws Exception {
+		when(blogPostRepository.findByBlogPostIdAndBlogId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(null);
+
+		BlogPost resultBlogPost = blogPostService.findByBlogPostIdAndBlogId(1L, 1L);
+		assertNull(resultBlogPost);
 	}
 
 	@Test
 	public void testAddBlogPost() throws Exception {
-		doNothing().when(blogPostRepository).save(Mockito.any());
+		when(blogPostRepository.save(Mockito.any())).thenReturn(mockBlogPost());
 		blogPostService.addBlogPost(mockBlogPost(), 1L);
 		assertTrue(true);
 	}
@@ -61,7 +82,10 @@ public class BlogPostServiceTest extends ServiceOperations {
 
 	@Test
 	public void testEditBlogPost() throws Exception {
-		throw new RuntimeException("not yet implemented");
-	}
+		when(blogPostRepository.findByBlogPostId(1L)).thenReturn(mockBlogPost());
+		when(blogPostRepository.save(Mockito.any())).thenReturn(mockBlogPost());
 
+		blogPostService.editBlogPost(1L, 1L, mockBlogPost());
+		assertTrue(true);
+	}
 }

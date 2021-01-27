@@ -7,9 +7,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.blog.application.cache.BlogCacheService;
 import com.blog.application.model.Account;
@@ -36,23 +36,23 @@ public class ServiceOperations {
 		}
 	};
 
-	@Mock
-	protected BlogCacheService blogCacheService;
+	@InjectMocks
+	protected BlogService blogService;
 
-	@Autowired
-	protected BlogService blogservice;
-
-	@Autowired
+	@InjectMocks
 	protected BlogPostService blogPostService;
 
-	@Autowired
+	@InjectMocks
 	protected AccountService accountService;
 
-	@Autowired
+	@InjectMocks
 	protected CommentService commentService;
 
-	@Autowired
+	@InjectMocks
 	protected UserService userService;
+
+	@Mock
+	protected BlogCacheService blogCacheService;
 
 	@Mock
 	BlogRepository blogRepository;
