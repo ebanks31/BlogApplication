@@ -62,7 +62,9 @@ public class BlogPostRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list of blog posts"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<List<BlogPost>> getBlogPostsByBlogId(@PathVariable("blogId") long blogId)
 			throws BlogException {
 		LOGGER.info("blogId:  {}", blogId);
@@ -91,7 +93,9 @@ public class BlogPostRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved blog post"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<BlogPost> getBlogPostByBlogPostIdAndBlogId(@PathVariable("blogId") long blogId,
 			@PathVariable("blogPostId") long blogPostId) throws BlogException {
 		LOGGER.info(BLOG_ID_LOG, blogId);
@@ -120,7 +124,9 @@ public class BlogPostRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully added the blog post"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> addBlogPost(@RequestBody BlogPost blogPost, @PathVariable("blogId") long blogId)
 			throws BlogException {
 		LOGGER.info("addBlogPost");
@@ -150,7 +156,9 @@ public class BlogPostRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully edited the blog post"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> editBlogPost(@PathVariable("blogPostId") Long blogPostId,
 			@PathVariable("blogId") Long blogId, @RequestBody BlogPost blogPost) throws BlogException {
 		LOGGER.info("editBlogPost");
@@ -181,7 +189,9 @@ public class BlogPostRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully deleted the blog post"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> deleteBlogPost(@PathVariable("blogPostId") Long blogPostId,
 			@PathVariable("blogId") Long blogId) throws BlogException {
 		LOGGER.info(BLOG_POST_ID_LOG, blogPostId);

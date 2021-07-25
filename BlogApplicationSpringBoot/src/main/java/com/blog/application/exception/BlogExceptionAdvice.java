@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class BlogExceptionController {
-	private final Logger LOGGER = LoggerFactory.getLogger(BlogExceptionController.class);
+public class BlogExceptionAdvice {
+	private final Logger LOGGER = LoggerFactory.getLogger(BlogExceptionAdvice.class);
 
 	@ExceptionHandler(value = BlogException.class)
 	public ResponseEntity<Object> blogException(BlogException exception) {

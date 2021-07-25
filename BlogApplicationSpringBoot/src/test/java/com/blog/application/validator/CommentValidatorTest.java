@@ -6,14 +6,14 @@ import static org.junit.Assert.assertTrue;
 import java.util.Collections;
 
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
 
 import com.blog.application.model.Comment;
 import com.blog.application.service.impl.ServiceOperations;
 
 public class CommentValidatorTest extends ServiceOperations {
 
-	@Autowired
+	@InjectMocks
 	CommentValidator validator;
 
 	@Test
@@ -25,7 +25,7 @@ public class CommentValidatorTest extends ServiceOperations {
 	@Test
 	public void testValidateCommentNullFailure() throws Exception {
 		boolean valid = validator.validateComment(null);
-		assertTrue(valid);
+		assertFalse(valid);
 	}
 
 	@Test

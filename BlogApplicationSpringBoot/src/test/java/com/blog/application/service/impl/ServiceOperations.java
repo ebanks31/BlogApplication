@@ -79,6 +79,7 @@ public class ServiceOperations {
 		blog.setBlogId(new Long(1));
 		blog.setBlogTitle("blogTitle");
 		blog.setBlogDescription("blogDescription");
+		blog.setAccountId(new Long(1));
 
 		return blog;
 	}
@@ -104,6 +105,7 @@ public class ServiceOperations {
 		account.setEmail("test@gmail.com");
 		account.setPassword("password");
 		account.setUser(mockUser());
+		account.setUserId(new Long(1));
 		return account;
 	}
 
@@ -130,6 +132,7 @@ public class ServiceOperations {
 		blogPost.setBlogPostTitle("BlogPostTitle");
 		blogPost.setStatus("TestStatus");
 		blogPost.setBlogPostBody("BlogPostBody");
+		blogPost.setBlogId(new Long(1));
 		return blogPost;
 	}
 
@@ -176,6 +179,8 @@ public class ServiceOperations {
 		comment.setCommentId(1L);
 		comment.setComment("Comment");
 		comment.setStatus("TestStatus");
+		comment.setBlogId(1L);
+		comment.setBlogPostId(1L);
 		return comment;
 	}
 

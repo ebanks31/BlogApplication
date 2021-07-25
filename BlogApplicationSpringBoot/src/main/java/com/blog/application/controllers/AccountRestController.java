@@ -55,7 +55,9 @@ public class AccountRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<List<Account>> getAccounts() throws BlogException {
 		LOGGER.info("getAccounts()");
 		List<Account> accounts = accountService.findAll();
@@ -81,7 +83,9 @@ public class AccountRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved account"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<Account> getAccountById(@PathVariable("accountId") long accountId) throws BlogException {
 		LOGGER.info("getAccountById()");
 		Account account = accountService.findByAccountId(accountId);
@@ -108,7 +112,9 @@ public class AccountRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully added the account"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> addAccount(@RequestBody Account account) throws BlogException {
 		LOGGER.info("addAccounts()");
 		boolean valid = accountValidator.validateAccount(account);
@@ -133,7 +139,9 @@ public class AccountRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully edited the account"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> editAccount(@PathVariable("accountId") long accountId, @RequestBody Account account)
 			throws BlogException {
 		LOGGER.info("editAccount()");
@@ -160,7 +168,9 @@ public class AccountRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully deletes the account"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> deleteAccount(@PathVariable("accountId") long accountId) throws BlogException {
 		LOGGER.info("deleteAccount()");
 		accountService.deleteAccount(accountId);

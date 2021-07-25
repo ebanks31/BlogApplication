@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -19,19 +20,51 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.blog.application.BlogApplication;
+import com.blog.application.config.TestConfig;
+import com.blog.application.controllers.BlogRestController;
 import com.blog.application.model.Blog;
+import com.blog.application.service.IBlogService;
 import com.google.gson.Gson;
 
-public class BlogControllerUnitTests extends TestControllerOperations {
+@ActiveProfiles("test")
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = { BlogApplication.class, TestConfig.class })
+@AutoConfigureMockMvc
+public class BlogControllerUnitTests {
+	/** The Constant ORIGIN. */
+	protected static final String ORIGIN = "origin";
+
+	protected MockMvc mockMvc;
+
+	// Controllers
+	@InjectMocks
+	BlogRestController blogController;
+
+	/** The blog service. */
+	@Mock
+	IBlogService blogService;
 
 	@Before()
 	public void setUp() {
+		MockitoAnnotations.openMocks(this);
 		this.mockMvc = MockMvcBuilders.standaloneSetup(blogController).build();
+		reset(blogService);
 	}
 
 	/**
@@ -201,5 +234,13 @@ public class BlogControllerUnitTests extends TestControllerOperations {
 				.content(accountJson)).andExpect(status().isOk()).andExpect(jsonPath("$.blogId", is(1)))
 				.andExpect(jsonPath("$.blogTitle", is("blogTitle")))
 				.andExpect(jsonPath("$.blogDescription", is("blogDescription")));
+	}
+
+	protected Blog mockBlog() {
+		Blog blog = new Blog();
+		blog.setBlogId(new Long(1));
+		blog.setBlogTitle("blogTitle");
+		blog.setBlogDescription("blogDescription");
+		return blog;
 	}
 }

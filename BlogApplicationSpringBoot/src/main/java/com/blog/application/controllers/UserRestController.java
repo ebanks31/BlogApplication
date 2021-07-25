@@ -54,7 +54,9 @@ public class UserRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list of users"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<List<User>> getUsers() throws BlogException {
 		List<User> users = userService.findAll();
 		LOGGER.info("users12345 : {}", users);
@@ -79,7 +81,9 @@ public class UserRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<User> getUserById(@PathVariable("userId") int userId) throws BlogException {
 		User user = userService.findByUserId(userId);
 		boolean valid = userValidator.validateUser(user);
@@ -104,7 +108,9 @@ public class UserRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully adds an user"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> addUser(@RequestBody User user) throws BlogException {
 		boolean valid = userValidator.validateUser(user);
 
@@ -129,7 +135,9 @@ public class UserRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully edits an user"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> editUser(@PathVariable("userId") long userId, @RequestBody User user)
 			throws BlogException {
 		boolean validUserId = userValidator.validateNumber(userId);
@@ -156,7 +164,9 @@ public class UserRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully deletes an user"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> deleteUser(@PathVariable("userId") long userId) throws BlogException {
 		boolean valid = userValidator.validateNumber(userId);
 		if (valid) {

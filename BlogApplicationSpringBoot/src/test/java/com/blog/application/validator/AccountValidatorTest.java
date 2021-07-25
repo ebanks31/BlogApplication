@@ -7,13 +7,15 @@ import java.util.Collections;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 
 import com.blog.application.model.Account;
 import com.blog.application.service.impl.ServiceOperations;
 
 public class AccountValidatorTest extends ServiceOperations {
 
-	AccountValidator validator = new AccountValidator();
+	@InjectMocks
+	AccountValidator validator;
 
 	@Test
 	public void testValidateAccountSuccess() throws Exception {

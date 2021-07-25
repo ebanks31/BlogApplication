@@ -15,14 +15,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.blog.application.BlogApplication;
 import com.blog.application.config.TestConfig;
@@ -37,24 +33,24 @@ import com.blog.application.service.IBlogPostService;
 import com.blog.application.service.IBlogService;
 import com.blog.application.service.IUserService;
 
-@ActiveProfiles("test")
-@AutoConfigureMockMvc(addFilters = false)
+//@RunWith(SpringRunner.class)
+//@AutoConfigureMockMvc
+//@TestPropertySource(locations = "classpath:application-test.properties")
+//@PropertySources(value = { @PropertySource("classpath:application-test.properties") })
+//@ActiveProfiles("test")
+
 @RunWith(SpringRunner.class)
-@ComponentScan(basePackages = "com.blog.application")
-@Import(AccountRestController.class)
-@ContextConfiguration(classes = AccountRestController.class)
-@EnableWebMvc
-@SpringBootTest(classes = { BlogApplication.class, TestConfig.class })
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = { BlogApplication.class, TestConfig.class })
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
 public class TestControllerOperations {
 
 	/** The Constant ORIGIN. */
 	protected static final String ORIGIN = "origin";
 
 	/** The mock mvc. */
-	protected MockMvc mockMvc;
-
 	@Autowired
-	protected WebApplicationContext webApplicationContext;
+	protected MockMvc mockMvc;
 
 	/** The blog service. */
 	@Mock

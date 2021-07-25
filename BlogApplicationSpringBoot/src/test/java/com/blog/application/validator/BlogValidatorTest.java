@@ -7,14 +7,14 @@ import java.util.Collections;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
 
 import com.blog.application.model.Blog;
 import com.blog.application.service.impl.ServiceOperations;
 
 public class BlogValidatorTest extends ServiceOperations {
 
-	@Autowired
+	@InjectMocks
 	BlogValidator validator;
 
 	@Test
@@ -26,7 +26,7 @@ public class BlogValidatorTest extends ServiceOperations {
 	@Test
 	public void testValidateBlogNullFailure() throws Exception {
 		boolean valid = validator.validateBlog(null);
-		assertTrue(valid);
+		assertFalse(valid);
 	}
 
 	@Test

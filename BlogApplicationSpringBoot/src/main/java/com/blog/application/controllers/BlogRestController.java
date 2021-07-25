@@ -25,7 +25,6 @@ import com.blog.application.service.IBlogService;
 import com.blog.application.service.IEmailService;
 import com.blog.application.service.IKafkaService;
 import com.blog.application.validator.BlogValidator;
-import com.hazelcast.core.HazelcastInstance;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -44,7 +43,7 @@ public class BlogRestController {
 	private static final String BLOG_ID = "blogId: {}";
 	private final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-	private final HazelcastInstance hazelcastInstance;
+	// private final HazelcastInstance hazelcastInstance;
 
 	@Autowired
 	BlogValidator blogValidator;
@@ -68,13 +67,16 @@ public class BlogRestController {
 	@Value(value = "${spring.email.addresses}")
 	private static String emailAddresses;
 
+	@Value(value = "${spring.boot.kafka.send:false}")
+	private static boolean sendToKafka;
+
 	@Autowired
 	IKafkaService kafkaservice;
 
-	@Autowired
-	BlogRestController(HazelcastInstance hazelcastInstance) {
-		this.hazelcastInstance = hazelcastInstance;
-	}
+	/*
+	 * @Autowired BlogRestController(HazelcastInstance hazelcastInstance) {
+	 * this.hazelcastInstance = hazelcastInstance; }
+	 */
 
 	/**
 	 * Gets the blogs.
@@ -90,7 +92,9 @@ public class BlogRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list of blogs"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<List<Blog>> getBlogs() throws UnknownHostException, BlogException {
 		long startTime = System.currentTimeMillis();
 		// emailService.sendSimpleMessage("k4polo@gmail.com", "Hello", "World");
@@ -101,7 +105,9 @@ public class BlogRestController {
 		LOGGER.info("blogs: {}", blogs);
 
 		if (validation) {
-			kafkaservice.sendBlogsToKafka(startTime, blogs);
+			if (sendToKafka) {
+				kafkaservice.sendBlogsToKafka(startTime, blogs);
+			}
 			return new ResponseEntity<>(blogs, HttpStatus.OK);
 		} else {
 			throw new BlogException(BLOG_VALIDATION_HAS_FAILED);
@@ -120,7 +126,9 @@ public class BlogRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved the blog"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<Blog> getBlogById(@PathVariable("blogId") int blogId) throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
 		Blog blog = blogService.findByBlogId(blogId);
@@ -149,7 +157,9 @@ public class BlogRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully added the blog"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> addBlog(@RequestBody Blog blog) throws BlogException {
 		LOGGER.info(BLOG2, blog);
 		LOGGER.info("blog.getBlogTitle(): {}", blog.getBlogTitle());
@@ -178,7 +188,11 @@ public class BlogRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully edited the blog"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> editBlog(@PathVariable("blogId") Long blogId, @RequestBody Blog blog)
 			throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
@@ -205,7 +219,9 @@ public class BlogRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully deleted the blog post"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> deleteBlogPost(@PathVariable("blogId") Long blogId) throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
 		boolean validation = blogValidator.validateNumber(blogId);
@@ -232,7 +248,9 @@ public class BlogRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved the blog"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<List<Blog>> getBlogByIdAndUserId(@PathVariable("blogId") int blogPostId,
 			@PathVariable("userId") int userId) throws BlogException {
 		List<Blog> blogList = blogService.findAll();

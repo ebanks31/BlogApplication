@@ -4,17 +4,20 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.stereotype.Service;
 
 import com.blog.application.model.BlogPost;
 
+@Service
 public class BlogPostValidator extends BaseBlogPostValidator {
 
 	@Override
 	public boolean validateBlogPost(BlogPost blogPost) {
-		boolean valid = true;
+		boolean valid = false;
 
-		if (blogPost != null && (blogPost.getBlogPostId() > 0 || blogPost.getBlogId() > 0)) {
-			valid = false;
+		if (blogPost != null && ((blogPost.getBlogPostId() != null && blogPost.getBlogPostId() > 0L)
+				&& (blogPost.getBlogId() != null && blogPost.getBlogId() > 0L))) {
+			valid = true;
 		}
 
 		return valid;
@@ -22,15 +25,13 @@ public class BlogPostValidator extends BaseBlogPostValidator {
 
 	@Override
 	public boolean validateBlogPostList(List<BlogPost> blogPostlist) {
-		boolean valid = true;
+		boolean valid = false;
 
 		if (!CollectionUtils.isEmpty(blogPostlist)) {
-			Predicate<BlogPost> blogPostPredicate = blogPost -> blogPost != null
-					&& (blogPost.getBlogPostId() > 0 || blogPost.getBlogId() > 0);
+			Predicate<BlogPost> blogPostPredicate = blogPost -> ((blogPost != null && blogPost.getBlogPostId() != null
+					&& blogPost.getBlogPostId() > 0L) && (blogPost.getBlogId() != null && blogPost.getBlogId() > 0L));
 
-			valid = blogPostlist.stream().noneMatch(blogPostPredicate);
-		} else {
-			valid = false;
+			valid = blogPostlist.stream().allMatch(blogPostPredicate);
 		}
 
 		return valid;

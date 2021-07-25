@@ -22,7 +22,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.blog.application.model.Account;
 import com.google.gson.Gson;
@@ -34,7 +33,6 @@ public class AccountControllerUnitTests extends TestControllerOperations {
 	@Before()
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		this.mockMvc = MockMvcBuilders.standaloneSetup(accountController).build();
 	}
 
 	@Test

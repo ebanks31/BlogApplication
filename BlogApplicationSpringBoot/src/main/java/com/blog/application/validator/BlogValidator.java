@@ -4,20 +4,23 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.stereotype.Service;
 
 import com.blog.application.model.Blog;
 
 import io.micrometer.core.instrument.util.StringUtils;
 
+@Service
 public class BlogValidator extends BaseBlogValidator {
 
 	@Override
 	public boolean validateBlog(Blog blog) {
-		boolean valid = true;
+		boolean valid = false;
 
-		if (blog != null
-				&& (blog.getBlogId() > 0 || blog.getAccountId() > 0 || StringUtils.isBlank(blog.getBlogTitle()))) {
-			valid = false;
+		if (blog != null && ((blog.getBlogId() != null && blog.getBlogId() > 0L)
+				&& (blog.getAccountId() != null && blog.getAccountId() > 0L)
+				&& StringUtils.isNotBlank(blog.getBlogTitle()))) {
+			valid = true;
 		}
 
 		return valid;
@@ -25,15 +28,14 @@ public class BlogValidator extends BaseBlogValidator {
 
 	@Override
 	public boolean validateBlogList(List<Blog> bloglist) {
-		boolean valid = true;
+		boolean valid = false;
 
 		if (!CollectionUtils.isEmpty(bloglist)) {
-			Predicate<Blog> blogPredicate = blog -> blog != null
-					&& (blog.getBlogId() > 0 || blog.getAccountId() > 0 || StringUtils.isBlank(blog.getBlogTitle()));
+			Predicate<Blog> blogPredicate = blog -> blog != null && (blog.getBlogId() != null && blog.getBlogId() > 0L)
+					&& (blog.getAccountId() != null && blog.getAccountId() > 0L)
+					&& StringUtils.isNotBlank(blog.getBlogTitle());
 
-			valid = bloglist.stream().noneMatch(blogPredicate);
-		} else {
-			valid = false;
+			valid = bloglist.stream().allMatch(blogPredicate);
 		}
 
 		return valid;

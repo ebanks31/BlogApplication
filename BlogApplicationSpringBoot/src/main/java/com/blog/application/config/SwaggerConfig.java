@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -23,6 +24,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 //@Profile("!test")
 @Configuration
 @EnableSwagger2
+@Profile("!test")
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 	private final Logger LOGGER = LoggerFactory.getLogger(SwaggerConfig.class);
 

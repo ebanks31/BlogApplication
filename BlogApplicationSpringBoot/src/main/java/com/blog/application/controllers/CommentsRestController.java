@@ -61,7 +61,9 @@ public class CommentsRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved the comments"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<List<Comment>> getBlogPostComments(@PathVariable("blogId") long blogId,
 			@PathVariable(BLOG_POST_ID2) long blogPostId) throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
@@ -94,7 +96,9 @@ public class CommentsRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully added the comment"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> addBlogPostComments(@PathVariable("blogId") long blogId,
 			@PathVariable(BLOG_POST_ID2) long blogPostId, @RequestBody Comment comment) throws BlogException {
 		LOGGER.info(BLOG_ID, blogId);
@@ -128,7 +132,9 @@ public class CommentsRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully edited the comment"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> editBlogPostComments(@PathVariable("blogId") long blogId,
 			@PathVariable(BLOG_POST_ID2) long blogPostId, @PathVariable("commentId") long commentId,
 			@RequestBody Comment comment) throws BlogException {
@@ -161,7 +167,9 @@ public class CommentsRestController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully deleted the comment"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "Internal server error"),
+			@ApiResponse(code = 503, message = "Service Unavailable") })
 	public ResponseEntity<String> deleteBlogPostComments(@PathVariable("blogId") long blogId,
 			@PathVariable(BLOG_POST_ID2) long blogPostId, @PathVariable("commentId") long commentId)
 			throws BlogException {
