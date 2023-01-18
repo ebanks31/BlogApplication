@@ -132,7 +132,7 @@ public class ServiceOperations {
 		blogPost.setBlogPostTitle("BlogPostTitle");
 		blogPost.setStatus("TestStatus");
 		blogPost.setBlogPostBody("BlogPostBody");
-		blogPost.setBlogId(new Long(1));
+		blogPost.setBlog(mockBlog());
 		return blogPost;
 	}
 

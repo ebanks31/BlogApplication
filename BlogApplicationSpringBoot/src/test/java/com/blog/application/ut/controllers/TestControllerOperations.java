@@ -123,7 +123,7 @@ public class TestControllerOperations {
 		blogPost.setBlogPostId(new Long(1));
 		blogPost.setBlogPostTitle("blogPostTitle");
 		blogPost.setBlogPostBody("blogPostBody");
-		blogPost.setBlogId(new Long(1));
+		blogPost.setBlog(mockBlog());
 		return blogPost;
 	}
 

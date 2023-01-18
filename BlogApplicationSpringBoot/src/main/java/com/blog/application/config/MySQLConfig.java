@@ -1,5 +1,7 @@
 package com.blog.application.config;
 
+import java.util.HashMap;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -24,8 +26,7 @@ import com.zaxxer.hikari.HikariDataSource;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", basePackages = {
-		"com.blog.application.repositories.mysql" })
+@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory")
 @Profile("!test")
 public class MySQLConfig {
 	/**
@@ -41,15 +42,32 @@ public class MySQLConfig {
 		return new JpaTransactionManager(entityManagerFactory);
 	}
 
+	/**
+	 * Data source.
+	 *
+	 * @return the hikari data source
+	 */
 	@Bean(name = "dataSource")
 	@ConfigurationProperties(prefix = "spring.datasource")
 	public HikariDataSource dataSource() {
 		return DataSourceBuilder.create().type(HikariDataSource.class).build();
 	}
 
+	/**
+	 * Foo entity manager factory.
+	 *
+	 * @param builder    the builder
+	 * @param dataSource the data source
+	 * @return the local container entity manager factory bean
+	 */
 	@Bean(name = "entityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean fooEntityManagerFactory(EntityManagerFactoryBuilder builder,
 			@Qualifier("dataSource") DataSource dataSource) {
+		final HashMap<String, Object> hibernateProperties = new HashMap<String, Object>();
+		hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+//		return builder.dataSource(dataSource).packages("com.blog.application.model").persistenceUnit("user")
+//				.properties(hibernateProperties).build();
+
 		return builder.dataSource(dataSource).packages("com.blog.application.model").persistenceUnit("user").build();
 	}
 }

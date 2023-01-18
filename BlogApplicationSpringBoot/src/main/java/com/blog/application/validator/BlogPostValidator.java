@@ -15,8 +15,7 @@ public class BlogPostValidator extends BaseBlogPostValidator {
 	public boolean validateBlogPost(BlogPost blogPost) {
 		boolean valid = false;
 
-		if (blogPost != null && ((blogPost.getBlogPostId() != null && blogPost.getBlogPostId() > 0L)
-				&& (blogPost.getBlogId() != null && blogPost.getBlogId() > 0L))) {
+		if (blogPost != null) {
 			valid = true;
 		}
 
@@ -29,7 +28,7 @@ public class BlogPostValidator extends BaseBlogPostValidator {
 
 		if (!CollectionUtils.isEmpty(blogPostlist)) {
 			Predicate<BlogPost> blogPostPredicate = blogPost -> ((blogPost != null && blogPost.getBlogPostId() != null
-					&& blogPost.getBlogPostId() > 0L) && (blogPost.getBlogId() != null && blogPost.getBlogId() > 0L));
+					&& blogPost.getBlogPostId() > 0L) && (blogPost.getBlog() != null));
 
 			valid = blogPostlist.stream().allMatch(blogPostPredicate);
 		}

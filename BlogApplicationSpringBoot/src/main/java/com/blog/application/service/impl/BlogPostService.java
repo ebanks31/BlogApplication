@@ -9,9 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blog.application.model.Blog;
 import com.blog.application.model.BlogPost;
 import com.blog.application.repositories.BlogPostRepository;
 import com.blog.application.service.IBlogPostService;
+import com.blog.application.service.IBlogService;
 
 /**
  * The Class BlogPostService.
@@ -25,6 +27,9 @@ public class BlogPostService implements IBlogPostService {
 	/** The repository. */
 	@Autowired
 	private BlogPostRepository repository;
+
+	@Autowired
+	IBlogService blogService;
 
 	/*
 	 * (non-Javadoc)
@@ -84,7 +89,10 @@ public class BlogPostService implements IBlogPostService {
 	@Override
 	public void addBlogPost(BlogPost blogPost, long blogId) {
 		LOGGER.info("addBlogPost()");
-		blogPost.setBlogId(blogId);
+		Blog blog = blogService.findByBlogId(blogId);
+
+		blogPost.setBlog(blog);
+//		blogPost.setBlogId(blogId);
 		repository.save(blogPost);
 	}
 
@@ -110,7 +118,10 @@ public class BlogPostService implements IBlogPostService {
 
 		if (blogPostId != 0) {
 			BlogPost retrievedBlogPost = repository.findByBlogPostId(blogPostId);
-			retrievedBlogPost.setBlogId(blogId);
+
+			Blog blog = blogService.findByBlogId(blogId);
+
+			retrievedBlogPost.setBlog(blog);
 
 			if (!Objects.isNull(retrievedBlogPost)) {
 				LOGGER.info("retrievedBlogPost {}", retrievedBlogPost);
@@ -125,7 +136,7 @@ public class BlogPostService implements IBlogPostService {
 
 				LOGGER.info("retrievedBlogPost.getBlogPostId() {}", retrievedBlogPost.getBlogPostId());
 				LOGGER.info("retrievedBlogPost.getLastUpdateDate() {}", retrievedBlogPost.getLastUpdateDate());
-				LOGGER.info("retrievedBlogPost.getBlogId() {}", retrievedBlogPost.getBlogId());
+				LOGGER.info("retrievedBlogPost.getBlogId() {}", retrievedBlogPost.getBlog());
 
 				repository.save(retrievedBlogPost);
 			} else {

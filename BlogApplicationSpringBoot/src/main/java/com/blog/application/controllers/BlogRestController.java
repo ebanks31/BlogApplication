@@ -263,4 +263,30 @@ public class BlogRestController {
 			throw new BlogException(BLOG_VALIDATION_HAS_FAILED);
 		}
 	}
+
+	@GetMapping("")
+	public ResponseEntity<List<Blog>> getBlogLists() {
+		List<Blog> blogList = blogService.findAll();
+
+		if (blogList == null) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		} else {
+
+			return new ResponseEntity<>(blogList, HttpStatus.OK);
+
+		}
+	}
+
+	@PostMapping("/blogs/add")
+	public ResponseEntity<String> addBlog2(@RequestBody Blog blog) {
+		blogService.addBlog(blog);
+
+		return new ResponseEntity<>("Blog has been added successfully", HttpStatus.OK);
+	}
+
+	@PostMapping("blogs/edit/{blogId}")
+	public ResponseEntity<String> editBlog(@PathVariable("blogId") int blogId, @RequestBody Blog blog) {
+		blogService.editBlog(blogId, blog);
+		return new ResponseEntity<>("Blog has been added successfully", HttpStatus.OK);
+	}
 }

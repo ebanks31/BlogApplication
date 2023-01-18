@@ -148,7 +148,7 @@ public class BlogPostControllerUnitTests extends TestControllerOperations {
 		Gson gson = new Gson();
 		String blogJson = gson.toJson(blogPost);
 
-		doNothing().when(blogPostService).addBlogPost(blogPost, blogPost.getBlogId());
+		doNothing().when(blogPostService).addBlogPost(blogPost, blogPost.getBlog().getBlogId());
 
 		ResultActions resultActions = mockMvc
 				.perform(post("/blogs/blog/{blogId}/posts/post/add", 1).header(ORIGIN, "*")
@@ -171,7 +171,7 @@ public class BlogPostControllerUnitTests extends TestControllerOperations {
 		Gson gson = new Gson();
 		String blogJson = gson.toJson(blogPost);
 
-		doNothing().when(blogPostService).deleteBlogPost(blogPost.getBlogPostId(), blogPost.getBlogId());
+		doNothing().when(blogPostService).deleteBlogPost(blogPost.getBlogPostId(), blogPost.getBlog().getBlogId());
 
 		ResultActions resultActions = mockMvc
 				.perform(delete("/blogs/blog/1/posts/post/delete/{blogPostId}", 1).header(ORIGIN, "*")
@@ -193,7 +193,8 @@ public class BlogPostControllerUnitTests extends TestControllerOperations {
 		Gson gson = new Gson();
 		String blogJson = gson.toJson(blogPost);
 
-		doNothing().when(blogPostService).editBlogPost(blogPost.getBlogPostId(), blogPost.getBlogId(), blogPost);
+		doNothing().when(blogPostService).editBlogPost(blogPost.getBlogPostId(), blogPost.getBlog().getBlogId(),
+				blogPost);
 
 		ResultActions resultActions = mockMvc
 				.perform(put("/blogs/blog/{blogId}/posts/post/edit/{blogPostId}", 1, 1).header(ORIGIN, "*")
@@ -216,7 +217,7 @@ public class BlogPostControllerUnitTests extends TestControllerOperations {
 		Gson gson = new Gson();
 		String accountJson = gson.toJson(blogPost);
 
-		when(blogPostService.findByBlogPostIdAndBlogId(blogPost.getBlogPostId(), blogPost.getBlogId()))
+		when(blogPostService.findByBlogPostIdAndBlogId(blogPost.getBlogPostId(), blogPost.getBlog().getBlogId()))
 				.thenReturn(blogPost);
 
 		mockMvc.perform(get("/blogs/blog/{blogId}/posts/{blogPostId}", 1, 1).header(ORIGIN, "*")

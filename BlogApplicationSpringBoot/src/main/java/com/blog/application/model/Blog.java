@@ -15,13 +15,32 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * The Class Blog.
  */
 @Entity
 @Table(name = "blog")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Blog {
 
 	/** The blog post id. */
@@ -38,6 +57,10 @@ public class Blog {
 
 	/** The blog created date. */
 	@Column(name = "blog_created_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	@CreatedDate
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+	@CreationTimestamp
 	private Date blogCreatedDate;
 
 	/** The blog terminated date. */
@@ -59,6 +82,9 @@ public class Blog {
 	/** The last update date. */
 	@Column(name = "last_updated_date")
 	@Temporal(TemporalType.TIMESTAMP)
+	@LastModifiedDate
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+	@UpdateTimestamp
 	private Date lastUpdateDate;
 
 	/** The accounts. */
@@ -69,180 +95,4 @@ public class Blog {
 	/** The status. */
 	@Column(name = "account_id")
 	private Long accountId;
-
-	/**
-	 * Gets the account id.
-	 *
-	 * @return the account id
-	 */
-	public Long getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(Long accountId) {
-		this.accountId = accountId;
-	}
-
-	/**
-	 * Gets the blog title.
-	 *
-	 * @return the blog title
-	 */
-	public String getBlogTitle() {
-		return blogTitle;
-	}
-
-	/**
-	 * Sets the blog title.
-	 *
-	 * @param blogTitle the new blog title
-	 */
-	public void setBlogTitle(String blogTitle) {
-		this.blogTitle = blogTitle;
-	}
-
-	/**
-	 * Gets the blog id.
-	 *
-	 * @return the blog id
-	 */
-	public Long getBlogId() {
-		return blogId;
-	}
-
-	/**
-	 * Sets the blog id.
-	 *
-	 * @param blogId the new blog id
-	 */
-	public void setBlogId(Long blogId) {
-		this.blogId = blogId;
-	}
-
-	/**
-	 * Gets the account.
-	 *
-	 * @return the account
-	 */
-	public Account getAccount() {
-		return account;
-	}
-
-	/**
-	 * Sets the account.
-	 *
-	 * @param account the new account
-	 */
-	public void setAccount(Account account) {
-		this.account = account;
-	}
-
-	/**
-	 * Gets the blog created date.
-	 *
-	 * @return the blog created date
-	 */
-	public Date getBlogCreatedDate() {
-		return blogCreatedDate;
-	}
-
-	/**
-	 * Sets the blog created date.
-	 *
-	 * @param blogCreatedDate the new blog created date
-	 */
-	public void setBlogCreatedDate(Date blogCreatedDate) {
-		this.blogCreatedDate = blogCreatedDate;
-	}
-
-	/**
-	 * Gets the blog terminated date.
-	 *
-	 * @return the blog terminated date
-	 */
-	public Date getBlogTerminatedDate() {
-		return blogTerminatedDate;
-	}
-
-	/**
-	 * Sets the blog terminated date.
-	 *
-	 * @param blogTerminatedDate the new blog terminated date
-	 */
-	public void setBlogTerminatedDate(Date blogTerminatedDate) {
-		this.blogTerminatedDate = blogTerminatedDate;
-	}
-
-	/**
-	 * Gets the status.
-	 *
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
-	}
-
-	/**
-	 * Sets the status.
-	 *
-	 * @param status the new status
-	 */
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	/**
-	 * Gets the blog description.
-	 *
-	 * @return the blog description
-	 */
-	public String getBlogDescription() {
-		return blogDescription;
-	}
-
-	/**
-	 * Sets the blog description.
-	 *
-	 * @param blogDescription the new blog description
-	 */
-	public void setBlogDescription(String blogDescription) {
-		this.blogDescription = blogDescription;
-	}
-
-	/**
-	 * Gets the last update date.
-	 *
-	 * @return the last update date
-	 */
-	public Date getLastUpdateDate() {
-		return lastUpdateDate;
-	}
-
-	/**
-	 * Sets the last update date.
-	 *
-	 * @param lastUpdateDate the new last update date
-	 */
-	public void setLastUpdateDate(Date lastUpdateDate) {
-		this.lastUpdateDate = lastUpdateDate;
-	}
-
-	/**
-	 * Gets the blog posts.
-	 *
-	 * @return the blog posts
-	 */
-	public Set<BlogPost> getBlogPosts() {
-		return blogPosts;
-	}
-
-	/**
-	 * Sets the blog posts.
-	 *
-	 * @param blogPosts the new blog posts
-	 */
-	public void setBlogPosts(Set<BlogPost> blogPosts) {
-		this.blogPosts = blogPosts;
-	}
-
 }

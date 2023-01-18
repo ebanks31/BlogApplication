@@ -8,6 +8,7 @@ import java.util.Collections;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 
+import com.blog.application.model.Blog;
 import com.blog.application.model.BlogPost;
 import com.blog.application.service.impl.ServiceOperations;
 
@@ -39,7 +40,10 @@ public class BlogPostValidatorTest extends ServiceOperations {
 	@Test
 	public void testValidateBlogPostBlogIdInvalidFailure() throws Exception {
 		BlogPost blogPost = mockBlogPost();
-		blogPost.setBlogId(0L);
+		Blog blog = mockBlog();
+		blog.setBlogId(0L);
+
+		blogPost.setBlog(blog);
 		boolean valid = validator.validateBlogPost(blogPost);
 		assertFalse(valid);
 	}
@@ -73,7 +77,10 @@ public class BlogPostValidatorTest extends ServiceOperations {
 	@Test
 	public void testValidateBlogListBlogIdInvalidFailure() throws Exception {
 		BlogPost blogPost = mockBlogPost();
-		blogPost.setBlogId(0L);
+		Blog blog = mockBlog();
+		blog.setBlogId(0L);
+
+		blogPost.setBlog(blog);
 		boolean valid = validator.validateBlogPost(blogPost);
 		assertFalse(valid);
 	}

@@ -17,9 +17,8 @@ public class BlogValidator extends BaseBlogValidator {
 	public boolean validateBlog(Blog blog) {
 		boolean valid = false;
 
-		if (blog != null && ((blog.getBlogId() != null && blog.getBlogId() > 0L)
-				&& (blog.getAccountId() != null && blog.getAccountId() > 0L)
-				&& StringUtils.isNotBlank(blog.getBlogTitle()))) {
+		if (blog != null && (blog.getAccountId() != null && blog.getAccountId() > 0L)
+				&& StringUtils.isNotBlank(blog.getBlogTitle())) {
 			valid = true;
 		}
 
