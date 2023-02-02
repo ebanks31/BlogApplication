@@ -59,9 +59,7 @@ public class Account {
 	/** The account terminated date. */
 	@Column(name = "account_terminated_date")
 	@Temporal(TemporalType.TIMESTAMP)
-	@LastModifiedDate
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-	@UpdateTimestamp
 	private Date accountTerminatedDate;
 
 	/** The status. */
@@ -75,6 +73,9 @@ public class Account {
 	/** The last updated date. */
 	@Column(name = "last_updated_date")
 	@Temporal(TemporalType.TIMESTAMP)
+	@LastModifiedDate
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+	@UpdateTimestamp
 	private Date lastUpdatedDate;
 
 	/** The user. */

@@ -87,7 +87,7 @@ public class Blog {
 	@UpdateTimestamp
 	private Date lastUpdateDate;
 
-	/** The accounts. */
+	/** The blog posts. */
 	@JsonIgnore
 	@OneToMany(mappedBy = "blog", fetch = FetchType.LAZY)
 	private Set<BlogPost> blogPosts;
