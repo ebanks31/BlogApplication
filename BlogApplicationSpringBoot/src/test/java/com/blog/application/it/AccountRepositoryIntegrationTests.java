@@ -7,8 +7,6 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.blog.application.model.Account;
@@ -19,15 +17,15 @@ import com.blog.application.repositories.AccountRepository;
  * The Class AccountController.
  */
 @RunWith(SpringRunner.class)
-@DataJpaTest
+//@DataJpaTest
 public class AccountRepositoryIntegrationTests {
 
 	/** The logger. */
 	private final Logger LOGGER = LoggerFactory.getLogger(AccountRepositoryIntegrationTests.class);
 
 	/** The account service. */
-	@Autowired
-	private TestEntityManager entityManager;
+//	@Autowired
+//	private TestEntityManager entityManager;
 
 	@Autowired
 	private AccountRepository accountRepository;
@@ -45,9 +43,9 @@ public class AccountRepositoryIntegrationTests {
 		account.setPassword("password");
 		account.setUserId(new Long(1));
 
-		entityManager.merge(user);
-		entityManager.merge(account);
-		entityManager.flush();
+//		entityManager.merge(user);
+//		entityManager.merge(account);
+//		entityManager.flush();
 
 		// when
 		Account accountFound = accountRepository.findByAccountId(new Long(2));

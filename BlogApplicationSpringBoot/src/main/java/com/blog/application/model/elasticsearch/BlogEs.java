@@ -3,9 +3,9 @@ package com.blog.application.model.elasticsearch;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 import org.springframework.data.annotation.Id;
 

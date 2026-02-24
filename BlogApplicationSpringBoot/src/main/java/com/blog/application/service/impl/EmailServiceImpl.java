@@ -2,9 +2,6 @@ package com.blog.application.service.impl;
 
 import java.io.IOException;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
@@ -13,6 +10,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
 import com.blog.application.service.IEmailService;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 
 @Component
 public class EmailServiceImpl implements IEmailService {

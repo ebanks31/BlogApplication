@@ -1,9 +1,9 @@
 package com.blog.application.config;
 
-import javax.persistence.EntityManagerFactory;
-
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
+
+import jakarta.persistence.EntityManagerFactory;
 
 //@Configuration
 public class HibernateConfig {

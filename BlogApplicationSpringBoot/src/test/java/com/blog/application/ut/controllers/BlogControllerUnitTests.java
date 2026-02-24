@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+//import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
@@ -45,7 +45,7 @@ import com.google.gson.Gson;
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = { BlogApplication.class, TestConfig.class })
-@AutoConfigureMockMvc
+//@AutoConfigureMockMvc
 public class BlogControllerUnitTests {
 	/** The Constant ORIGIN. */
 	protected static final String ORIGIN = "origin";

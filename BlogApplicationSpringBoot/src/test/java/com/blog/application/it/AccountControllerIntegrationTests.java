@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+//import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
@@ -27,7 +27,7 @@ import com.google.gson.Gson;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = BlogApplication.class)
-@AutoConfigureMockMvc
+//@AutoConfigureMockMvc
 //@TestPropertySource(locations = "classpath:application-integrationtest.properties")
 @ActiveProfiles("integration-test")
 public class AccountControllerIntegrationTests {

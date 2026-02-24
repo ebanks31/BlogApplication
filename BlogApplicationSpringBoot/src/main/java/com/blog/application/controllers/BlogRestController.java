@@ -1,9 +1,8 @@
 package com.blog.application.controllers;
 
 import java.net.UnknownHostException;
+import java.util.Collections;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +30,8 @@ import com.blog.application.validator.BlogValidator;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * The Class BlogController.
@@ -281,7 +282,7 @@ public class BlogRestController {
         List<Blog> blogList = blogService.findAll();
 
         if (blogList == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
         } else {
 
             return new ResponseEntity<>(blogList, HttpStatus.OK);
