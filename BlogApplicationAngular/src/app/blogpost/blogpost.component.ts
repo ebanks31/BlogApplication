@@ -11,6 +11,7 @@ import {
 } from "@angular/animations";
 
 @Component({
+  standalone: false,
   selector: "app-blogpost",
   templateUrl: "./blogpost.component.html",
   styleUrls: ["./blogpost.component.css"],
@@ -38,6 +39,7 @@ import {
   ]
 })
 export class BlogPostComponent implements OnInit {
+  currentState = "initial";
   blogPost: BlogPostModel;
   blogId: any;
   blogPostId: any;
@@ -198,13 +200,13 @@ export class BlogPostComponent implements OnInit {
     console.log("this.blogPost " + this.blogPost);
   }
 
-  editPost($event: any): void {
+  editPost(): void {
     this.showTextFormattingToolbar = true;
     this.saveButtonClick = false;
     console.log("editPost");
   }
 
-  savePost($event: any): void {
+  savePost(): void {
     this.showTextFormattingToolbar = false;
     this.saveButtonClick = true;
 

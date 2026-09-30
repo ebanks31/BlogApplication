@@ -9,7 +9,4 @@ export class AccountModel {
   password:string;
   lastUpdatedDate: string;
 
-  ngOnInit() {
-  }
-
 }

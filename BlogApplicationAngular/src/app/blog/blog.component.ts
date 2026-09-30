@@ -15,6 +15,7 @@ import {
  * Component
  */
 @Component({
+  standalone: false,
   selector: "app-blog",
   templateUrl: "./blog.component.html",
   styleUrls: ["./blog.component.css"],
@@ -271,7 +272,7 @@ export class BlogComponent implements OnInit {
    * @param $event
    * @param myForm
    */
-  onChange($event: any, myForm): void {
+  onChange($event: any, myForm: any): void {
     console.log("onChange");
     console.log("myForm " + myForm.invalid);
     this.mycontent = myForm;
@@ -281,7 +282,7 @@ export class BlogComponent implements OnInit {
    * Adds a blog post
    * @param $event
    */
-  addBlogPost($event: any): void {
+  addBlogPost(): void {
     this.router.navigate(["blogs/blog/" + this.blogId + "/posts/post/add"]);
   }
 

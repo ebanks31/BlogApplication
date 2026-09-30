@@ -13,7 +13,7 @@ import { AccountsComponent } from "./accounts/accounts.component";
 import { HttpClientModule } from "@angular/common/http";
 import { ContactComponent } from "./contact/contact.component";
 import { BlogPostComponent } from "./blogpost/blogpost.component";
-import { CKEditorModule } from "ng2-ckeditor";
+import { CKEditorModule } from "ckeditor4-angular";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AddBlogComponent } from "./add-blog/add-blog.component";
 import { AddBlogPostComponent } from "./add-blog-post/add-blog-post.component";

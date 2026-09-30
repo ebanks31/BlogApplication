@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
  * Component
  */
 @Component({
+  standalone: false,
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.css']

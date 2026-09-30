@@ -1,17 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { AccountsComponent } from './accounts.component';
-import { HttpClientModule } from '@angular/common/http';
+import { AccountService } from '../account.service';
+import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 
 describe('AccountsComponent', () => {
   let component: AccountsComponent;
   let fixture: ComponentFixture<AccountsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({imports: [
-      HttpClientModule,FormsModule
+        FormsModule
   ],
-      declarations: [ AccountsComponent ]
+        declarations: [ AccountsComponent ],
+        providers: [{ provide: AccountService, useValue: { getAccounts: () => of([]) } }]
     })
     .compileComponents();
   }));
@@ -24,5 +27,13 @@ describe('AccountsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('loads accounts during initialization', () => {
+    expect(component.accounts).toEqual([]);
+  });
+
+  it('parses account JSON', () => {
+    expect(component.ConvertToJSON('{"accountId":7}')).toEqual({ accountId: 7 });
   });
 });

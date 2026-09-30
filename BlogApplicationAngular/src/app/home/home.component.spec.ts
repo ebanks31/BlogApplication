@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
+
 
 import { HomeComponent } from "./home.component";
 
@@ -6,7 +7,7 @@ describe("HomeComponent", () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent]
     }).compileComponents();
@@ -20,5 +21,9 @@ describe("HomeComponent", () => {
 
   it("should create", () => {
     expect(component).toBeTruthy();
+  });
+
+  it("renders the home page message", () => {
+    expect(fixture.nativeElement.textContent).toContain('home works!');
   });
 });

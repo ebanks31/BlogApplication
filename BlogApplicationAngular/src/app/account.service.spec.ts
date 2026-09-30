@@ -1,4 +1,4 @@
-import { TestBed, getTestBed } from "@angular/core/testing";
+import { TestBed } from "@angular/core/testing";
 import { AccountService } from "./account.service";
 import {
   HttpClientTestingModule,
@@ -6,7 +6,6 @@ import {
 } from "@angular/common/http/testing";
 
 describe("AccountService", () => {
-  let injector: TestBed;
   let accountService: AccountService;
   let httpTestingController: HttpTestingController;
 
@@ -15,11 +14,9 @@ describe("AccountService", () => {
       providers: [AccountService],
       imports: [HttpClientTestingModule]
     }).compileComponents();
-    injector = getTestBed();
-    accountService = injector.get(AccountService);
     // We inject our service (which imports the HttpClient) and the Test Controller
-    httpTestingController = TestBed.get(HttpTestingController);
-    accountService = TestBed.get(AccountService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    accountService = TestBed.inject(AccountService);
 
     // const req = httpMock.expectOne({ method: 'GET', url: 'http://localhost:9100/accounts' });
     // req.flush(dummyAccount);
@@ -30,32 +27,32 @@ describe("AccountService", () => {
       });*/
   });
 
-  const dummyAccount = [
-    { accountId: 1 },
-    { accountCreatedDate: "2011-09-09" },
-    { accountTerminatedDate: "2011-09-09" },
-    { status: "Active" },
-    { role: "User" },
-    { lastUpdatedDate: "2011-09-09" }
-  ];
-
   it("should be created", () => {
     expect(accountService).toBeTruthy();
   });
 
-  it("#getAccounts should return value from acconts", () => {
-    (_done: DoneFn) => {
-      accountService.getAccounts().subscribe(accountData => {
-        expect(accountData.status).toEqual("Active");
-      });
+  it("gets the account list", () => {
+    const response = [{ accountId: 1, status: "Active" }];
 
-      const req = httpTestingController.expectOne(
-        "http://localhost:9100/accounts"
-      );
-      expect(req.request.method).toEqual("GET");
+    accountService.getAccounts().subscribe(accounts => {
+      expect(accounts).toEqual(response);
+    });
 
-      req.flush(dummyAccount);
-    };
+    const request = httpTestingController.expectOne("http://localhost:9600/accounts");
+    expect(request.request.method).toBe("GET");
+    request.flush(response);
+  });
+
+  it("gets one account by id", () => {
+    const response = { accountId: 7, status: "Active" };
+
+    accountService.getAccountsById(7).subscribe(account => {
+      expect(account).toEqual(response);
+    });
+
+    const request = httpTestingController.expectOne("http://localhost:9600/accounts/7");
+    expect(request.request.method).toBe("GET");
+    request.flush(response);
   });
 
   afterEach(() => {

@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
  * Component
  */
 @Component({
+  standalone: false,
   selector: "app-contact",
   templateUrl: "./contact.component.html",
   styleUrls: ["./contact.component.css"]

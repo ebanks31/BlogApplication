@@ -6,6 +6,7 @@ import { AccountModel } from '../account.component';
  * Component
  */
 @Component({
+  standalone: false,
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css']

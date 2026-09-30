@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
  * Component
  */
 @Component({
+  standalone: false,
   selector: 'app-add-blog-post',
   templateUrl: './add-blog-post.component.html',
   styleUrls: ['./add-blog-post.component.css']
@@ -39,7 +40,7 @@ export class AddBlogPostComponent implements OnInit {
    * Adds blog post
    * @param $event 
    */
-  addBlogPost($event: any): void {
+  addBlogPost(): void {
     console.log("addBlogPost()");
 
     console.log("this.blogTitle: " + this.blogTitle);

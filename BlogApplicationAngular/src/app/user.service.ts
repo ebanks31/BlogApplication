@@ -29,9 +29,7 @@ export class UserService {
    * @returns user
    */
   addUser(user: UserModel): Observable<any> {
-    return this.http.post(this.userByIdUrl + this.user + this.edit + this.add, {
-      responseType: "json"
-    });
+    return this.http.post(this.userByIdUrl + this.user + this.edit + this.add, user, { responseType: "json" });
   }
 
   /**

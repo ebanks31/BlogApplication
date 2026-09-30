@@ -1,17 +1,31 @@
 import { BlogModel } from './../blog.component';
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
+
 import { BlogsComponent } from "./blogs.component";
+import { BlogService } from "../blog.service";
 import { RouterTestingModule } from "@angular/router/testing";
-import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
+import { of } from "rxjs";
 
 describe("BlogsComponent", () => {
   let component: BlogsComponent;
   let fixture: ComponentFixture<BlogsComponent>;
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientModule, FormsModule],
-      declarations: [BlogsComponent]
+      imports: [RouterTestingModule, FormsModule],
+      declarations: [BlogsComponent],
+      providers: [
+        { provide: BlogService, useValue: { getBlogs: () => of([{
+          blogId: 1,
+          blogTitle: 'blogTitle',
+          blogDescription: 'description',
+          blog_created_date: '2011-09-09',
+          blog_terminated_date: '2011-12-09',
+          status: 'Active',
+          accountId: 1,
+          last_updated_date: '2011-11-09'
+        }]) } }
+      ]
     }).compileComponents();
   }));
 
@@ -28,7 +42,7 @@ describe("BlogsComponent", () => {
   it('should have <h2> with "banner works!"', () => {
     const bannerElement: HTMLElement = fixture.nativeElement;
     const p = bannerElement.querySelector('h2');
-    expect(p.textContent).toEqual('Blogs');
+    expect(p?.textContent).toEqual('Blogs');
   });
 
   it('should have <blogs> with "banner works!"', () => {
@@ -44,13 +58,12 @@ describe("BlogsComponent", () => {
        last_updated_date: "2011-11-09" }
     ];
 
-    component.blogs=BlogModel[0];
+    component.blogs = expectedBlog;
     fixture.detectChanges();
     const bannerElement: HTMLElement = fixture.nativeElement;
-    const div = bannerElement.querySelector('blogs');
-    expect(div.innerHTML).toEqual('Your Blogs');
+    const div = bannerElement.querySelector('.blogs');
+    expect(bannerElement.textContent).toContain('Your Blogs');
 
-    const expectedPipedName = expectedBlog[0].blogTitle.toUpperCase();
-    expect(div.textContent).toContain(expectedPipedName);
+    expect(div?.querySelector('a')?.textContent).toContain(expectedBlog[0].blogTitle);
   });
 });

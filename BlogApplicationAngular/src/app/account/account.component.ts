@@ -9,6 +9,7 @@ import { UserService } from "../user.service";
  * Component
  */
 @Component({
+  standalone: false,
   selector: "app-account",
   templateUrl: "./account.component.html",
   styleUrls: ["./account.component.css"]
@@ -56,7 +57,7 @@ export class AccountComponent implements OnInit {
    * Saves account
    * @param $event
    */
-  saveAccount($event: any): void {
+  saveAccount(): void {
     console.log("saveAccount");
   }
   /**
