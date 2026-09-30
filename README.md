@@ -1,6 +1,6 @@
 <b> Blog Application</b>
 
-This is a blog application that uses Java 8, Spring boot, and Angular 8.
+This is a blog application that uses Java 25, Spring boot 4.1.1, and Angular 8.
 
 This application allows users to create a blog, add blog posts, and add comments to blog posts.
 
