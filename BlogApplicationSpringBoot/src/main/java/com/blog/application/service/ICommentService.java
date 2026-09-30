@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.blog.application.model.Comment;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Interface ICommentService.
+ * Defines business operations for comments associated with blog posts.
+ *
+ * <p>Implementations provide comment CRUD behavior and operations that use
+ * blog and blog-post identifiers to maintain the association.</p>
  */
 public interface ICommentService {
 

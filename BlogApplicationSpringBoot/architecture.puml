@@ -1,0 +1,113 @@
+@startuml BlogApplicationArchitecture
+
+title Blog Application Architecture
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor Client
+
+package "Web Layer" {
+  class BlogRestController
+  class BlogPostRestController
+  class CommentsRestController
+  class UserRestController
+  class AccountRestController
+  class BlogExceptionAdvice
+}
+
+package "Validation Layer" {
+  class BlogValidator
+  class BlogPostValidator
+  class CommentValidator
+  class UserValidator
+  class AccountValidator
+}
+
+package "Service Layer" {
+  interface IBlogService
+  interface IBlogPostService
+  interface ICommentService
+  interface IUserService
+  interface IAccountService
+  interface IEmailService
+  interface IKafkaService
+
+  class BlogService
+  class BlogPostService
+  class CommentService
+  class UserService
+  class AccountService
+  class EmailServiceImpl
+  class KafkaService
+  class BlogCacheService
+}
+
+package "Persistence Layer" {
+  interface BlogRepository
+  interface BlogPostRepository
+  interface CommentRepository
+  interface UserRepository
+  interface AccountRepository
+}
+
+package "External Systems" {
+  database MySQL
+  database Redis
+  cloud "Kafka-compatible HTTP endpoint" as KafkaEndpoint
+  cloud "SMTP provider" as SMTP
+  component "Actuator / Prometheus" as Metrics
+}
+
+Client --> BlogRestController
+Client --> BlogPostRestController
+Client --> CommentsRestController
+Client --> UserRestController
+Client --> AccountRestController
+
+BlogRestController --> BlogValidator
+BlogRestController --> IBlogService
+BlogRestController --> IKafkaService
+BlogPostRestController --> BlogPostValidator
+BlogPostRestController --> IBlogPostService
+CommentsRestController --> CommentValidator
+CommentsRestController --> ICommentService
+UserRestController --> UserValidator
+UserRestController --> IUserService
+AccountRestController --> AccountValidator
+AccountRestController --> IAccountService
+
+BlogService ..|> IBlogService
+BlogPostService ..|> IBlogPostService
+CommentService ..|> ICommentService
+UserService ..|> IUserService
+AccountService ..|> IAccountService
+EmailServiceImpl ..|> IEmailService
+KafkaService ..|> IKafkaService
+
+BlogService --> BlogRepository
+BlogService --> BlogCacheService
+BlogPostService --> BlogPostRepository
+BlogPostService --> IBlogService
+CommentService --> CommentRepository
+UserService --> UserRepository
+AccountService --> AccountRepository
+KafkaService --> KafkaEndpoint
+EmailServiceImpl --> SMTP
+BlogCacheService --> Redis
+
+BlogRepository --> MySQL
+BlogPostRepository --> MySQL
+CommentRepository --> MySQL
+UserRepository --> MySQL
+AccountRepository --> MySQL
+
+BlogExceptionAdvice ..> BlogRestController : handles exceptions
+BlogExceptionAdvice ..> BlogPostRestController : handles exceptions
+BlogExceptionAdvice ..> CommentsRestController : handles exceptions
+BlogExceptionAdvice ..> UserRestController : handles exceptions
+BlogExceptionAdvice ..> AccountRestController : handles exceptions
+
+Client --> Metrics : health and metrics
+
+@enduml

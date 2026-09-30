@@ -29,7 +29,11 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 /**
- * The Class BlogRestController.
+ * REST controller for managing posts belonging to a blog.
+ *
+ * <p>The controller exposes nested blog-post CRUD endpoints, validates blog
+ * and post data with {@code BlogPostValidator}, and delegates business
+ * operations to {@code IBlogPostService}.</p>
  */
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController

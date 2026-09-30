@@ -34,7 +34,11 @@ import io.swagger.annotations.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * The Class BlogController.
+ * REST controller for creating, reading, updating, and deleting blog records.
+ *
+ * <p>The controller delegates persistence operations to {@code IBlogService},
+ * validates incoming blog data with {@code BlogValidator}, and can publish a
+ * retrieved blog list to the configured Kafka endpoint when enabled.</p>
  */
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController

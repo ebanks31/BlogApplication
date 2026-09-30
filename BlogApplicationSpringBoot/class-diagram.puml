@@ -1,0 +1,90 @@
+@startuml BlogApplicationDomain
+
+title Blog Application Domain Class Diagram
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+hide methods
+
+package "com.blog.application.model" {
+  class Account {
+    +accountId: Long
+    +userId: Long
+    +email: String
+    +username: String
+    +password: String
+    +role: String
+    +status: String
+  }
+
+  class User {
+    +userId: Long
+    +firstname: String
+    +middlename: String
+    +lastname: String
+  }
+
+  class Blog {
+    +blogId: Long
+    +accountId: Long
+    +blogTitle: String
+    +blogDescription: String
+    +status: String
+    +blogCreatedDate: Date
+    +lastUpdateDate: Date
+  }
+
+  class BlogPost {
+    +blogPostId: Long
+    +blogPostTitle: String
+    +blogPostBody: String
+    +status: String
+    +version: int
+    +blogPostCreatedDate: Date
+    +lastUpdateDate: Date
+  }
+
+  class Comment {
+    +commentId: Long
+    +blogId: Long
+    +blogPostId: Long
+    +comment: String
+    +status: String
+    +commentCreatedDate: Date
+    +lastUpdatedDate: Date
+  }
+}
+
+package "com.blog.application.controllers" {
+  class BlogRestController
+  class BlogPostRestController
+  class CommentsRestController
+  class UserRestController
+  class AccountRestController
+}
+
+package "com.blog.application.service" {
+  interface IBlogService
+  interface IBlogPostService
+  interface ICommentService
+  interface IUserService
+  interface IAccountService
+}
+
+User "1" o-- "0..*" Account : owns
+Account "1" o-- "0..*" Blog : publishes
+Blog "1" o-- "0..*" BlogPost : contains
+BlogPost "1" <-- "0..*" Comment : receives
+
+BlogRestController ..> IBlogService
+BlogPostRestController ..> IBlogPostService
+CommentsRestController ..> ICommentService
+UserRestController ..> IUserService
+AccountRestController ..> IAccountService
+
+note right of Comment
+  Comments store blog and blog-post
+  identifiers rather than a JPA
+  object association.
+end note
+
+@enduml

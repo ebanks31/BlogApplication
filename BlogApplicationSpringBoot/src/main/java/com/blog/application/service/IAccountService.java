@@ -5,7 +5,10 @@ import java.util.List;
 import com.blog.application.model.Account;
 
 /**
- * The Interface IAccountService.
+ * Defines account management operations for the application service layer.
+ *
+ * <p>Implementations provide CRUD operations for persisted {@link Account}
+ * records.</p>
  */
 public interface IAccountService {
 

@@ -15,7 +15,10 @@ import com.blog.application.repositories.BlogRepository;
 import com.blog.application.service.IBlogService;
 
 /**
- * The Class BlogService.
+ * Default service implementation for blog management operations.
+ *
+ * <p>The service delegates persistence to {@link BlogRepository} and uses
+ * {@link BlogCacheService} when retrieving blog data.</p>
  */
 @Service
 public class BlogService implements IBlogService {

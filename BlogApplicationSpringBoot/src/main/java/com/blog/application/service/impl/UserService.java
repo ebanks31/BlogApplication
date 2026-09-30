@@ -13,7 +13,9 @@ import com.blog.application.repositories.UserRepository;
 import com.blog.application.service.IUserService;
 
 /**
- * The Class UserService.
+ * Default service implementation for user management operations.
+ *
+ * <p>The service delegates persistence to {@link UserRepository}.</p>
  */
 @Service
 public class UserService implements IUserService {

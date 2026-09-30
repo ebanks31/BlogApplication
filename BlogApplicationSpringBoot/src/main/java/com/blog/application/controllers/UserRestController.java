@@ -26,7 +26,11 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 /**
- * The Class UserRestController.
+ * REST controller for creating, reading, updating, and deleting users.
+ *
+ * <p>The controller validates user records and identifiers with
+ * {@code UserValidator} before delegating business operations to
+ * {@code IUserService}.</p>
  */
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController

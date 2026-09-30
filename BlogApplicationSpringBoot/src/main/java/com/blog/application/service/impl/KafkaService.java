@@ -25,6 +25,12 @@ import com.blog.application.model.Blog;
 import com.blog.application.service.IKafkaService;
 import com.blog.application.utils.Helper;
 
+/**
+ * Publishes blog data to the configured Kafka-compatible HTTP endpoint.
+ *
+ * <p>The implementation enriches outgoing requests with application and
+ * request metadata before sending them through {@link RestTemplate}.</p>
+ */
 @Service
 public class KafkaService implements IKafkaService {
 	private final Logger LOGGER = LoggerFactory.getLogger(KafkaService.class);

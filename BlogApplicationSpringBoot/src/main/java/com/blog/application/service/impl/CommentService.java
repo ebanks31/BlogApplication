@@ -13,7 +13,11 @@ import com.blog.application.repositories.CommentRepository;
 import com.blog.application.service.ICommentService;
 
 /**
- * The Class CommentService.
+ * Default service implementation for comment management operations.
+ *
+ * <p>The service delegates comment persistence to
+ * {@link CommentRepository} and supports both direct and nested blog-post
+ * operations.</p>
  */
 @Service
 public class CommentService implements ICommentService {

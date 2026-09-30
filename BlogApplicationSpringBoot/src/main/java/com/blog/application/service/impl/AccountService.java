@@ -13,7 +13,9 @@ import com.blog.application.repositories.AccountRepository;
 import com.blog.application.service.IAccountService;
 
 /**
- * The Class AccountService.
+ * Default service implementation for account management operations.
+ *
+ * <p>The service delegates persistence to {@link AccountRepository}.</p>
  */
 @Service
 public class AccountService implements IAccountService {

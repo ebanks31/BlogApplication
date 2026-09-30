@@ -16,7 +16,10 @@ import com.blog.application.service.IBlogPostService;
 import com.blog.application.service.IBlogService;
 
 /**
- * The Class BlogPostService.
+ * Default service implementation for blog-post management operations.
+ *
+ * <p>The service uses {@link BlogPostRepository} for persistence and
+ * {@link IBlogService} to resolve the parent blog relationship.</p>
  */
 @Service
 public class BlogPostService implements IBlogPostService {

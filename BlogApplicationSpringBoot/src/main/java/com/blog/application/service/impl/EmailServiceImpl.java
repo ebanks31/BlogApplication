@@ -14,6 +14,10 @@ import com.blog.application.service.IEmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
+/**
+ * Mail service implementation backed by Spring's configured
+ * {@link JavaMailSender}.
+ */
 @Component
 public class EmailServiceImpl implements IEmailService {
 

@@ -8,7 +8,10 @@ import java.util.List;
 import com.blog.application.model.BlogPost;
 
 /**
- * The Interface IBlogPostService.
+ * Defines business operations for blog posts and their parent blogs.
+ *
+ * <p>Implementations provide CRUD operations and support locating posts by
+ * blog ID or by the combined blog and post identifiers.</p>
  */
 public interface IBlogPostService {
 

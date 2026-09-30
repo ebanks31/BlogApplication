@@ -5,7 +5,9 @@ import java.util.List;
 import com.blog.application.model.User;
 
 /**
- * The Interface IUserService.
+ * Defines business operations for application users.
+ *
+ * <p>Implementations provide CRUD behavior for {@link User} entities.</p>
  */
 public interface IUserService {
 

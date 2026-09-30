@@ -5,7 +5,10 @@ import java.util.List;
 import com.blog.application.model.Blog;
 
 /**
- * The Interface IBlogService.
+ * Defines business operations for blog records.
+ *
+ * <p>Implementations provide CRUD behavior for {@link Blog} entities and
+ * coordinate any blog-specific caching or persistence concerns.</p>
  */
 public interface IBlogService {
 

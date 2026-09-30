@@ -4,6 +4,12 @@ import java.util.List;
 
 import com.blog.application.model.elasticsearch.BlogEs;
 
+/**
+ * Defines blog search operations for the Elasticsearch-backed model.
+ *
+ * <p>Implementations provide retrieval and persistence operations for
+ * {@link BlogEs} documents.</p>
+ */
 public interface IBlogEsService {
 	/**
 	 * Find all.
