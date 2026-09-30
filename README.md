@@ -1,6 +1,10 @@
 # Blog Application
 
+<<<<<<< HEAD
 A full-stack blog application with a Spring Boot REST API and an Angular web client. Users can browse blogs, create and edit blog content, manage accounts and users, and work with blog posts and comments.
+=======
+This is a blog application that uses Java 25, Spring boot 4.1.1, and Angular 8.
+>>>>>>> 3d5180bd4b280cb5c25311af9d966d1adf54aeac
 
 ## Projects
 
